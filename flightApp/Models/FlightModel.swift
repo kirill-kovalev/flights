@@ -7,3 +7,18 @@
 //
 
 import Foundation
+
+struct FlightModel: Decodable {
+    var cityStart:String = ""
+    var cityEnd:String = ""
+    var takeoffTime:Date?
+    var landingTime:Date?
+    var startAirport:String = "XXX"
+    var endAirport:String = "XXX"
+    
+    var companyLogoLink:String = ""
+    var companyName:String = ""
+    
+    var ticketLink:String = ""
+    
+}
