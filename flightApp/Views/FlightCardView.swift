@@ -12,15 +12,12 @@ import SwiftUI
 struct FlightCardView :View {
     @Binding var height:CGFloat;
     var fullSize:Bool {
-        return self.height > 550
+        return self.height > 600
     }
     var body: some View {
         
         ZStack(alignment: .topLeading){
-            LinearGradient(gradient:
-            Gradient(colors: [Color(UIColor(red: 184/256, green: 236/256, blue: 255/256,alpha: 1)),
-                              Color(UIColor(red: 162/256, green:224/256, blue: 247/256,alpha: 1))]
-            ),startPoint: .top, endPoint: .bottom).cornerRadius(20)
+            LinearGradient(gradient: .cardBG ,startPoint: .top, endPoint: .bottom).cornerRadius(20)
             
             VStack{
                 HStack{
@@ -90,9 +87,11 @@ struct FlightCardView :View {
                 Text("5/6").font(.system(size: 12)).foregroundColor(.baseWhite)
 
             }.padding(EdgeInsets(top: 25, leading: 21, bottom: 18, trailing: 21))
+            .frame(idealHeight: 0)
         }.padding(17)
         .shadow(color: Color(UIColor(red: 0, green: 0, blue: 0, alpha: 0.15)), radius: 13, x: 0, y: 4)
-            .frame(width: (UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.width)!)//, height: self.height )
+            .frame(width: (UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.width)!)
+            .frame(idealHeight: .infinity,maxHeight: 500)//, height: self.height )
         
     };
     

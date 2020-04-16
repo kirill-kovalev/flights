@@ -22,6 +22,8 @@
 		5DC18F6924426B7D00450A77 /* TrackableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC18F6824426B7D00450A77 /* TrackableScrollView.swift */; };
 		5DC18F6B24426B9300450A77 /* TripRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC18F6A24426B9300450A77 /* TripRowView.swift */; };
 		5DC18F6E24426C0E00450A77 /* colorDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC18F6D24426C0E00450A77 /* colorDeclaration.swift */; };
+		5DE43A5D24462EBD0068EDC9 /* favouriteCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE43A5C24462EBD0068EDC9 /* favouriteCardView.swift */; };
+		5DE43A5F24462FCC0068EDC9 /* gradientDecloration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE43A5E24462FCC0068EDC9 /* gradientDecloration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,8 @@
 		5DC18F6824426B7D00450A77 /* TrackableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackableScrollView.swift; sourceTree = "<group>"; };
 		5DC18F6A24426B9300450A77 /* TripRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRowView.swift; sourceTree = "<group>"; };
 		5DC18F6D24426C0E00450A77 /* colorDeclaration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colorDeclaration.swift; sourceTree = "<group>"; };
+		5DE43A5C24462EBD0068EDC9 /* favouriteCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favouriteCardView.swift; sourceTree = "<group>"; };
+		5DE43A5E24462FCC0068EDC9 /* gradientDecloration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gradientDecloration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +139,7 @@
 				5DC18F6624426B6A00450A77 /* InfoCardView.swift */,
 				5DC18F6824426B7D00450A77 /* TrackableScrollView.swift */,
 				5DC18F6A24426B9300450A77 /* TripRowView.swift */,
+				5DE43A5C24462EBD0068EDC9 /* favouriteCardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -159,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				5DC18F6D24426C0E00450A77 /* colorDeclaration.swift */,
+				5DE43A5E24462FCC0068EDC9 /* gradientDecloration.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -264,12 +270,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DE43A5D24462EBD0068EDC9 /* favouriteCardView.swift in Sources */,
 				5DC18F6924426B7D00450A77 /* TrackableScrollView.swift in Sources */,
 				5DC18F6124426B1800450A77 /* FlightModel.swift in Sources */,
 				5DC18F39244269ED00450A77 /* AppDelegate.swift in Sources */,
 				5DC18F6324426B2200450A77 /* TripModel.swift in Sources */,
 				5DC18F6B24426B9300450A77 /* TripRowView.swift in Sources */,
 				5DC18F3E244269ED00450A77 /* flightApp.xcdatamodeld in Sources */,
+				5DE43A5F24462FCC0068EDC9 /* gradientDecloration.swift in Sources */,
 				5DC18F40244269ED00450A77 /* ContentView.swift in Sources */,
 				5DC18F6E24426C0E00450A77 /* colorDeclaration.swift in Sources */,
 				5DC18F6524426B5600450A77 /* FlightCardView.swift in Sources */,

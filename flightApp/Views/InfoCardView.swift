@@ -15,10 +15,7 @@ struct InfoCardView: View {
     var body: some View {
         
         ZStack(alignment: .topLeading){
-            LinearGradient(gradient:
-            Gradient(colors: [Color(UIColor(red: 184/256, green: 236/256, blue: 255/256,alpha: 1)),
-                              Color(UIColor(red: 162/256, green:224/256, blue: 247/256,alpha: 1))]
-            ),startPoint: .top, endPoint: .bottom).cornerRadius(20)
+            LinearGradient(gradient: .cardBG,startPoint: .top, endPoint: .bottom).cornerRadius(20)
                 
             VStack(alignment: .leading){
                 Text("10 городов\nза 10 дней").font(.system(size: 34)).fontWeight(.heavy).foregroundColor(.baseBlack).frame(minHeight: 82)

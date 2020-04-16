@@ -11,21 +11,28 @@ import SwiftUI
 struct TripRowView: View {
     @State var offset:CGFloat = 0
     @State var index:Int = 0
+    
         var screenWidth:CGFloat { return (UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.width)!}
         var screenHeight:CGFloat { return (UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.height)!}
         
 
         var body: some View {
         
-            TrackableScrollView(.horizontal, showIndicators: false, maxIndex: 6, index: self.$index, contentOffset: self.$offset){
+            TrackableScrollView(.horizontal, showIndicators: false, maxIndex: 20, index: self.$index, contentOffset: self.$offset){
 
                
-                    InfoCardView(cities: .constant(["Москва","Грозный","Махачкала","Магас","Нальчик","Элиста","Геленджик","2","2","2","2","2","2","2"]))
-                    ForEach( (0...5) , id:\.self ){_ in
-                        withAnimation{
-                            FlightCardView(height: .constant(self.calculateHeight(offset: self.offset)))
-                        }
+                InfoCardView(cities: .constant(["Москва","Грозный","Махачкала","Магас","Нальчик","Элиста","Геленджик"]))
+                withAnimation{
+                   FlightCardView(height: .constant(self.calculateHeight(offset: self.offset)))
+                }
+                    
+                ForEach( (0...(self.offset > 20 ? 10 : 5)) , id:\.self ){_ in
+                    withAnimation{
+                        FlightCardView(height: .constant(self.calculateHeight(offset: self.offset)))
                     }
+                }
+                    
+                    
                 
 
             }.frame(width: self.screenWidth,height: calculateHeight(offset: self.offset))//,height: CGFloat()
