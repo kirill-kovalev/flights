@@ -9,15 +9,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var offset:CGFloat = 0;
+    @State var index:Int = 0
     var body: some View {
-        ScrollView(.vertical){
-            VStack{
-                ForEach((0...10),id:\.self)
-                { _ in
-                    TripRowView().padding(10)
-                }
-            }
-        }
+        
+//            TrackableScrollView(.vertical,maxIndex: 4, index: $index, contentOffset: $offset){
+		ScrollView(.vertical){
+			VStack{
+				ForEach((0...3),id:\.self)
+				{ id in
+					TripRowView()
+				}
+			}
+		}
     }
 }
 
