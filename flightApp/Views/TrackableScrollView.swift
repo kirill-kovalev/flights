@@ -19,19 +19,7 @@ struct TrackableScrollView<Content>: View where Content: View {
     @State private var isGestureActive: Bool = false
     let content: Content
     
-    //var screenWidth:CGFloat { return (UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.width)!}
-    //var screenHeight:CGFloat { return (UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.height)!}
-    
-    var size:CGSize = CGSize(width: (UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.width)!,
-                             height:468/*(UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.height)!*/)
-//    mutating func elementSize(size:CGSize) {
-//        self.size = size
-//    }
-//
-//    mutating func elementSize(height:CGFloat? = nil, width:CGFloat? = nil) {
-//        size = CGSize(width: height ??  size.height,height: width ?? size.width)
-//    }
-//
+
     
     init(_ axes: Axis.Set = .horizontal, showIndicators: Bool = true,maxIndex:Int,index:Binding<Int>, contentOffset: Binding<CGFloat>, @ViewBuilder content: () -> Content) {
         self.axes = axes
@@ -42,8 +30,8 @@ struct TrackableScrollView<Content>: View where Content: View {
         self.maxIndex = maxIndex
     }
     
-    var xOffset:CGFloat {self.isGestureActive ? self.contentOffset : CGFloat(self.index) * (-self.size.width)}
-    var yOffset:CGFloat {self.isGestureActive ? self.contentOffset : CGFloat(self.index ) * (-self.size.height)}
+    func xOffset(outsideProxy:GeometryProxy) -> CGFloat {self.isGestureActive ? self.contentOffset : CGFloat(self.index) * (-outsideProxy.size.width)}
+    func yOffset(outsideProxy:GeometryProxy) -> CGFloat {self.isGestureActive ? self.contentOffset : CGFloat(self.index) * (-outsideProxy.size.height)}
 
     var body: some View {
         GeometryReader { outsideProxy in
@@ -61,45 +49,46 @@ struct TrackableScrollView<Content>: View where Content: View {
                
                 
             }.padding(0)
-                .offset(x: (self.axes != .vertical) ? self.xOffset : 0,
-                        y: (self.axes == .vertical) ? self.yOffset : 0 )
+            .offset(x: (self.axes != .vertical) ? self.xOffset(outsideProxy: outsideProxy) : 0,
+                    y: (self.axes == .vertical) ? self.yOffset(outsideProxy: outsideProxy) : 0 )
             .frame(width: outsideProxy.size.width, alignment: .leading).padding(0)
             .gesture(
-                DragGesture(minimumDistance:(self.axes == .vertical) ? 10 : 50, coordinateSpace:(self.axes == .vertical) ? .global :.local)
+                DragGesture(minimumDistance:(self.axes == .vertical) ? 10 : 50, coordinateSpace:(self.axes == .vertical) ? .global :.local )
                 .onChanged({ value in
                     
                     self.isGestureActive = true
                     if self.axes == .vertical {
-                        self.contentOffset = value.translation.height + -self.size.height * CGFloat(self.index)
+                        self.contentOffset = value.translation.height + -outsideProxy.size.height * CGFloat(self.index)
                     }else{
-                        self.contentOffset = value.translation.width + -self.size.width * CGFloat(self.index)
+                        self.contentOffset = value.translation.width + -outsideProxy.size.width * CGFloat(self.index)
                     }
                     
                 })
                 .onEnded({ value in
                     if self.axes == .vertical {
-                        if -value.predictedEndTranslation.height > self.size.height / 3, self.index < self.maxIndex {
+                        if -value.predictedEndTranslation.height > outsideProxy.size.height / 3, self.index < self.maxIndex {
                             self.index += 1
                         }
-                        if value.predictedEndTranslation.height > self.size.height / 3, self.index > 0 {
+                        if value.predictedEndTranslation.height > outsideProxy.size.height / 3, self.index > 0 {
                             self.index -= 1
                         }
                         
-                        withAnimation { self.contentOffset = (-self.size.height ) * CGFloat(self.index) }
+                        withAnimation { self.contentOffset = (-outsideProxy.size.height ) * CGFloat(self.index) }
                     } else {
-                        if -value.predictedEndTranslation.width > self.size.width / 3, self.index < self.maxIndex {
+                        if -value.predictedEndTranslation.width > outsideProxy.size.width / 3, self.index < self.maxIndex {
                             self.index += 1
                         }
-                        if value.predictedEndTranslation.width > self.size.width / 3, self.index > 0 {
+                        if value.predictedEndTranslation.width > outsideProxy.size.width / 3, self.index > 0 {
                             self.index -= 1
                         }
                         
-                        withAnimation { self.contentOffset = (-self.size.width ) * CGFloat(self.index) }
+                        withAnimation { self.contentOffset = (-outsideProxy.size.width ) * CGFloat(self.index) }
                         
                     }
                     
                     DispatchQueue.main.async { self.isGestureActive = false }
                 })
+            ,including: .gesture
             )
             .onPreferenceChange(ScrollOffsetPreferenceKey.self){ value in
                 self.contentOffset = value[0]
@@ -109,9 +98,10 @@ struct TrackableScrollView<Content>: View where Content: View {
     
     private func calculateContentOffset(fromOutsideProxy outsideProxy: GeometryProxy, insideProxy: GeometryProxy) -> CGFloat {
         if axes == .vertical {
-            return outsideProxy.frame(in: .global).minY - insideProxy.frame(in: .global).minY
+            //outsideProxy.size
+            return -(outsideProxy.frame(in: .global).minY - insideProxy.frame(in: .global).minY)
         } else {
-            return outsideProxy.frame(in: .global).minX - insideProxy.frame(in: .global).minX
+            return -(outsideProxy.frame(in: .global).minX - insideProxy.frame(in: .global).minX)
         }
     }
     
