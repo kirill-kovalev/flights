@@ -9,33 +9,30 @@
 import SwiftUI
 
 struct TripRowView: View {
-    @State var offset:CGFloat = 0
+	@State var offset:CGFloat = 0
     @State var index:Int = 0
-    
+	@State var isFavourite = false;
         var screenWidth:CGFloat { return (UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.width)!}
         var screenHeight:CGFloat { return (UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.height)!}
         
 
         var body: some View {
-        
-            TrackableScrollView(.horizontal, showIndicators: false, maxIndex: 20, index: self.$index, contentOffset: self.$offset){
-
-               
-                InfoCardView(cities: .constant(["Москва","Грозный","Махачкала","Магас","Нальчик","Элиста","Геленджик"]))
-                withAnimation{
-                   FlightCardView(height: .constant(self.calculateHeight(offset: self.offset)))
-                }
-                    
-                ForEach( (0...(self.offset > 20 ? 10 : 5)) , id:\.self ){_ in
-                    withAnimation{
-                        FlightCardView(height: .constant(self.calculateHeight(offset: self.offset)))
+            ZStack{
+                Rectangle().foregroundColor(.clear)
+                TrackableScrollView(.horizontal, maxIndex: 20, index: self.$index, contentOffset: self.$offset){
+					favouriteCardView(isSet: self.$isFavourite)
+                    InfoCardView(cities: .constant(["Москва","Грозный","Махачкала","Магас","Нальчик","Элиста","Геленджик"]))
+					withAnimation{
+						FlightCardView().frame(width: self.screenWidth)
+					}
+                    ForEach( (1...20) , id:\.self ){_ in
+						
+							FlightCardView().frame(width: self.screenWidth)
+						
                     }
-                }
-                    
-                    
-                
-
-            }.frame(width: self.screenWidth,height: calculateHeight(offset: self.offset))//,height: CGFloat()
+                }.frame(width: self.screenWidth,height: calculateHeight(offset: self.offset))//,height: CGFloat()
+				Text("\(self.offset)\n\(self.isFavourite ? "true" : "false")")
+            }
 
 
 
@@ -43,7 +40,7 @@ struct TripRowView: View {
     
         func calculateHeight(offset:CGFloat) -> CGFloat {
             
-            if offset > self.screenWidth {
+            if offset >= self.screenWidth {
                 return  self.screenHeight
             }else{
                 var coef = -1 * offset / self.screenWidth
