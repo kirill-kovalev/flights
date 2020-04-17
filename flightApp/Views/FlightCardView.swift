@@ -10,92 +10,88 @@ import SwiftUI
 
 
 struct FlightCardView :View {
-    @Binding var height:CGFloat;
-    var fullSize:Bool {
-        return self.height > 600
-    }
     var body: some View {
-        
-        ZStack(alignment: .topLeading){
-            LinearGradient(gradient: .cardBG ,startPoint: .top, endPoint: .bottom).cornerRadius(20)
-            
-            VStack{
-                HStack{
-                    Text("Москва \nГрозный").font(.system(size: 34)).fontWeight(.heavy).foregroundColor(.baseBlack).frame(minHeight: 82)
-                    Spacer()
-                }.padding(.bottom,-30)
-                Spacer().frame( maxHeight: 37)
-                VStack{
-                    HStack(alignment: .firstTextBaseline){
-                        Text("Время вылета").font(.system(size: 20)).foregroundColor(.baseBlack)
-                        Spacer()
-                        dots
-                        Spacer()
-                        Text("01:00").font(.system(size: 28)).fontWeight(.heavy).foregroundColor(.baseWhite)
-                    }
-                    HStack(alignment: .firstTextBaseline){
-                        Text("Дата").font(.system(size: 16)).foregroundColor(.baseBlack)
-                        Spacer()
-                        dots
-                        Spacer()
-                        Text("01 Сентября 2000, пт").font(.system(size: 17)).foregroundColor(.cityGray)
-                    }.padding(.top, 5)
-                }
-                VStack{
-                    HStack(alignment: .firstTextBaseline){
-                        Text("Время прилета").font(.system(size: 20)).foregroundColor(.baseBlack)
-                        Spacer()
-                        dots
-                        Spacer()
-                        Text("01:00").font(.system(size: 28)).fontWeight(.heavy).foregroundColor(.baseWhite)
-                    }
-                    HStack(alignment: .firstTextBaseline){
-                        Text("Дата").font(.system(size: 18)).foregroundColor(.baseBlack)
-                        Spacer()
-                        dots
-                        Spacer()
-                        Text("01 Сентября 2000, пт").font(.system(size: 17)).foregroundColor(.cityGray)
-                    }.padding(.top,5)
-                }
-                hrSpacer
-                VStack{
-                    Image("flightCurve").padding(.bottom, -30)
-                    HStack(alignment: .bottom){
-                        
-                           Text("LED").font(.system(size: 22)).fontWeight(.bold).foregroundColor(.baseBlack).padding(.bottom, 10)
-                           Spacer()
-                           VStack{
-                               Image("companyBG").background(Color(.brown)).cornerRadius(16).frame(width: 32, height: 32, alignment: .center)
-                               Text("Company name").font(.system(size: 17)).foregroundColor(.cityGray)
-                           }
-                           Spacer()
-                           Text("LED").font(.system(size: 22)).fontWeight(.bold).foregroundColor(.baseBlack).padding(.bottom, 10)
-                    }
-                }.opacity(self.fullSize ? 1 :0).frame( maxHeight:self.fullSize ? .infinity :0)
-                    
-                   
-                if(self.fullSize) {
-                    hrSpacer
-                }
+		GeometryReader{ proxy in
+			ZStack(alignment: .topLeading){
+				LinearGradient(gradient: .cardBG ,startPoint: .top, endPoint: .bottom).cornerRadius(20)
+				
+				VStack{
+					HStack{
+						Text("Москва \nГрозный").font(.system(size: 34)).fontWeight(.heavy).foregroundColor(.baseBlack).frame(minHeight: 82)
+						Spacer()
+					}.padding(.bottom,-30)
+					Spacer().frame( maxHeight: 37)
+					VStack{
+						HStack(alignment: .firstTextBaseline){
+							Text("Время вылета").font(.system(size: 20)).foregroundColor(.baseBlack)
+							Spacer()
+							self.dots()
+							Spacer()
+							Text("01:00").font(.system(size: 28)).fontWeight(.heavy).foregroundColor(.baseWhite)
+						}
+						HStack(alignment: .firstTextBaseline){
+							Text("Дата").font(.system(size: 16)).foregroundColor(.baseBlack)
+							Spacer()
+							self.dots()
+							Spacer()
+							Text("01 Сентября 2000, пт").font(.system(size: 17)).foregroundColor(.cityGray)
+						}.padding(.top, 5)
+					}
+					VStack{
+						HStack(alignment: .firstTextBaseline){
+							Text("Время прилета").font(.system(size: 20)).foregroundColor(.baseBlack)
+							Spacer()
+							self.dots()
+							Spacer()
+							Text("01:00").font(.system(size: 28)).fontWeight(.heavy).foregroundColor(.baseWhite)
+						}
+						HStack(alignment: .firstTextBaseline){
+							Text("Дата").font(.system(size: 18)).foregroundColor(.baseBlack)
+							Spacer()
+							self.dots()
+							Spacer()
+							Text("01 Сентября 2000, пт").font(.system(size: 17)).foregroundColor(.cityGray)
+						}.padding(.top,5)
+					}
+					self.hrSpacer
+					VStack{
+						Image("flightCurve").padding(.bottom, -30)
+						HStack(alignment: .bottom){
+							
+							   Text("LED").font(.system(size: 22)).fontWeight(.bold).foregroundColor(.baseBlack).padding(.bottom, 10)
+							   Spacer()
+							   VStack{
+								   Image("companyBG").background(Color(.brown)).cornerRadius(16).frame(width: 32, height: 32, alignment: .center)
+								   Text("Company name").font(.system(size: 17)).foregroundColor(.cityGray)
+							   }
+							   Spacer()
+							   Text("LED").font(.system(size: 22)).fontWeight(.bold).foregroundColor(.baseBlack).padding(.bottom, 10)
+						}
+					}.opacity((proxy.size.height > 700) ? 1 :0)
+					 .frame( maxHeight:(proxy.size.height > 700) ? .infinity :0)
+						
+					   
+					if(proxy.size.height > 700) {
+						self.hrSpacer
+					}
 
-                Button(action: {}){
-                    Text("Купить билет").font(.system(size: 28)).fontWeight(.bold).foregroundColor(.baseWhite).padding(23)
-                }.background(Rectangle().foregroundColor(.accentSecondLevel), alignment: .center)
-                .cornerRadius(10)
-                
-                Spacer().frame(idealHeight: 31, maxHeight:31)
-                Text("5/6").font(.system(size: 12)).foregroundColor(.baseWhite)
+					Button(action: {}){
+						Text("Купить билет").font(.system(size: 28)).fontWeight(.bold).foregroundColor(.baseWhite).padding(23)
+					}.background(Rectangle().foregroundColor(.accentSecondLevel), alignment: .center)
+					.cornerRadius(10)
+					
+					Spacer().frame(idealHeight: 31, maxHeight:31)
+					Text("5/6").font(.system(size: 12)).foregroundColor(.baseWhite)
 
-            }.padding(EdgeInsets(top: 25, leading: 21, bottom: 18, trailing: 21))
-            .frame(idealHeight: 0)
-        }.padding(17)
-        .shadow(color: Color(UIColor(red: 0, green: 0, blue: 0, alpha: 0.15)), radius: 13, x: 0, y: 4)
-            .frame(width: (UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.width)!)
-            .frame(idealHeight: .infinity,maxHeight: 500)//, height: self.height )
-        
+				}.padding(EdgeInsets(top: 25, leading: 21, bottom: 18, trailing: 21))
+				.frame(idealHeight: 0)
+			}.padding(17)
+			.shadow(color: Color(UIColor(red: 0, green: 0, blue: 0, alpha: 0.15)), radius: 13, x: 0, y: 4)
+			//.frame(idealHeight: .infinity,maxHeight: self.height )
+		}.frame(maxWidth: .infinity, maxHeight: .infinity)
     };
     
-    var dots : some View{
+    func dots() -> some View{
         HStack{
             Circle().foregroundColor(.accentFirstLevel).scaledToFit().frame(width: 3, height: 3)
             Circle().foregroundColor(.accentFirstLevel).scaledToFit().frame(width: 3, height: 3)
@@ -118,8 +114,8 @@ struct FlightCardView_Previews: PreviewProvider {
     static var previews: some View {
         
         VStack{
-            FlightCardView(height: .constant(570) )
-        }
+            FlightCardView()
+		}.frame( height: 500)
         
     }
 }
