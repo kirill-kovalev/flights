@@ -19,8 +19,8 @@ struct InfoCardView: View {
                 
             VStack(alignment: .leading){
                 Text("10 городов\nза 10 дней").font(.system(size: 34)).fontWeight(.heavy).foregroundColor(.baseBlack).frame(minHeight: 82)
-                Text("170000 ₽").font(.system(size: 46)).fontWeight(.heavy).foregroundColor(.baseWhite).padding(.leading,10)
-                Rectangle().frame(height: 1).foregroundColor(.accentFirstLevel)
+				Text("170000 ₽").font(.system(size: 46)).fontWeight(.heavy).foregroundColor(.baseWhite).padding(.top,20)
+				Rectangle().frame(height: 1).foregroundColor(.accentFirstLevel).padding(.top,-16).padding(.bottom,-16)
 
                 HStack(spacing: 20){
                     ForEach( (0...self.colCount) ,id: \.self){ i in
@@ -48,7 +48,7 @@ struct InfoCardView: View {
             
         }.padding(17)
         .shadow(color: Color(UIColor(red: 0, green: 0, blue: 0, alpha: 0.15)), radius: 13, x: 0, y: 4)
-        .frame(width: (UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.width)! , height:468)
+        .frame(width: (UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.width)! , height:470)
         
     }
 }
