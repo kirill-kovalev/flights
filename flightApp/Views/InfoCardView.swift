@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct InfoCardView: View {
-    @Binding var cities:[String] ;
+    var cities:[String] = [] ;
     var colCount:Int {return (cities.count - 1 )/7 };
     
     var body: some View {
@@ -55,6 +55,6 @@ struct InfoCardView: View {
 struct InfoCardView_Previews: PreviewProvider {
     
     static var previews: some View {
-        InfoCardView(cities: .constant(["Москва","Грозный","Махачкала","Магас","Нальчик","Элиста","Геленджик","2","2","2","2","2","2","2"]))
+        InfoCardView(cities: ["Москва","Грозный","Махачкала","Магас","Нальчик","Элиста","Геленджик","2","2","2","2","2","2","2"])
     }
 }
