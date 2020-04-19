@@ -19,9 +19,11 @@
 		5DC18F6324426B2200450A77 /* TripModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC18F6224426B2200450A77 /* TripModel.swift */; };
 		5DC18F6524426B5600450A77 /* FlightCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC18F6424426B5600450A77 /* FlightCardView.swift */; };
 		5DC18F6724426B6A00450A77 /* InfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC18F6624426B6A00450A77 /* InfoCardView.swift */; };
-		5DC18F6924426B7D00450A77 /* TrackableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC18F6824426B7D00450A77 /* TrackableScrollView.swift */; };
+		5DC18F6924426B7D00450A77 /* PagedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC18F6824426B7D00450A77 /* PagedView.swift */; };
 		5DC18F6B24426B9300450A77 /* TripRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC18F6A24426B9300450A77 /* TripRowView.swift */; };
 		5DC18F6E24426C0E00450A77 /* colorDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC18F6D24426C0E00450A77 /* colorDeclaration.swift */; };
+		5DC52118244C8510004F7609 /* TrackableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC52117244C8510004F7609 /* TrackableScrollView.swift */; };
+		5DC5211A244C8825004F7609 /* TopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC52119244C8825004F7609 /* TopBarView.swift */; };
 		5DE43A5D24462EBD0068EDC9 /* favouriteCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE43A5C24462EBD0068EDC9 /* favouriteCardView.swift */; };
 		5DE43A5F24462FCC0068EDC9 /* gradientDecloration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE43A5E24462FCC0068EDC9 /* gradientDecloration.swift */; };
 /* End PBXBuildFile section */
@@ -53,9 +55,11 @@
 		5DC18F6224426B2200450A77 /* TripModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripModel.swift; sourceTree = "<group>"; };
 		5DC18F6424426B5600450A77 /* FlightCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightCardView.swift; sourceTree = "<group>"; };
 		5DC18F6624426B6A00450A77 /* InfoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCardView.swift; sourceTree = "<group>"; };
-		5DC18F6824426B7D00450A77 /* TrackableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackableScrollView.swift; sourceTree = "<group>"; };
+		5DC18F6824426B7D00450A77 /* PagedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagedView.swift; sourceTree = "<group>"; };
 		5DC18F6A24426B9300450A77 /* TripRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRowView.swift; sourceTree = "<group>"; };
 		5DC18F6D24426C0E00450A77 /* colorDeclaration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colorDeclaration.swift; sourceTree = "<group>"; };
+		5DC52117244C8510004F7609 /* TrackableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackableScrollView.swift; sourceTree = "<group>"; };
+		5DC52119244C8825004F7609 /* TopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarView.swift; sourceTree = "<group>"; };
 		5DE43A5C24462EBD0068EDC9 /* favouriteCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favouriteCardView.swift; sourceTree = "<group>"; };
 		5DE43A5E24462FCC0068EDC9 /* gradientDecloration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gradientDecloration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -137,9 +141,11 @@
 				5DC18F3F244269ED00450A77 /* ContentView.swift */,
 				5DC18F6424426B5600450A77 /* FlightCardView.swift */,
 				5DC18F6624426B6A00450A77 /* InfoCardView.swift */,
-				5DC18F6824426B7D00450A77 /* TrackableScrollView.swift */,
+				5DC18F6824426B7D00450A77 /* PagedView.swift */,
 				5DC18F6A24426B9300450A77 /* TripRowView.swift */,
 				5DE43A5C24462EBD0068EDC9 /* favouriteCardView.swift */,
+				5DC52117244C8510004F7609 /* TrackableScrollView.swift */,
+				5DC52119244C8825004F7609 /* TopBarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -271,7 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DE43A5D24462EBD0068EDC9 /* favouriteCardView.swift in Sources */,
-				5DC18F6924426B7D00450A77 /* TrackableScrollView.swift in Sources */,
+				5DC18F6924426B7D00450A77 /* PagedView.swift in Sources */,
 				5DC18F6124426B1800450A77 /* FlightModel.swift in Sources */,
 				5DC18F39244269ED00450A77 /* AppDelegate.swift in Sources */,
 				5DC18F6324426B2200450A77 /* TripModel.swift in Sources */,
@@ -280,9 +286,11 @@
 				5DE43A5F24462FCC0068EDC9 /* gradientDecloration.swift in Sources */,
 				5DC18F40244269ED00450A77 /* ContentView.swift in Sources */,
 				5DC18F6E24426C0E00450A77 /* colorDeclaration.swift in Sources */,
+				5DC5211A244C8825004F7609 /* TopBarView.swift in Sources */,
 				5DC18F6524426B5600450A77 /* FlightCardView.swift in Sources */,
 				5DC18F6724426B6A00450A77 /* InfoCardView.swift in Sources */,
 				5DC18F3B244269ED00450A77 /* SceneDelegate.swift in Sources */,
+				5DC52118244C8510004F7609 /* TrackableScrollView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

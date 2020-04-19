@@ -17,22 +17,19 @@ struct TripRowView: View {
         
 
         var body: some View {
-            ZStack{
-                Rectangle().foregroundColor(.clear)
-                TrackableScrollView(.horizontal, maxIndex: 20, index: self.$index, contentOffset: self.$offset){
+            //ZStack{
+                //Rectangle().foregroundColor(.clear)
+                PagedView(.horizontal, maxIndex: 20, index: self.$index, contentOffset: self.$offset){
 					favouriteCardView(isSet: self.$isFavourite)
-                    InfoCardView(cities: .constant(["Москва","Грозный","Махачкала","Магас","Нальчик","Элиста","Геленджик"]))
-					withAnimation{
-						FlightCardView().frame(width: self.screenWidth)
-					}
-                    ForEach( (1...20) , id:\.self ){_ in
+                    InfoCardView(cities: ["Москва","Грозный","Махачкала","Магас","Нальчик","Элиста","Геленджик"])
+					ForEach( (0...20) , id:\.self ){_ in
 						
 							FlightCardView().frame(width: self.screenWidth)
 						
                     }
                 }.frame(width: self.screenWidth,height: calculateHeight(offset: self.offset))//,height: CGFloat()
-				Text("\(self.offset)\n\(self.isFavourite ? "true" : "false")")
-            }
+				//Text("\(self.offset)\n\(self.isFavourite ? "true" : "false")")
+            //}
 
 
 

@@ -13,14 +13,20 @@ struct ContentView: View {
     @State var index:Int = 0
     var body: some View {
         
-//            TrackableScrollView(.vertical,maxIndex: 4, index: $index, contentOffset: $offset){
-		ScrollView(.vertical){
-			VStack{
-				ForEach((0...3),id:\.self)
-				{ id in
-					TripRowView()
-				}
+		
+		ZStack{
+			
+			TrackableScrollView(.vertical, showIndicators: false, contentOffset: $offset){
+				VStack{
+					
+					ForEach((0...3),id:\.self)
+					{ id in
+						TripRowView()
+					}
+				}.padding(.top,20)
 			}
+			TopBarView()
+			Text("\(self.offset)")
 		}
     }
 }
