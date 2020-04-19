@@ -17,40 +17,40 @@ struct FlightCardView :View {
 				
 				VStack{
 					HStack{
-						Text("Москва \nГрозный").font(.system(size: 34)).fontWeight(.heavy).foregroundColor(.baseBlack).frame(minHeight: 82)
+						Text("Москва \nГрозный").font(.largeTitle).fontWeight(.heavy).foregroundColor(.baseBlack).frame(minHeight: 82)
 						Spacer()
 					}.padding(.bottom,-30)
 					Spacer().frame( maxHeight: 37)
 					VStack{
 						HStack(alignment: .firstTextBaseline){
-							Text("Время вылета").font(.system(size: 20)).foregroundColor(.baseBlack)
+							Text("Время вылета").font(.headline).fontWeight(.regular).foregroundColor(.baseBlack)
 							Spacer()
 							self.dots()
 							Spacer()
-							Text("01:00").font(.system(size: 28)).fontWeight(.heavy).foregroundColor(.baseWhite)
+							Text("01:00").font(.title).fontWeight(.heavy).foregroundColor(.baseWhite)
 						}
 						HStack(alignment: .firstTextBaseline){
-							Text("Дата").font(.system(size: 16)).foregroundColor(.baseBlack)
+							Text("Дата").font(.subheadline).foregroundColor(.baseBlack)
 							Spacer()
 							self.dots()
 							Spacer()
-							Text("01 Сентября 2000, пт").font(.system(size: 17)).foregroundColor(.cityGray)
+							Text("01 Сентября 2000, пт").font(.subheadline).foregroundColor(.cityGray)
 						}.padding(.top, 5)
 					}
 					VStack{
 						HStack(alignment: .firstTextBaseline){
-							Text("Время прилета").font(.system(size: 20)).foregroundColor(.baseBlack)
+							Text("Время прилета").font(.headline).fontWeight(.regular).foregroundColor(.baseBlack)
 							Spacer()
 							self.dots()
 							Spacer()
-							Text("01:00").font(.system(size: 28)).fontWeight(.heavy).foregroundColor(.baseWhite)
+							Text("01:00").font(.title).fontWeight(.heavy).foregroundColor(.baseWhite)
 						}
 						HStack(alignment: .firstTextBaseline){
-							Text("Дата").font(.system(size: 18)).foregroundColor(.baseBlack)
+							Text("Дата").font(.subheadline).foregroundColor(.baseBlack)
 							Spacer()
 							self.dots()
 							Spacer()
-							Text("01 Сентября 2000, пт").font(.system(size: 17)).foregroundColor(.cityGray)
+							Text("01 Сентября 2000, пт").font(.subheadline).foregroundColor(.cityGray)
 						}.padding(.top,5)
 					}
 					self.hrSpacer
@@ -76,7 +76,7 @@ struct FlightCardView :View {
 					}
 
 					Button(action: {}){
-						Text("Купить билет").font(.system(size: 28)).fontWeight(.bold).foregroundColor(.baseWhite).padding(23)
+						Text("Купить билет").font(.title).fontWeight(.bold).foregroundColor(.baseWhite).padding(23)
 					}.background(Rectangle().foregroundColor(.accentSecondLevel), alignment: .center)
 					.cornerRadius(10)
 					

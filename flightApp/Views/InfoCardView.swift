@@ -18,16 +18,16 @@ struct InfoCardView: View {
             LinearGradient(gradient: .cardBG,startPoint: .top, endPoint: .bottom).cornerRadius(20)
                 
             VStack(alignment: .leading){
-                Text("10 городов\nза 10 дней").font(.system(size: 34)).fontWeight(.heavy).foregroundColor(.baseBlack).frame(minHeight: 82)
-				Text("170000 ₽").font(.system(size: 46)).fontWeight(.heavy).foregroundColor(.baseWhite).padding(.top,20)
+				Text("10 городов\nза 10 дней").font(.largeTitle).fontWeight(.heavy).foregroundColor(.baseBlack).frame(minHeight: 82)
+				Text("170000 ₽").font(.system(size: 46)).fontWeight(.heavy).foregroundColor(.baseWhite).padding(.top,15.0)
 				Rectangle().frame(height: 1).foregroundColor(.accentFirstLevel).padding(.top,-16).padding(.bottom,-16)
 
-                HStack(spacing: 20){
+				HStack(alignment:.top,spacing: 20){
                     ForEach( (0...self.colCount) ,id: \.self){ i in
                         VStack(alignment: .leading){
                             ForEach(  ((i*7) ... ( self.cities.count - 1 ))  ,id: \.self){ city in
                                 VStack{ if(city < ((i+1)*7)){
-                                        Text("\(self.cities[city])").font(.system(size: 20)).fontWeight(.bold).foregroundColor(.kirillGray)
+									Text("\(self.cities[city])").font(.system(size: 18)).fontWeight(.semibold).foregroundColor(.kirillGray)
                                 }}
                             }
                         }
@@ -55,6 +55,6 @@ struct InfoCardView: View {
 struct InfoCardView_Previews: PreviewProvider {
     
     static var previews: some View {
-        InfoCardView(cities: ["Москва","Грозный","Махачкала","Магас","Нальчик","Элиста","Геленджик","2","2","2","2","2","2","2"])
+        InfoCardView(cities: ["Москва","Грозный","Махачкала","Магас","Нальчик","Элиста","Геленджик","Санкт-Петербург","2","2",])
     }
 }
