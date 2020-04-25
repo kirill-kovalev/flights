@@ -9,30 +9,47 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var offset:CGFloat = 0;
+    @State var offset:CGFloat = 10;
     @State var index:Int = 0
+	
+	@State var isFavContent:Bool = false
     var body: some View {
         
-		
-		ZStack{
+		HStack{
 			
-			TrackableScrollView(.vertical, showIndicators: false, contentOffset: $offset){
-				VStack{
+		
+			ZStack(alignment: .top){
+			
+			
+				TrackableScrollView(.vertical, showIndicators: false, contentOffset: $offset){
+					VStack{
+						Rectangle().foregroundColor(.clear).frame(height: 370)
+						ForEach((0...2),id:\.self)
+						{ id in
+							TripRowView()
+						}
+					}.padding(.top,20)
+				}
+								
+				TopBarView(searchAction: {
 					
-					ForEach((0...3),id:\.self)
-					{ id in
-						TripRowView()
+				}, favouriteAction: {
+					withAnimation(){
+						self.isFavContent = true
 					}
-				}.padding(.top,20)
+				}).frame(height: 390).offset(y:  -offset)
+
 			}
-			TopBarView()
-			Text("\(self.offset)")
-		}
+			
+				
+
+		}.offset(x: self.isFavContent ? -1 * TripRowView().screenWidth / 2 : 0  )
+
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+		ContentView()
     }
 }

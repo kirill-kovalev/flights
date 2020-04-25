@@ -13,10 +13,7 @@ struct favouriteCardView: View {
 	
     var body: some View {
 		ZStack(alignment: .center){
-			LinearGradient(gradient:
-				Gradient(colors: [Color(UIColor(red: 256/256, green: 232/256, blue: 139/256,alpha: 1)),
-								  Color(UIColor(red: 256/256, green:213/256, blue: 101/256,alpha: 1))]
-			),startPoint: .top, endPoint: .bottom).cornerRadius(20).frame(width: 250 )
+			LinearGradient(gradient: .favouriteBG ,startPoint: .top, endPoint: .bottom).cornerRadius(20).frame(width: 250 )
 
 			if (isSet){
 				Image(systemName:  "star.circle.fill").resizable().frame(width: 50, height: 50).foregroundColor(.kirillGray)

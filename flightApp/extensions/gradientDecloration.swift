@@ -11,5 +11,6 @@ import SwiftUI
 extension Gradient{
     static let cardBG = Gradient(colors: [Color(UIColor(red: 184/256, green: 236/256, blue: 255/256,alpha: 1)),
         Color(UIColor(red: 162/256, green:224/256, blue: 247/256,alpha: 1))])
-    
+	static let favouriteBG  = Gradient(colors: [Color(UIColor(red: 256/256, green: 232/256, blue: 139/256,alpha: 1)),
+												Color(UIColor(red: 256/256, green:213/256, blue: 101/256,alpha: 1))])
 }
