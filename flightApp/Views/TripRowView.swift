@@ -12,14 +12,29 @@ struct TripRowView: View {
 	@State var offset:CGFloat = 0
     @State var index:Int = 0
 	@State var isFavourite = false;
+	
+	@State var gestureActive:Bool = true;
         var screenWidth:CGFloat { return (UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.width)!}
         var screenHeight:CGFloat { return (UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.height)!}
         
 
         var body: some View {
-            //ZStack{
+            ZStack{
                 //Rectangle().foregroundColor(.clear)
-                PagedView(.horizontal, maxIndex: 20, index: self.$index, contentOffset: self.$offset){
+			PagedView(.horizontal, maxIndex: 20, index: self.$index, contentOffset: self.$offset,action:{ ended in
+				if ended {
+					self.gestureActive = true
+				} else {
+					
+					if self.offset > 170 , self.gestureActive {
+						withAnimation{
+							self.isFavourite.toggle()
+						}
+						
+						self.gestureActive = false
+					}
+				}
+			}){
 					favouriteCardView(isSet: self.$isFavourite)
                     InfoCardView(cities: ["Москва","Грозный","Махачкала","Магас","Нальчик","Элиста","Геленджик"])
 					ForEach( (0...20) , id:\.self ){_ in
@@ -29,7 +44,7 @@ struct TripRowView: View {
                     }
                 }.frame(width: self.screenWidth,height: calculateHeight(offset: self.offset))//,height: CGFloat()
 				//Text("\(self.offset)\n\(self.isFavourite ? "true" : "false")")
-            //}
+            }
 
 
 

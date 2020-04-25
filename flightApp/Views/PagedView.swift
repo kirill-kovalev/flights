@@ -18,16 +18,20 @@ struct PagedView<Content>: View where Content: View {
     
     @State private var isGestureActive: Bool = false
     let content: Content
+	
+	var action: (Bool)->Void;
     
 
     
-    init(_ axes: Axis.Set = .horizontal, showIndicators: Bool = true,maxIndex:Int,index:Binding<Int>, contentOffset: Binding<CGFloat>, @ViewBuilder content: () -> Content) {
+    init(_ axes: Axis.Set = .horizontal, showIndicators: Bool = true,maxIndex:Int,index:Binding<Int>, contentOffset: Binding<CGFloat>,
+		 action: @escaping (Bool)->Void = {_ in }, @ViewBuilder content: () -> Content) {
         self.axes = axes
         self.showIndicators = showIndicators
         self._contentOffset = contentOffset
         self.content = content()
         self._index = index
         self.maxIndex = maxIndex
+		self.action = action
     }
     
     func xOffset(outsideProxy:GeometryProxy) -> CGFloat {self.isGestureActive ? self.contentOffset : CGFloat(self.index) * (-outsideProxy.size.width)}
@@ -55,7 +59,7 @@ struct PagedView<Content>: View where Content: View {
             .gesture(
                 DragGesture(minimumDistance:(self.axes == .vertical) ? 10 : 50, coordinateSpace:(self.axes == .vertical) ? .global :.local )
                 .onChanged({ value in
-                    
+                    self.action(false)
                     self.isGestureActive = true
                     if self.axes == .vertical {
                         self.contentOffset = value.translation.height + -outsideProxy.size.height * CGFloat(self.index)
@@ -65,6 +69,7 @@ struct PagedView<Content>: View where Content: View {
                     
                 })
                 .onEnded({ value in
+					self.action(true)
                     if self.axes == .vertical {
                         if -value.predictedEndTranslation.height > outsideProxy.size.height / 3, self.index < self.maxIndex {
                             self.index += 1
