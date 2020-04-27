@@ -11,6 +11,9 @@ import SwiftUI
 struct TopBarView: View {
 	var searchAction : ()->Void 
 	var favouriteAction : ()->Void
+	var locationAction : ()->Void
+	
+	var w:CGFloat{ return TripRowView().screenWidth}
     var body: some View {
 		
 			
@@ -20,7 +23,7 @@ struct TopBarView: View {
 					Spacer()
 				}
 				DatePicker("", selection: .constant(Date()), displayedComponents: .date)
-					.frame(height: 65).cornerRadius(0).padding(.leading,-20)
+					.frame(width: w - 40, height: 65).cornerRadius(0).padding(.leading,-20)
 				
 				
 				HStack(spacing:0){
@@ -28,7 +31,7 @@ struct TopBarView: View {
 					Spacer()
 				}
 				DatePicker("", selection: .constant(Date()), displayedComponents: .date)
-					.frame(height: 65).cornerRadius(0).padding(.leading,-20)
+					.frame(width: w - 40, height: 65).cornerRadius(0).padding(.leading,-20)
 					.cornerRadius(30)
 				
 				
@@ -38,10 +41,19 @@ struct TopBarView: View {
 				}
 				
 				HStack{
-				TextField("000 ₽", text: .constant(""))
-					.textContentType(.creditCardNumber)
-					.padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
-					.font(.title)
+					TextField("000 ₽", text: .constant(""))
+					.padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 5))
+						.font(.title).keyboardType(.numberPad)
+					
+					Button(action: locationAction){
+						Image(systemName: "location.fill")
+							.resizable()
+							.scaledToFit()
+							.foregroundColor(.kirillGray)
+							.padding(10)
+							.frame(width: 50, height: 50)
+						}.background(Color.gray.opacity(0.5)).cornerRadius(10).padding(5)
+					
 				}.background(Color.baseWhite.opacity(0.8))
 				.padding(.bottom,20)
 				
@@ -64,6 +76,7 @@ struct TopBarView: View {
 					.padding(EdgeInsets(top: 0, leading: 0, bottom: -20, trailing: -20))
 				}
 			}.padding(20)
+			//.frame(width: TripRowView().screenWidth - 40)
 			.foregroundColor(.kirillGray)
 			.background(Color.init(red: 0.8, green: 0.8, blue: 0.8))
 			
@@ -76,6 +89,6 @@ struct TopBarView: View {
 
 struct TopBarView_Previews: PreviewProvider {
     static var previews: some View {
-		TopBarView(searchAction: {}, favouriteAction: {})
+		TopBarView(searchAction: {}, favouriteAction: {}, locationAction: {})
     }
 }
