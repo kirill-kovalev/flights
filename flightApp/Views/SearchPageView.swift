@@ -28,7 +28,9 @@ struct SearchPageView: View {
 					withAnimation(){
 						self.isFavContent = true
 					}
-				}, locationAction: {}).frame(height: self.hasContent ? 390 : TripRowView().screenHeight).animation(.easeInOut)
+				}, locationAction: {
+					
+				}).frame(height: self.hasContent ? 390 : TripRowView().screenHeight)//.animation(.easeInOut)
 				
 				
 				if(self.hasContent){

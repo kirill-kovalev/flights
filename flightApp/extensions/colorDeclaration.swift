@@ -7,7 +7,7 @@
 //
 import SwiftUI
 extension Color{
-    static let accentFirstLevel = Color("accentFirstLevel")
+	static let accentFirstLevel = Color("accentFirstLevel")
     static let accentSecondLevel = Color("accentSecondLevel")
     static let baseBlack = Color("BaseBlack")
     static let baseWhite = Color("BaseWhite")

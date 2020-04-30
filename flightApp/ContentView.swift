@@ -23,12 +23,6 @@ struct ContentView: View {
 			SearchPageView(isFavContent: $isFavContent)
 			FavPageView(isFavContent: $isFavContent)
 			
-			
-			
-			
-			
-			
-				
 
 		}.offset(x: self.isFavContent ? -1 * TripRowView().screenWidth / 2 : TripRowView().screenWidth / 2 )
 			.edgesIgnoringSafeArea(.bottom).padding(.top,-10)

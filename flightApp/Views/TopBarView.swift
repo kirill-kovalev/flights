@@ -13,6 +13,28 @@ struct TopBarView: View {
 	var favouriteAction : ()->Void
 	var locationAction : ()->Void
 	
+	@State var presentDatePicker1:Bool = false
+	@State var presentDatePicker2:Bool = false
+	var rkManager1: RKManager {
+		return RKManager(calendar: Calendar.current, minimumDate: Date(), maximumDate: rkManager2.selectedDate ?? Date().addingTimeInterval(7*60*60*24), mode: 0)
+	}
+	var rkManager2:RKManager {
+		return RKManager(calendar: Calendar.current, minimumDate: Date() , maximumDate: Date().addingTimeInterval(60*60*24*365), mode: 0)
+	}
+	var displayDate1:String {
+		let date = rkManager1.selectedDate ?? Date()
+		let df = DateFormatter()
+		df.dateStyle = .long
+		return df.string(from: date)
+	}
+	var displayDate2:String {
+		let date = rkManager2.selectedDate ?? Date().addingTimeInterval(7*60*60*24)
+		let df = DateFormatter()
+		df.dateStyle = .long
+		return df.string(from: date)
+	}
+	
+	
 	var w:CGFloat{ return TripRowView().screenWidth}
     var body: some View {
 		
@@ -22,17 +44,32 @@ struct TopBarView: View {
 					Text("Дата вылета").font(.headline).padding(.bottom,10)
 					Spacer()
 				}
-				DatePicker("", selection: .constant(Date()), displayedComponents: .date)
-					.frame(width: w - 40, height: 65).cornerRadius(0).padding(.leading,-20)
+				Button(action: {self.presentDatePicker1.toggle()}){
+					Text("\(displayDate1)")
+					Spacer()
+					Image(systemName: "calendar").foregroundColor(.kirillGray)
+				}.font(.largeTitle).foregroundColor(.cityGray)
+				.padding([.top,.bottom],5)
+				.popover(isPresented: self.$presentDatePicker1){
+					RKViewController(isPresented: self.$presentDatePicker1, rkManager: self.rkManager1)
+				}
+				
 				
 				
 				HStack(spacing:0){
 					Text("Дата прилета").font(.headline).padding(.bottom,10)
 					Spacer()
 				}
-				DatePicker("", selection: .constant(Date()), displayedComponents: .date)
-					.frame(width: w - 40, height: 65).cornerRadius(0).padding(.leading,-20)
-					.cornerRadius(30)
+				Button(action: {self.presentDatePicker2.toggle()}){
+					Text("\(displayDate2)")
+					Spacer()
+					Image(systemName: "calendar").foregroundColor(.kirillGray)
+				}.font(.largeTitle).foregroundColor(.cityGray)
+					.padding([.top,.bottom],5)
+					.popover(isPresented: self.$presentDatePicker2){
+						RKViewController(isPresented: self.$presentDatePicker2, rkManager: self.rkManager2)
+				}
+				
 				
 				
 				HStack(spacing:0){
@@ -40,10 +77,10 @@ struct TopBarView: View {
 					Spacer()
 				}
 				
-				HStack{
+				HStack(spacing:0){
 					TextField("000 ₽", text: .constant(""))
-					.padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 5))
-						.font(.title).keyboardType(.numberPad)
+					.padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 0))
+					.font(.title).keyboardType(.numberPad)
 					
 					Button(action: locationAction){
 						Image(systemName: "location.fill")
@@ -52,10 +89,10 @@ struct TopBarView: View {
 							.foregroundColor(.kirillGray)
 							.padding(10)
 							.frame(width: 50, height: 50)
-						}.background(Color.gray.opacity(0.5)).cornerRadius(10).padding(5)
+						}.background(Color.gray.opacity(0.3)).cornerRadius(10)
 					
 				}.background(Color.baseWhite.opacity(0.8))
-				.padding(.bottom,20)
+				.padding(.bottom,15).padding(.trailing,-10)
 				
 				
 				
@@ -64,7 +101,7 @@ struct TopBarView: View {
 				HStack{
 					Button(action:searchAction){
 						Spacer()
-						Text("Поехали!").font(.title).fontWeight(.bold).foregroundColor(Color("BaseWhite")).padding(15)
+						Text("Поехали!").font(.title).fontWeight(.bold).foregroundColor(.baseWhite).padding(15)
 						Spacer()
 					}.background(Color.blue)
 						.padding(EdgeInsets(top: 0, leading: -20, bottom: -20, trailing: 0))
@@ -76,9 +113,8 @@ struct TopBarView: View {
 					.padding(EdgeInsets(top: 0, leading: 0, bottom: -20, trailing: -20))
 				}
 			}.padding(20)
-			//.frame(width: TripRowView().screenWidth - 40)
-			.foregroundColor(.kirillGray)
-			.background(Color.init(red: 0.8, green: 0.8, blue: 0.8))
+			.foregroundColor(.baseBlack)
+			.background(Color.baseWhite)
 			
 		.cornerRadius(20)
 		.padding(17)
