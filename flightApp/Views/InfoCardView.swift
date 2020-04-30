@@ -48,7 +48,7 @@ struct InfoCardView: View {
             
         }.padding(17)
         .shadow(color: Color(UIColor(red: 0, green: 0, blue: 0, alpha: 0.15)), radius: 13, x: 0, y: 4)
-        .frame(width: (UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.width)! , height:470)
+		.frame(width: TripRowView().screenWidth , height:470)
         
     }
 }

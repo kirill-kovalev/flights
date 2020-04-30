@@ -67,11 +67,11 @@ struct FlightCardView :View {
 							   Spacer()
 							   Text("LED").font(.system(size: 22)).fontWeight(.bold).foregroundColor(.baseBlack).padding(.bottom, 10)
 						}
-					}.opacity((proxy.size.height > 600) ? 1 :0)
-					 .frame( maxHeight:(proxy.size.height > 600) ? .infinity :0)
+					}.opacity((proxy.size.height > 650) ? 1 :0)
+					 .frame( maxHeight:(proxy.size.height > 650) ? .infinity :0)
 						
 					   
-					if(proxy.size.height > 600) {
+					if(proxy.size.height > 650) {
 						self.hrSpacer
 					}
 
@@ -115,7 +115,7 @@ struct FlightCardView_Previews: PreviewProvider {
         
         VStack{
             FlightCardView()
-		}
+		}.frame(height:614)
         
     }
 }

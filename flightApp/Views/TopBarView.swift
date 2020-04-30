@@ -11,7 +11,6 @@ import SwiftUI
 struct TopBarView: View {
 	var searchAction : ()->Void 
 	var favouriteAction : ()->Void
-	var locationAction : ()->Void
 	
 	@State var presentDatePicker1:Bool = false
 	@State var presentDatePicker2:Bool = false
@@ -34,6 +33,8 @@ struct TopBarView: View {
 		return df.string(from: date)
 	}
 	
+	@State var presentLocationPicker:Bool = false
+	
 	
 	var w:CGFloat{ return TripRowView().screenWidth}
     var body: some View {
@@ -50,7 +51,7 @@ struct TopBarView: View {
 					Image(systemName: "calendar").foregroundColor(.kirillGray)
 				}.font(.largeTitle).foregroundColor(.cityGray)
 				.padding([.top,.bottom],5)
-				.popover(isPresented: self.$presentDatePicker1){
+				.sheet(isPresented: self.$presentDatePicker1){
 					RKViewController(isPresented: self.$presentDatePicker1, rkManager: self.rkManager1)
 				}
 				
@@ -66,7 +67,7 @@ struct TopBarView: View {
 					Image(systemName: "calendar").foregroundColor(.kirillGray)
 				}.font(.largeTitle).foregroundColor(.cityGray)
 					.padding([.top,.bottom],5)
-					.popover(isPresented: self.$presentDatePicker2){
+					.sheet(isPresented: self.$presentDatePicker2){
 						RKViewController(isPresented: self.$presentDatePicker2, rkManager: self.rkManager2)
 				}
 				
@@ -82,7 +83,7 @@ struct TopBarView: View {
 					.padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 0))
 					.font(.title).keyboardType(.numberPad)
 					
-					Button(action: locationAction){
+					Button(action: {self.presentLocationPicker.toggle()}){
 						Image(systemName: "location.fill")
 							.resizable()
 							.scaledToFit()
@@ -93,6 +94,10 @@ struct TopBarView: View {
 					
 				}.background(Color.baseWhite.opacity(0.8))
 				.padding(.bottom,15).padding(.trailing,-10)
+				.sheet(isPresented: self.$presentLocationPicker){
+						Text("Picker")
+				}
+				
 				
 				
 				
@@ -125,6 +130,6 @@ struct TopBarView: View {
 
 struct TopBarView_Previews: PreviewProvider {
     static var previews: some View {
-		TopBarView(searchAction: {}, favouriteAction: {}, locationAction: {})
+		TopBarView(searchAction: {}, favouriteAction: {})
     }
 }

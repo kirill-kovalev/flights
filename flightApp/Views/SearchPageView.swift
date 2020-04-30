@@ -12,6 +12,8 @@ struct SearchPageView: View {
 	@State var offset:CGFloat = 10;
 	@State var index:Int = 0
 	@Binding var isFavContent:Bool
+	
+	
 
 	@State var hasContent:Bool = false;
     var body: some View {
@@ -28,8 +30,6 @@ struct SearchPageView: View {
 					withAnimation(){
 						self.isFavContent = true
 					}
-				}, locationAction: {
-					
 				}).frame(height: self.hasContent ? 390 : TripRowView().screenHeight)//.animation(.easeInOut)
 				
 				
@@ -44,7 +44,7 @@ struct SearchPageView: View {
 			}
 			
 			if(self.offset > 350){
-				
+				withAnimation{
 				HStack(spacing:10){
 					Button(action: {}){
 						Image(systemName: "magnifyingglass.circle").resizable().frame(width: 50, height: 50).foregroundColor(.kirillGray).padding(5).background(Color.baseWhite).cornerRadius(100).shadow(radius: 10)
@@ -61,6 +61,7 @@ struct SearchPageView: View {
 					}
 					
 				}.padding(15).animation(.linear)
+				}
 			}
 			
 			
