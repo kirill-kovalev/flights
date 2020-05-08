@@ -15,13 +15,13 @@ struct FavPageView: View {
 		ZStack(alignment: .topLeading){
 			
 			
-			TrackableScrollView(.vertical, showIndicators: false, contentOffset: .constant(0)){
-				ForEach((0...2),id:\.self)
-				{ id in
-					TripRowView()
-				}
-				
-			}.padding(.top,20)
+//			TrackableScrollView(.vertical, showIndicators: false, contentOffset: .constant(0)){
+//				ForEach((0...2),id:\.self)
+//				{ id in
+//					TripRowView()
+//				}
+//
+//			}.padding(.top,20)
 			
 			HStack(spacing:10){
 				
@@ -35,7 +35,7 @@ struct FavPageView: View {
 				
 			}.padding(15)
 			
-		}.frame(width: TripRowView().screenWidth)
+		}.frame(width: UIApplication.screenWidth)
     }
 }
 

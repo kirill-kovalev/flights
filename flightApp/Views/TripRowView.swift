@@ -12,11 +12,12 @@ struct TripRowView: View {
 	@State var offset:CGFloat = 0
     @State var index:Int = 0
 	@State var isFavourite = false;
-	
 	@State var gestureActive:Bool = true;
 	
-		var screenWidth:CGFloat { return (UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.safeAreaLayoutGuide.layoutFrame.width)}
-        var screenHeight:CGFloat { return (UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.safeAreaLayoutGuide.layoutFrame.height)}
+	var tripInfo:TripModel
+	
+	
+
         
 
 	var body: some View {
@@ -37,13 +38,13 @@ struct TripRowView: View {
 			}
 		}){
 				favouriteCardView(isSet: self.$isFavourite)
-				InfoCardView(cities: ["Москва","Грозный","Махачкала","Магас","Нальчик","Элиста","Геленджик"])
-				ForEach( (0...20) , id:\.self ){_ in
+				InfoCardView(cities: self.tripInfo.cityList,days:self.tripInfo.days,price:self.tripInfo.price)
+				ForEach( self.tripInfo.fligts , id:\.self ){flight in
 					
-						FlightCardView().frame(width: self.screenWidth)
+				FlightCardView(flight:flight).frame(width: UIApplication.screenWidth)
 					
 				}
-			}.frame(width: self.screenWidth,height: calculateHeight(offset: self.offset))//,height: CGFloat()
+			}.frame(width: UIApplication.screenWidth,height: calculateHeight(offset: self.offset))//,height: CGFloat()
 			//Text("\(self.offset)\n\(self.isFavourite ? "true" : "false")")
 		}
 
@@ -53,17 +54,17 @@ struct TripRowView: View {
 
 	func calculateHeight(offset:CGFloat) -> CGFloat {
 		
-		if offset >= self.screenWidth {
-			return  self.screenHeight
+		if offset >= UIApplication.screenWidth {
+			return  UIApplication.screenHeight
 		}else{
-			var coef = -1 * offset / self.screenWidth
+			var coef = -1 * offset / UIApplication.screenWidth
 			if coef > 1 {
 				coef = 1
 			}
 			if coef < 0 {
 				coef = 0
 			}
-			let height = (screenHeight - 468 ) * coef
+			let height = (UIApplication.screenHeight - 468 ) * coef
 			return height + 468;
 		}
 	}
@@ -71,7 +72,14 @@ struct TripRowView: View {
 
 
 struct TripRowView_Previews: PreviewProvider {
+
     static var previews: some View {
-        TripRowView()
+		TripRowView( tripInfo: TripModel(days: 5, cityList: ["Москва","Грозный","Махачкала","Магас","Нальчик"], fligts: [
+			FlightModel(cityStart: "Санкт-Петербург", cityEnd: "Москва", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""),
+			FlightModel(cityStart: "Москва", cityEnd: "Грозный", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""),
+			FlightModel(cityStart: "Грозный", cityEnd: "Махачкала", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""),
+			FlightModel(cityStart: "Махачкала", cityEnd: "Магас", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""),
+			FlightModel(cityStart: "Магас", cityEnd: "Нальчик", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""),
+		]))
     }
 }

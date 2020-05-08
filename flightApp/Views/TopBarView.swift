@@ -36,7 +36,7 @@ struct TopBarView: View {
 	@State var presentLocationPicker:Bool = false
 	
 	
-	var w:CGFloat{ return TripRowView().screenWidth}
+	var w:CGFloat{ return UIApplication.screenWidth}
     var body: some View {
 		
 			

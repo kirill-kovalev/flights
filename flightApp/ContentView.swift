@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
     
     @State var index:Int = 0
@@ -24,7 +25,7 @@ struct ContentView: View {
 			FavPageView(isFavContent: $isFavContent)
 			
 
-		}.offset(x: self.isFavContent ? -1 * TripRowView().screenWidth / 2 : TripRowView().screenWidth / 2 )
+		}.offset(x: self.isFavContent ? -1 * UIApplication.screenWidth / 2 : UIApplication.screenWidth / 2 )
 			.edgesIgnoringSafeArea(.bottom).padding(.top,-10)
 
     }

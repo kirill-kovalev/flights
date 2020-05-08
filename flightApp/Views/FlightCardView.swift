@@ -7,9 +7,72 @@
 //
 
 import SwiftUI
+class CurveBoxVM : ObservableObject{
+	@Published var image:UIImage = UIImage(imageLiteralResourceName: "companyBG")
+	
+	func loadImage(url:String){
+		guard let Url  = URL(string: url) else {return}
+		print("loading with \(url)")
+		URLSession.shared.dataTask(with: Url, completionHandler: {
+			data,response,error in
+			guard let data = data else {return}
+			if error == nil {
+				DispatchQueue.main.async {
+					
+					self.image = UIImage(data: data) ?? UIImage(imageLiteralResourceName: "companyBG")
+				}
+					
 
+			}
+			}).resume()
+	}
+}
+struct CurveBox : View {
+	@ObservedObject var vm = CurveBoxVM();
+	init(flight:FlightModel ) {
+		self.flight = flight
+		self.vm.loadImage(url: flight.companyLogoLink)
+	}
+	var flight:FlightModel
+	
+	
+	var body: some View {
+		VStack{
+			Image("flightCurve").padding(.bottom, -30)
+			HStack(alignment: .bottom){
+				
+				Text(flight.startAirport).font(.system(size: 22)).fontWeight(.bold).foregroundColor(.baseBlack).padding(.bottom, 10)
+				Spacer()
+				VStack{
+					Image(uiImage: vm.image).background(Color(.brown)).cornerRadius(16).frame(width: 32, height: 32, alignment: .center)
+					Text(flight.companyName).font(.system(size: 17)).foregroundColor(.cityGray)
+				}
+				Spacer()
+				Text(flight.endAirport).font(.system(size: 22)).fontWeight(.bold).foregroundColor(.baseBlack).padding(.bottom, 10)
+			}
+		}
+	}
+	
+	
+}
 
 struct FlightCardView :View {
+	
+	var flight: FlightModel
+	var takeOffTime: DateComponents { return Calendar.current.dateComponents(in: TimeZone.current, from:self.flight.takeoffTime ?? Date() )  }
+	var landingTime: DateComponents { return Calendar.current.dateComponents(in: TimeZone.current, from:self.flight.landingTime ?? Date() )  }
+	
+	var takeOffDate:String {
+		let df = DateFormatter()
+		df.dateFormat = "d MMM YYYY, E"
+		return df.string(from: self.flight.takeoffTime ?? Date())
+	}
+	var landingDate:String {
+		let df = DateFormatter()
+		df.dateFormat = "d MMM YYYY, E"
+		return df.string(from: self.flight.takeoffTime ?? Date())
+	}
+	
     var body: some View {
 		GeometryReader{ proxy in
 			ZStack(alignment: .topLeading){
@@ -17,7 +80,8 @@ struct FlightCardView :View {
 				
 				VStack{
 					HStack{
-						Text("Москва \nГрозный").font(.largeTitle).fontWeight(.heavy).foregroundColor(.baseBlack).frame(minHeight: 82)
+						Text("\(self.flight.cityStart) \n\(self.flight.cityEnd)")
+							.font(.largeTitle).fontWeight(.heavy).foregroundColor(.baseBlack).frame(minHeight: 82)
 						Spacer()
 					}.padding(.bottom,-30)
 					Spacer().frame( maxHeight: 37)
@@ -27,14 +91,14 @@ struct FlightCardView :View {
 							Spacer()
 							self.dots()
 							Spacer()
-							Text("01:00").font(.title).fontWeight(.heavy).foregroundColor(.baseWhite)
+							Text("\(self.takeOffTime.hour!):\(self.takeOffTime.minute!)").font(.title).fontWeight(.heavy).foregroundColor(.baseWhite)
 						}
 						HStack(alignment: .firstTextBaseline){
 							Text("Дата").font(.subheadline).foregroundColor(.baseBlack)
 							Spacer()
 							self.dots()
 							Spacer()
-							Text("01 Сентября 2000, пт").font(.subheadline).foregroundColor(.cityGray)
+							Text("\(self.takeOffDate)").font(.subheadline).foregroundColor(.cityGray)
 						}.padding(.top, 5)
 					}
 					VStack{
@@ -43,31 +107,18 @@ struct FlightCardView :View {
 							Spacer()
 							self.dots()
 							Spacer()
-							Text("01:00").font(.title).fontWeight(.heavy).foregroundColor(.baseWhite)
+							Text("\(self.landingTime.hour!):\(self.landingTime.minute!)").font(.title).fontWeight(.heavy).foregroundColor(.baseWhite)
 						}
 						HStack(alignment: .firstTextBaseline){
 							Text("Дата").font(.subheadline).foregroundColor(.baseBlack)
 							Spacer()
 							self.dots()
 							Spacer()
-							Text("01 Сентября 2000, пт").font(.subheadline).foregroundColor(.cityGray)
+							Text("\(self.landingDate)").font(.subheadline).foregroundColor(.cityGray)
 						}.padding(.top,5)
 					}
 					self.hrSpacer
-					VStack{
-						Image("flightCurve").padding(.bottom, -30)
-						HStack(alignment: .bottom){
-							
-							   Text("LED").font(.system(size: 22)).fontWeight(.bold).foregroundColor(.baseBlack).padding(.bottom, 10)
-							   Spacer()
-							   VStack{
-								   Image("companyBG").background(Color(.brown)).cornerRadius(16).frame(width: 32, height: 32, alignment: .center)
-								   Text("Company name").font(.system(size: 17)).foregroundColor(.cityGray)
-							   }
-							   Spacer()
-							   Text("LED").font(.system(size: 22)).fontWeight(.bold).foregroundColor(.baseBlack).padding(.bottom, 10)
-						}
-					}.opacity((proxy.size.height > 650) ? 1 :0)
+					CurveBox(flight: self.flight).opacity((proxy.size.height > 650) ? 1 :0)
 					 .frame( maxHeight:(proxy.size.height > 650) ? .infinity :0)
 						
 					   
@@ -114,8 +165,8 @@ struct FlightCardView_Previews: PreviewProvider {
     static var previews: some View {
         
         VStack{
-            FlightCardView()
-		}.frame(height:614)
+			FlightCardView(flight: FlightModel(cityStart: "Санкт-Петербург", cityEnd: "Москва", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""))
+		}.frame(height:674)
         
     }
 }

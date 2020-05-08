@@ -10,6 +10,10 @@ import SwiftUI
 
 struct InfoCardView: View {
     var cities:[String] = [] ;
+	var days:Int
+	var price:Int
+	
+	
     var colCount:Int {return (cities.count - 1 )/7 };
     
     var body: some View {
@@ -18,8 +22,8 @@ struct InfoCardView: View {
             LinearGradient(gradient: .cardBG,startPoint: .top, endPoint: .bottom).cornerRadius(20)
                 
             VStack(alignment: .leading){
-				Text("10 городов\nза 10 дней").font(.largeTitle).fontWeight(.heavy).foregroundColor(.baseBlack).frame(minHeight: 82)
-				Text("170000 ₽").font(.system(size: 46)).fontWeight(.heavy).foregroundColor(.baseWhite).padding(.top,15.0)
+				Text("\(cities.count) городов\nза \(days) дней").font(.largeTitle).fontWeight(.heavy).foregroundColor(.baseBlack).frame(minHeight: 82)
+				Text("\(price) ₽").font(.system(size: 46)).fontWeight(.heavy).foregroundColor(.baseWhite).padding(.top,15.0)
 				Rectangle().frame(height: 1).foregroundColor(.accentFirstLevel).padding(.top,-16).padding(.bottom,-16)
 
 				HStack(alignment:.top,spacing: 20){
@@ -48,13 +52,13 @@ struct InfoCardView: View {
             
         }.padding(17)
         .shadow(color: Color(UIColor(red: 0, green: 0, blue: 0, alpha: 0.15)), radius: 13, x: 0, y: 4)
-		.frame(width: TripRowView().screenWidth , height:470)
+		.frame(width: UIApplication.screenWidth , height:470)
         
     }
 }
 struct InfoCardView_Previews: PreviewProvider {
     
     static var previews: some View {
-        InfoCardView(cities: ["Москва","Грозный","Махачкала","Магас","Нальчик","Элиста","Геленджик","Санкт-Петербург","2","2",])
+        InfoCardView(cities: ["Москва","Грозный","Махачкала","Магас","Нальчик","Элиста","Геленджик","Санкт-Петербург","2","2"],days: 1,price: 1 )
     }
 }

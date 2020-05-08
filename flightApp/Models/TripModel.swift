@@ -8,9 +8,11 @@
 
 import Foundation
 
-struct TriptModel:Decodable {
-    var cities:Int = 0;
+struct TripModel: Encodable,Decodable,Hashable {
+	var localID = UUID()
     var days:Int = 0;
-    var CityList:[String] = []
-    var loadId:Int = -1
+    var cityList:[String] = []
+	var fligts:[FlightModel] = []
+	var price:Int = 0
+    
 }

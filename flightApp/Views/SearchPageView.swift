@@ -30,14 +30,20 @@ struct SearchPageView: View {
 					withAnimation(){
 						self.isFavContent = true
 					}
-				}).frame(height: self.hasContent ? 390 : TripRowView().screenHeight)//.animation(.easeInOut)
+				}).frame(height: self.hasContent ? 390 : UIApplication.screenHeight)//.animation(.easeInOut)
 				
 				
 				if(self.hasContent){
-					ForEach((0...2),id:\.self)
-					{ id in
-						TripRowView()
-					}
+//					ForEach((0...2),id:\.self)
+//					{ id in
+						TripRowView( tripInfo: TripModel(days: 5, cityList: ["Москва","Грозный","Махачкала","Магас","Нальчик"], fligts: [
+							FlightModel(cityStart: "Санкт-Петербург", cityEnd: "Москва", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "https://via.placeholder.com/32", companyName: "S7 airlines", ticketLink: ""),
+							FlightModel(cityStart: "Москва", cityEnd: "Грозный", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""),
+							FlightModel(cityStart: "Грозный", cityEnd: "Махачкала", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""),
+							FlightModel(cityStart: "Махачкала", cityEnd: "Магас", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""),
+							FlightModel(cityStart: "Магас", cityEnd: "Нальчик", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""),
+						]))
+					//}
 				}
 				
 				
@@ -65,7 +71,7 @@ struct SearchPageView: View {
 			}
 			
 			
-		}.frame(width: TripRowView().screenWidth)
+		}.frame(width: UIApplication.screenWidth)
     }
 }
 

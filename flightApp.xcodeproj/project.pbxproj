@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D4B9AC524657F4D00798332 /* screenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4B9AC424657F4D00798332 /* screenSize.swift */; };
 		5DAFCC3B245AF78100B02E0A /* RKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFCC34245AF78100B02E0A /* RKViewController.swift */; };
 		5DAFCC3C245AF78100B02E0A /* RKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFCC35245AF78100B02E0A /* RKManager.swift */; };
 		5DAFCC3D245AF78100B02E0A /* RKWeekdayHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFCC36245AF78100B02E0A /* RKWeekdayHeader.swift */; };
@@ -48,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5D4B9AC424657F4D00798332 /* screenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = screenSize.swift; sourceTree = "<group>"; };
 		5DAFCC34245AF78100B02E0A /* RKViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKViewController.swift; sourceTree = "<group>"; };
 		5DAFCC35245AF78100B02E0A /* RKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKManager.swift; sourceTree = "<group>"; };
 		5DAFCC36245AF78100B02E0A /* RKWeekdayHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKWeekdayHeader.swift; sourceTree = "<group>"; };
@@ -171,10 +173,10 @@
 			isa = PBXGroup;
 			children = (
 				5DC18F3F244269ED00450A77 /* ContentView.swift */,
+				5DC18F6A24426B9300450A77 /* TripRowView.swift */,
 				5DC18F6424426B5600450A77 /* FlightCardView.swift */,
 				5DC18F6624426B6A00450A77 /* InfoCardView.swift */,
 				5DC18F6824426B7D00450A77 /* PagedView.swift */,
-				5DC18F6A24426B9300450A77 /* TripRowView.swift */,
 				5DE43A5C24462EBD0068EDC9 /* favouriteCardView.swift */,
 				5DC52117244C8510004F7609 /* TrackableScrollView.swift */,
 				5DC52119244C8825004F7609 /* TopBarView.swift */,
@@ -198,6 +200,7 @@
 			children = (
 				5DC18F6D24426C0E00450A77 /* colorDeclaration.swift */,
 				5DE43A5E24462FCC0068EDC9 /* gradientDecloration.swift */,
+				5D4B9AC424657F4D00798332 /* screenSize.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 				5DAFCC3B245AF78100B02E0A /* RKViewController.swift in Sources */,
 				5DC5211A244C8825004F7609 /* TopBarView.swift in Sources */,
 				5DC18F6524426B5600450A77 /* FlightCardView.swift in Sources */,
+				5D4B9AC524657F4D00798332 /* screenSize.swift in Sources */,
 				5DC18F6724426B6A00450A77 /* InfoCardView.swift in Sources */,
 				5DD0B8FB245747DB001A0C49 /* SearchPageView.swift in Sources */,
 				5DAFCC41245AF78100B02E0A /* RKDate.swift in Sources */,
