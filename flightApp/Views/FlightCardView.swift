@@ -27,7 +27,7 @@ class CurveBoxVM : ObservableObject{
 			}).resume()
 	}
 }
-struct CurveBox : View {
+final class CurveBox : View {
 	@ObservedObject var vm = CurveBoxVM();
 	init(flight:FlightModel ) {
 		self.flight = flight

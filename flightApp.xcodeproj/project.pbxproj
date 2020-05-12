@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D37A608246ACCFC00FF16E1 /* favouriteListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37A607246ACCFC00FF16E1 /* favouriteListModel.swift */; };
+		5D37A60A246AEA0900FF16E1 /* TripListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37A609246AEA0900FF16E1 /* TripListModel.swift */; };
+		5D37A60C246AEA9900FF16E1 /* APIListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37A60B246AEA9900FF16E1 /* APIListModel.swift */; };
 		5D4B9AC524657F4D00798332 /* screenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4B9AC424657F4D00798332 /* screenSize.swift */; };
 		5DAFCC3B245AF78100B02E0A /* RKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFCC34245AF78100B02E0A /* RKViewController.swift */; };
 		5DAFCC3C245AF78100B02E0A /* RKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFCC35245AF78100B02E0A /* RKManager.swift */; };
@@ -49,6 +52,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5D37A607246ACCFC00FF16E1 /* favouriteListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favouriteListModel.swift; sourceTree = "<group>"; };
+		5D37A609246AEA0900FF16E1 /* TripListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripListModel.swift; sourceTree = "<group>"; };
+		5D37A60B246AEA9900FF16E1 /* APIListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIListModel.swift; sourceTree = "<group>"; };
 		5D4B9AC424657F4D00798332 /* screenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = screenSize.swift; sourceTree = "<group>"; };
 		5DAFCC34245AF78100B02E0A /* RKViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKViewController.swift; sourceTree = "<group>"; };
 		5DAFCC35245AF78100B02E0A /* RKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKManager.swift; sourceTree = "<group>"; };
@@ -191,6 +197,9 @@
 			children = (
 				5DC18F6024426B1800450A77 /* FlightModel.swift */,
 				5DC18F6224426B2200450A77 /* TripModel.swift */,
+				5D37A607246ACCFC00FF16E1 /* favouriteListModel.swift */,
+				5D37A609246AEA0900FF16E1 /* TripListModel.swift */,
+				5D37A60B246AEA9900FF16E1 /* APIListModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -306,6 +315,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D37A60C246AEA9900FF16E1 /* APIListModel.swift in Sources */,
+				5D37A60A246AEA0900FF16E1 /* TripListModel.swift in Sources */,
 				5DE43A5D24462EBD0068EDC9 /* favouriteCardView.swift in Sources */,
 				5DC18F6924426B7D00450A77 /* PagedView.swift in Sources */,
 				5DC18F6124426B1800450A77 /* FlightModel.swift in Sources */,
@@ -331,6 +342,7 @@
 				5DC52118244C8510004F7609 /* TrackableScrollView.swift in Sources */,
 				5DAFCC3D245AF78100B02E0A /* RKWeekdayHeader.swift in Sources */,
 				5DAFCC3F245AF78100B02E0A /* RKCell.swift in Sources */,
+				5D37A608246ACCFC00FF16E1 /* favouriteListModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

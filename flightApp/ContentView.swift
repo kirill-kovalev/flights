@@ -10,6 +10,11 @@ import SwiftUI
 
 
 struct ContentView: View {
+	init() {
+		let model = APIListModel()
+		model.load()
+		print(model.triplist)
+	}
     
     @State var index:Int = 0
 	
