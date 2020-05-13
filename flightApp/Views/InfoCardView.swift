@@ -31,7 +31,7 @@ struct InfoCardView: View {
                         VStack(alignment: .leading){
                             ForEach(  ((i*7) ... ( self.cities.count - 1 ))  ,id: \.self){ city in
                                 VStack{ if(city < ((i+1)*7)){
-									Text("\(self.cities[city])").font(.system(size: 18)).fontWeight(.semibold).foregroundColor(.kirillGray)
+									Text("\(self.cities[city])").font(.system(size: 18)).fontWeight(.semibold).foregroundColor(.kirillGray).padding(EdgeInsets(top: 2, leading: 0, bottom: 2, trailing: 0))
                                 }}
                             }
                         }

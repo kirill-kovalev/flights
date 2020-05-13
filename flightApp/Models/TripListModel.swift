@@ -9,23 +9,19 @@
 import Foundation
 
 class TripListModel{
-	private var _triplist:[TripModel] = []
-	var triplist:[TripModel] {
-		get{
-			return self._triplist
-		}
-	}
+	var triplist:[TripModel] = []
+	
 	
 	public func add(_ item:TripModel){
-		self._triplist.append(item)
+		self.triplist.append(item)
 		
 	}
 	
 	public func remove(_ id:UUID) -> Bool{
 		var i = 0;
-		while(i < self._triplist.count){
-			if self._triplist[i].localID == id {
-				self._triplist.remove(at: i);
+		while(i < self.triplist.count){
+			if self.triplist[i].localID == id {
+				self.triplist.remove(at: i);
 			}
 			i+=1;
 		}

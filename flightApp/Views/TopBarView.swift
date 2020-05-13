@@ -8,30 +8,53 @@
 
 import SwiftUI
 
+
+class TopBarVM:ObservableObject {
+	
+	var Date1:Date {return rkManager1.selectedDate ?? Date()}
+	var Date2:Date {return rkManager2.selectedDate ?? Date()}
+	
+	var rkManager1:RKManager = RKManager(calendar: Calendar.current, minimumDate: Date(), maximumDate:  Date().addingTimeInterval(60*60*24*30*3), mode: 0)
+	var rkManager2:RKManager { return RKManager(calendar: Calendar.current, minimumDate: Date1 , maximumDate: Date().addingTimeInterval(60*60*24*30*3), mode: 0)}
+	
+	
+	init() {
+		self.dateFormatter.dateStyle = .long
+	}
+	
+	private let dateFormatter = DateFormatter();
+	
+	
+	var displayDate1:String {
+		return self.dateFormatter.string(from: Date1)
+	}
+	var displayDate2:String {
+		let date = rkManager2.selectedDate ?? Date().addingTimeInterval(7*60*60*24)
+		return self.dateFormatter.string(from: date)
+	}
+	
+
+	
+	
+	
+	
+	
+}
+
+
+
 struct TopBarView: View {
 	var searchAction : ()->Void 
 	var favouriteAction : ()->Void
 	
 	@State var presentDatePicker1:Bool = false
 	@State var presentDatePicker2:Bool = false
-	var rkManager1: RKManager {
-		return RKManager(calendar: Calendar.current, minimumDate: Date(), maximumDate: rkManager2.selectedDate ?? Date().addingTimeInterval(7*60*60*24), mode: 0)
-	}
-	var rkManager2:RKManager {
-		return RKManager(calendar: Calendar.current, minimumDate: Date() , maximumDate: Date().addingTimeInterval(60*60*24*365), mode: 0)
-	}
-	var displayDate1:String {
-		let date = rkManager1.selectedDate ?? Date()
-		let df = DateFormatter()
-		df.dateStyle = .long
-		return df.string(from: date)
-	}
-	var displayDate2:String {
-		let date = rkManager2.selectedDate ?? Date().addingTimeInterval(7*60*60*24)
-		let df = DateFormatter()
-		df.dateStyle = .long
-		return df.string(from: date)
-	}
+	
+	var vm = TopBarVM()
+	@State var budget:String = ""
+	
+	
+
 	
 	@State var presentLocationPicker:Bool = false
 	
@@ -46,13 +69,13 @@ struct TopBarView: View {
 					Spacer()
 				}
 				Button(action: {self.presentDatePicker1.toggle()}){
-					Text("\(displayDate1)")
+					Text("\(vm.displayDate1)")
 					Spacer()
 					Image(systemName: "calendar").foregroundColor(.kirillGray)
 				}.font(.largeTitle).foregroundColor(.cityGray)
 				.padding([.top,.bottom],5)
 				.sheet(isPresented: self.$presentDatePicker1){
-					RKViewController(isPresented: self.$presentDatePicker1, rkManager: self.rkManager1)
+					RKViewController(isPresented: self.$presentDatePicker1, rkManager: self.vm.rkManager1)
 				}
 				
 				
@@ -62,13 +85,13 @@ struct TopBarView: View {
 					Spacer()
 				}
 				Button(action: {self.presentDatePicker2.toggle()}){
-					Text("\(displayDate2)")
+					Text("\(vm.displayDate2)")
 					Spacer()
 					Image(systemName: "calendar").foregroundColor(.kirillGray)
 				}.font(.largeTitle).foregroundColor(.cityGray)
 					.padding([.top,.bottom],5)
 					.sheet(isPresented: self.$presentDatePicker2){
-						RKViewController(isPresented: self.$presentDatePicker2, rkManager: self.rkManager2)
+						RKViewController(isPresented: self.$presentDatePicker2, rkManager: self.vm.rkManager2)
 				}
 				
 				
@@ -79,7 +102,7 @@ struct TopBarView: View {
 				}
 				
 				HStack(spacing:0){
-					TextField("000 ₽", text: .constant(""))
+					TextField("000 ₽", text: self.$budget)
 					.padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 0))
 					.font(.title).keyboardType(.numberPad)
 					
@@ -109,7 +132,8 @@ struct TopBarView: View {
 						Text("Поехали!").font(.title).fontWeight(.bold).foregroundColor(.baseWhite).padding(15)
 						Spacer()
 					}.background(Color.blue)
-						.padding(EdgeInsets(top: 0, leading: -20, bottom: -20, trailing: 0))
+					.padding(EdgeInsets(top: 0, leading: -20, bottom: -20, trailing: 0))
+						//.disabled(!self.vm.readyToGo)
 					Button(action: favouriteAction){
 						Image(systemName: "star.circle").resizable().scaledToFit().foregroundColor(.kirillGray)
 							.padding(10)

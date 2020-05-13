@@ -10,6 +10,12 @@ import SwiftUI
 class CurveBoxVM : ObservableObject{
 	@Published var image:UIImage = UIImage(imageLiteralResourceName: "companyBG")
 	
+	init(url:String) {
+		loadImage(url: url)
+	}
+	init(){
+		
+	}
 	func loadImage(url:String){
 		guard let Url  = URL(string: url) else {return}
 		print("loading with \(url)")
@@ -27,11 +33,11 @@ class CurveBoxVM : ObservableObject{
 			}).resume()
 	}
 }
-final class CurveBox : View {
+struct CurveBox : View {
 	@ObservedObject var vm = CurveBoxVM();
 	init(flight:FlightModel ) {
 		self.flight = flight
-		self.vm.loadImage(url: flight.companyLogoLink)
+		self.vm.loadImage(url:flight.companyLogoLink )
 	}
 	var flight:FlightModel
 	
@@ -44,7 +50,7 @@ final class CurveBox : View {
 				Text(flight.startAirport).font(.system(size: 22)).fontWeight(.bold).foregroundColor(.baseBlack).padding(.bottom, 10)
 				Spacer()
 				VStack{
-					Image(uiImage: vm.image).background(Color(.brown)).cornerRadius(16).frame(width: 32, height: 32, alignment: .center)
+					Image(uiImage: self.vm.image).cornerRadius(16).frame(width: 32, height: 32, alignment: .center)
 					Text(flight.companyName).font(.system(size: 17)).foregroundColor(.cityGray)
 				}
 				Spacer()
@@ -83,8 +89,10 @@ struct FlightCardView :View {
 						Text("\(self.flight.cityStart) \n\(self.flight.cityEnd)")
 							.font(.largeTitle).fontWeight(.heavy).foregroundColor(.baseBlack).frame(minHeight: 82)
 						Spacer()
-					}.padding(.bottom,-30)
-					Spacer().frame( maxHeight: 37)
+					}//.padding(.bottom,-30)
+					
+					Spacer()//.frame( maxHeight: 37)
+					
 					VStack{
 						HStack(alignment: .firstTextBaseline){
 							Text("Время вылета").font(.headline).fontWeight(.regular).foregroundColor(.baseBlack)
@@ -100,8 +108,8 @@ struct FlightCardView :View {
 							Spacer()
 							Text("\(self.takeOffDate)").font(.subheadline).foregroundColor(.cityGray)
 						}.padding(.top, 5)
-					}
-					VStack{
+					
+					
 						HStack(alignment: .firstTextBaseline){
 							Text("Время прилета").font(.headline).fontWeight(.regular).foregroundColor(.baseBlack)
 							Spacer()
@@ -118,6 +126,7 @@ struct FlightCardView :View {
 						}.padding(.top,5)
 					}
 					self.hrSpacer
+					
 					CurveBox(flight: self.flight).opacity((proxy.size.height > 650) ? 1 :0)
 					 .frame( maxHeight:(proxy.size.height > 650) ? .infinity :0)
 						

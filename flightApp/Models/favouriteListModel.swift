@@ -8,12 +8,10 @@
 
 import Foundation
 class favouriteListModel :TripListModel{
-	func load() -> Bool {
+	func load() {
 		
-		return false;
 	}
-	func save() -> Bool {
+	func save(){
 		
-		return false;
 	}
 }

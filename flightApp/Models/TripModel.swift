@@ -9,7 +9,7 @@
 import Foundation
 
 struct TripModel: Encodable,Decodable,Hashable {
-	var localID = UUID()
+	var localID:UUID? = UUID()
     var days:Int = 0;
     var cityList:[String] = []
 	var fligts:[FlightModel] = []

@@ -8,20 +8,26 @@
 
 import SwiftUI
 
+class FavVM :ObservableObject{
+	@Published var trips = favouriteListModel();
+	
+}
+
 struct FavPageView: View {
 	@Binding var isFavContent:Bool
+	
+	
+	@ObservedObject var vm = FavVM()
     var body: some View {
 		
 		ZStack(alignment: .topLeading){
 			
-			
-//			TrackableScrollView(.vertical, showIndicators: false, contentOffset: .constant(0)){
-//				ForEach((0...2),id:\.self)
-//				{ id in
-//					TripRowView()
-//				}
-//
-//			}.padding(.top,20)
+			TrackableScrollView(.vertical, showIndicators: false, contentOffset: .constant(0)){
+				ForEach(self.vm.trips.triplist, id: \.self){ tripM in
+					TripRowView(tripInfo: tripM)
+				}
+
+			}.padding(.top,20)
 			
 			HStack(spacing:10){
 				

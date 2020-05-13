@@ -9,7 +9,7 @@
 import Foundation
 
 struct FlightModel: Encodable,Decodable,Hashable {
-	var localID = UUID()
+	var localID:UUID? = UUID()
     var cityStart:String = ""
     var cityEnd:String = ""
     var takeoffTime:Date?

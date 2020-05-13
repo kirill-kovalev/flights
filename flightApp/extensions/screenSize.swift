@@ -14,3 +14,9 @@ extension UIApplication {
 	static public var screenHeight:CGFloat { return (UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.safeAreaLayoutGuide.layoutFrame.height)}
 
 }
+
+extension UIApplication {
+	func endEditing() {
+		sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+	}
+}

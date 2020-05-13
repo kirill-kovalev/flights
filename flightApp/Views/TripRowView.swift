@@ -22,8 +22,7 @@ struct TripRowView: View {
 
 	var body: some View {
 		ZStack{
-			//Rectangle().foregroundColor(.clear)
-		PagedView(.horizontal, maxIndex: 20, index: self.$index, contentOffset: self.$offset,action:{ ended in
+			PagedView(.horizontal, maxIndex: tripInfo.fligts.count , index: self.$index, contentOffset: self.$offset,action:{ ended in
 			if ended {
 				self.gestureActive = true
 			} else {
@@ -44,15 +43,14 @@ struct TripRowView: View {
 				FlightCardView(flight:flight).frame(width: UIApplication.screenWidth)
 					
 				}
-			}.frame(width: UIApplication.screenWidth,height: calculateHeight(offset: self.offset))//,height: CGFloat()
-			//Text("\(self.offset)\n\(self.isFavourite ? "true" : "false")")
+			}.frame(width: UIApplication.screenWidth,height: calculateHeight(offset: self.offset))
 		}
 
 
 
 	}
 
-	func calculateHeight(offset:CGFloat) -> CGFloat {
+	private func calculateHeight(offset:CGFloat) -> CGFloat {
 		
 		if offset >= UIApplication.screenWidth {
 			return  UIApplication.screenHeight

@@ -10,11 +10,10 @@ import SwiftUI
 
 
 struct ContentView: View {
-	init() {
-		let model = APIListModel()
-		model.load()
-		print(model.triplist)
-	}
+	
+
+	
+	
     
     @State var index:Int = 0
 	
@@ -29,9 +28,13 @@ struct ContentView: View {
 			SearchPageView(isFavContent: $isFavContent)
 			FavPageView(isFavContent: $isFavContent)
 			
+			
 
 		}.offset(x: self.isFavContent ? -1 * UIApplication.screenWidth / 2 : UIApplication.screenWidth / 2 )
 			.edgesIgnoringSafeArea(.bottom).padding(.top,-10)
+			.gesture(TapGesture().onEnded({
+				UIApplication.shared.endEditing()
+			}))
 
     }
 }
