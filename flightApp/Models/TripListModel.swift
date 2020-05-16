@@ -9,7 +9,19 @@
 import Foundation
 
 class TripListModel{
-	var triplist:[TripModel] = []
+    var triplist:[TripModel] = [] {
+        didSet{
+           
+            (self.loadCompletion ?? handler)(nil)
+        }
+    }
+    private func handler(er:Error?) -> Void {
+        print("set triplist for \(self)")
+        print("______________________________")
+        print(triplist)
+        print("______________________________")
+    }
+    var loadCompletion:((Error?)->Void)? = nil
 	
 	
 	public func add(_ item:TripModel){

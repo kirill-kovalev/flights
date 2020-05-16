@@ -118,7 +118,7 @@ struct TopBarView: View {
 				}.background(Color.baseWhite.opacity(0.8))
 				.padding(.bottom,15).padding(.trailing,-10)
 				.sheet(isPresented: self.$presentLocationPicker){
-						Text("Picker")
+						LocationPickerView()
 				}
 				
 				

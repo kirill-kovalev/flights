@@ -8,26 +8,18 @@
 
 import SwiftUI
 
-class SearchVM : ObservableObject{
-	@Published var trips = APIListModel()
 
-}
 
 struct SearchPageView: View {
 	@State var offset:CGFloat = 10;
 	@State var index:Int = 0
 	@State var hasContent:Bool = false;
 	
-	@Binding var isFavContent:Bool
 	
-	@ObservedObject var vm = SearchVM();
+    @ObservedObject var vm:AppVM;
 	
-	//@ObservedObject var api = APIListModel();
-	init(isFavContent:Binding<Bool>) {
-		self._isFavContent = isFavContent
-		self.vm.trips.load()
-		
-	}
+	
+
 
     var body: some View {
 		ZStack(alignment: .topTrailing){
@@ -35,27 +27,28 @@ struct SearchPageView: View {
 			TrackableScrollView(.vertical, showIndicators: false, contentOffset: $offset){
 				Spacer()
 				TopBarView(searchAction: {
-					withAnimation{
-						if(self.vm.trips.triplist.count > 0){
-							self.hasContent = true
-						}
-						self.vm.trips.load()
-						
-					}
 					
+                    self.vm.apiList.load { _ in
+                        withAnimation{
+                            self.hasContent = !self.vm.apiList.triplist.isEmpty
+                        }
+                        
+                    }
+					
+
 				}, favouriteAction: {
 					withAnimation(){
-						self.isFavContent = true
+                        self.vm.isFavContent = true
 					}
-				}).frame(height: self.hasContent ? 390 : UIApplication.screenHeight)
+                }).frame(height: self.hasContent ? 390 : UIApplication.screenHeight)
 				
-				
-				if(self.hasContent){
+                if(self.hasContent){
+                    ForEach(self.vm.apiList.triplist, id: \.self){ tripM in
+                        TripRowView(vm: self.vm,tripInfo: tripM)
+                    }
+                }
+                
 
-					ForEach(self.vm.trips.triplist, id: \.self){ tripM in
-						TripRowView(tripInfo: tripM)
-					}
-				}
 				
 				
 			}
@@ -88,6 +81,6 @@ struct SearchPageView: View {
 
 struct SearchPageView_Previews: PreviewProvider {
     static var previews: some View {
-		SearchPageView(isFavContent: .constant(true))
+		SearchPageView(vm: AppVM())
     }
 }

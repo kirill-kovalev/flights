@@ -8,32 +8,42 @@
 
 import SwiftUI
 
-class FavVM :ObservableObject{
-	@Published var trips = favouriteListModel();
-	
-}
+
+
 
 struct FavPageView: View {
-	@Binding var isFavContent:Bool
-	
-	
-	@ObservedObject var vm = FavVM()
+	@ObservedObject var vm:AppVM;
+
     var body: some View {
 		
 		ZStack(alignment: .topLeading){
-			
-			TrackableScrollView(.vertical, showIndicators: false, contentOffset: .constant(0)){
-				ForEach(self.vm.trips.triplist, id: \.self){ tripM in
-					TripRowView(tripInfo: tripM)
-				}
+            if !self.vm.favouriteList.triplist.isEmpty {
+                TrackableScrollView(.vertical, showIndicators: false, contentOffset: .constant(0)){
+                    ForEach(self.vm.favouriteList.triplist, id: \.self){ tripM in
+                        TripRowView(vm: self.vm, tripInfo: tripM)
+                    }
 
-			}.padding(.top,20)
+                }.padding(.top,20)
+            }else{
+                HStack{
+                    Spacer()
+                    VStack{
+                        Spacer()
+                        Text("Список избранного пуст").font(.largeTitle).fontWeight(.semibold).foregroundColor(.baseBlack).multilineTextAlignment(.center)
+                        
+                        Spacer()
+                        Spacer()
+                    }
+                    Spacer()
+                }
+            }
+			
 			
 			HStack(spacing:10){
 				
 				Button(action: {
 					withAnimation(){
-						self.isFavContent = false
+                        self.vm.isFavContent = false
 					}
 				}){
 					Image(systemName: "chevron.left.circle").resizable().frame(width: 50, height: 50).foregroundColor(.kirillGray).padding(5).background(Color.baseWhite).cornerRadius(100).shadow(radius: 10)
@@ -41,12 +51,12 @@ struct FavPageView: View {
 				
 			}.padding(15)
 			
-		}.frame(width: UIApplication.screenWidth)
+        }.frame(width: UIApplication.screenWidth)
     }
 }
 
 struct FavPageView_Previews: PreviewProvider {
     static var previews: some View {
-		FavPageView(isFavContent: .constant(true))
+        FavPageView(vm: AppVM())
     }
 }

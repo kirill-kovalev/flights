@@ -9,12 +9,26 @@
 import SwiftUI
 
 struct TripRowView: View {
-	@State var offset:CGFloat = 0
-    @State var index:Int = 0
+    
+    @ObservedObject var vm:AppVM;
+    var tripInfo:TripModel
+    
+    @State var offset:CGFloat = 0;
+    @State var index:Int = 0;
 	@State var isFavourite = false;
 	@State var gestureActive:Bool = true;
 	
-	var tripInfo:TripModel
+    init(vm:AppVM,tripInfo:TripModel) {
+        self.vm = vm
+        self.tripInfo = tripInfo
+
+        for t in vm.favouriteList.triplist {
+            if t.localID == self.tripInfo.localID{
+                self.isFavourite.toggle()
+            }
+        }
+        
+    }
 	
 	
 
@@ -30,6 +44,22 @@ struct TripRowView: View {
 				if self.offset > 170 , self.gestureActive {
 					withAnimation{
 						self.isFavourite.toggle()
+                        if self.isFavourite {
+                            self.vm.favouriteList.triplist.append(self.tripInfo)
+                        }else{
+                            var i = 0;
+                            print("___________________________________________________\nfavourites (\(self.vm.favouriteList.triplist.count)):\n")
+                            print(self.vm.favouriteList.triplist)
+                            for t in self.vm.favouriteList.triplist{
+
+                                if t.localID == self.tripInfo.localID{
+                                    self.vm.favouriteList.triplist.remove(at: i)
+                                    print("remove at \(i)")
+                                    break;
+                                }
+                                i += 1;
+                            }
+                        }
 					}
 					
 					self.gestureActive = false
@@ -72,12 +102,12 @@ struct TripRowView: View {
 struct TripRowView_Previews: PreviewProvider {
 
     static var previews: some View {
-		TripRowView( tripInfo: TripModel(days: 5, cityList: ["Москва","Грозный","Махачкала","Магас","Нальчик"], fligts: [
-			FlightModel(cityStart: "Санкт-Петербург", cityEnd: "Москва", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""),
-			FlightModel(cityStart: "Москва", cityEnd: "Грозный", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""),
-			FlightModel(cityStart: "Грозный", cityEnd: "Махачкала", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""),
-			FlightModel(cityStart: "Махачкала", cityEnd: "Магас", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""),
-			FlightModel(cityStart: "Магас", cityEnd: "Нальчик", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""),
-		]))
+        TripRowView( vm: AppVM(), tripInfo: TripModel(days: 5, cityList: ["Москва","Грозный","Махачкала","Магас","Нальчик"], fligts: [
+            FlightModel(cityStart: "Санкт-Петербург", cityEnd: "Москва", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""),
+            FlightModel(cityStart: "Москва", cityEnd: "Грозный", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""),
+            FlightModel(cityStart: "Грозный", cityEnd: "Махачкала", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""),
+            FlightModel(cityStart: "Махачкала", cityEnd: "Магас", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""),
+            FlightModel(cityStart: "Магас", cityEnd: "Нальчик", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""),
+        ]))
     }
 }

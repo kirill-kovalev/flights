@@ -8,15 +8,17 @@
 
 import Foundation
 
-class APIListModel: TripListModel {
+class APIListModel: TripListModel{
 	
-	func load(){
+    func load(completion: ((Error?)->Void)? = nil){
+        self.loadCompletion = completion
 		print("starting load")
 		
 		
 		self.triplist = []
 		
-		for i in (0...1) {
+		for i in (0...0) {
+            let _ = i
 			guard let url = URL(string: "https://extendsclass.com/api/json-storage/bin/cdfabfc") else {
 				print("Error in generating url")
 				return;
@@ -35,9 +37,10 @@ class APIListModel: TripListModel {
 								decodedJSON[j].fligts[i].localID = UUID()
 							}
 						}
-						
+//                        self.triplist = decodedJSON
+                        print("decoded -> triplist")
 						self.triplist.append(contentsOf:decodedJSON)
-						//print(decodedJSON)
+                        
 					}catch{
 						print(error)
 					}

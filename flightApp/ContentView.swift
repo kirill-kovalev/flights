@@ -8,29 +8,38 @@
 
 import SwiftUI
 
+class AppVM: ObservableObject {
+    @Published var favouriteList = favouriteListModel();
+    @Published var apiList = APIListModel()
+    @Published var isFavContent:Bool = false
+    @State var hasAPIContent = false
+    init() {
+        self.apiList.loadCompletion = { err in
+            
+            self.hasAPIContent = !self.apiList.triplist.isEmpty
+        }
+    }
+}
+
 
 struct ContentView: View {
 	
 
-	
-	
-    
     @State var index:Int = 0
-	
-	@State var isFavContent:Bool = false
-	
+
+    @ObservedObject var appVm = AppVM()
 	
     var body: some View {
         
 		HStack(spacing:0){
 			
 		
-			SearchPageView(isFavContent: $isFavContent)
-			FavPageView(isFavContent: $isFavContent)
+            SearchPageView(vm: self.appVm)
+            FavPageView(vm: self.appVm)
 			
 			
 
-		}.offset(x: self.isFavContent ? -1 * UIApplication.screenWidth / 2 : UIApplication.screenWidth / 2 )
+		}.offset(x:  self.appVm.isFavContent ? -1 * UIApplication.screenWidth / 2 : UIApplication.screenWidth / 2 )
 			.edgesIgnoringSafeArea(.bottom).padding(.top,-10)
 			.gesture(TapGesture().onEnded({
 				UIApplication.shared.endEditing()
