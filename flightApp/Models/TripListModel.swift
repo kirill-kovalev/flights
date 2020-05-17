@@ -23,13 +23,26 @@ class TripListModel{
     }
     var loadCompletion:((Error?)->Void)? = nil
 	
+    public func contains(_ item:TripModel)->Bool{
+        for i in self.triplist {
+            if i.localID == item.localID{
+                return true
+            }
+        }
+        return false
+    }
 	
 	public func add(_ item:TripModel){
+        for i in self.triplist {
+            if i.localID == item.localID{
+                return
+            }
+        }
 		self.triplist.append(item)
 		
 	}
 	
-	public func remove(_ id:UUID) -> Bool{
+	public func remove(_ id:UUID?) -> Bool{
 		var i = 0;
 		while(i < self.triplist.count){
 			if self.triplist[i].localID == id {

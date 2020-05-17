@@ -14,7 +14,7 @@ struct LocationPickerView: View {
     var body: some View {
         VStack{
             HStack{
-                TextField("Название аэропорта", text: self.$airport).font(.title).keyboardType(.alphabet)
+                TextField("Название аэропорта", text: self.$airport).font(.title)
                 Button(action: {}){
                     Image(systemName: "location.fill").padding(5).background(Color.white)
                 }
@@ -23,6 +23,11 @@ struct LocationPickerView: View {
             List(self.airportList,id: \.self){ text in
                 Text(text)
             }
+            Button(action: {}){
+                Spacer()
+                Text("OK").foregroundColor(.baseWhite).font(.title)
+                Spacer()
+            }.padding().background(Color.blue).cornerRadius(10).padding()
         }.foregroundColor(.baseBlack)
     }
 }

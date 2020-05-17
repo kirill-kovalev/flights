@@ -28,7 +28,7 @@ struct favouriteCardView: View {
         .shadow(color: Color(UIColor(red: 0, green: 0, blue: 0, alpha: 0.15)), radius: 13, x: 0, y: 4)
 		.padding(17)
 		.padding(.leading,-284)
-		//
+		
         
 	}
 }

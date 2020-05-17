@@ -22,10 +22,8 @@ struct TripRowView: View {
         self.vm = vm
         self.tripInfo = tripInfo
 
-        for t in vm.favouriteList.triplist {
-            if t.localID == self.tripInfo.localID{
-                self.isFavourite.toggle()
-            }
+        if self.vm.favouriteList.contains(self.tripInfo) {
+            self._isFavourite = State<Bool>(initialValue: true)
         }
         
     }
@@ -45,20 +43,12 @@ struct TripRowView: View {
 					withAnimation{
 						self.isFavourite.toggle()
                         if self.isFavourite {
-                            self.vm.favouriteList.triplist.append(self.tripInfo)
+                            self.vm.favouriteList.add(self.tripInfo)
                         }else{
-                            var i = 0;
                             print("___________________________________________________\nfavourites (\(self.vm.favouriteList.triplist.count)):\n")
                             print(self.vm.favouriteList.triplist)
-                            for t in self.vm.favouriteList.triplist{
-
-                                if t.localID == self.tripInfo.localID{
-                                    self.vm.favouriteList.triplist.remove(at: i)
-                                    print("remove at \(i)")
-                                    break;
-                                }
-                                i += 1;
-                            }
+                            
+                            let _ = self.vm.favouriteList.remove(self.tripInfo.localID)
                         }
 					}
 					
@@ -68,11 +58,11 @@ struct TripRowView: View {
 		}){
 				favouriteCardView(isSet: self.$isFavourite)
 				InfoCardView(cities: self.tripInfo.cityList,days:self.tripInfo.days,price:self.tripInfo.price)
+            
 				ForEach( self.tripInfo.fligts , id:\.self ){flight in
-					
-				FlightCardView(flight:flight).frame(width: UIApplication.screenWidth)
-					
+					FlightCardView(flight:flight).frame(width: UIApplication.screenWidth)
 				}
+            
 			}.frame(width: UIApplication.screenWidth,height: calculateHeight(offset: self.offset))
 		}
 
