@@ -12,6 +12,7 @@ struct InfoCardView: View {
     var cities:[String] = [] ;
 	var days:Int
 	var price:Int
+    var bg:Gradient;
 	
 	
     var colCount:Int {return (cities.count - 1 )/7 };
@@ -19,7 +20,7 @@ struct InfoCardView: View {
     var body: some View {
         
         ZStack(alignment: .topLeading){
-            LinearGradient(gradient: .cardBG,startPoint: .top, endPoint: .bottom).cornerRadius(20)
+            LinearGradient(gradient: bg,startPoint: .top, endPoint: .bottom).cornerRadius(20)
                 
             VStack(alignment: .leading){
 				Text("\(cities.count) городов\nза \(days) дней").font(.largeTitle).fontWeight(.heavy).foregroundColor(.baseBlack).frame(minHeight: 82)
@@ -59,6 +60,6 @@ struct InfoCardView: View {
 struct InfoCardView_Previews: PreviewProvider {
     
     static var previews: some View {
-        InfoCardView(cities: ["Москва","Грозный","Махачкала","Магас","Нальчик","Элиста","Геленджик","Санкт-Петербург","2","2"],days: 1,price: 1 )
+        InfoCardView(cities: ["Москва","Грозный","Махачкала","Магас","Нальчик","Элиста","Геленджик","Санкт-Петербург","2","2"],days: 1,price: 1, bg: .cardBG )
     }
 }

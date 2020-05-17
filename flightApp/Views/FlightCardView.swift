@@ -24,7 +24,6 @@ class CurveBoxVM : ObservableObject{
 			guard let data = data else {return}
 			if error == nil {
 				DispatchQueue.main.async {
-					
 					self.image = UIImage(data: data) ?? UIImage(imageLiteralResourceName: "companyBG")
 				}
 					
@@ -65,6 +64,7 @@ struct CurveBox : View {
 struct FlightCardView :View {
 	
 	var flight: FlightModel
+    var bg:Gradient;
 	var takeOffTime: DateComponents { return Calendar.current.dateComponents(in: TimeZone.current, from:self.flight.takeoffTime ?? Date() )  }
 	var landingTime: DateComponents { return Calendar.current.dateComponents(in: TimeZone.current, from:self.flight.landingTime ?? Date() )  }
 	
@@ -82,7 +82,7 @@ struct FlightCardView :View {
     var body: some View {
 		GeometryReader{ proxy in
 			ZStack(alignment: .topLeading){
-				LinearGradient(gradient: .cardBG ,startPoint: .top, endPoint: .bottom).cornerRadius(20)
+                LinearGradient(gradient: self.bg ,startPoint: .top, endPoint: .bottom).cornerRadius(20)
 				
 				VStack{
 					HStack{
@@ -174,8 +174,9 @@ struct FlightCardView_Previews: PreviewProvider {
     static var previews: some View {
         
         VStack{
-			FlightCardView(flight: FlightModel(cityStart: "Санкт-Петербург", cityEnd: "Москва", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""))
-		}.frame(height:674)
+            FlightCardView(flight: FlightModel(cityStart: "Санкт-Петербург", cityEnd: "Москва", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""), bg: .cardBG)
+            FlightCardView(flight: FlightModel(cityStart: "Санкт-Петербург", cityEnd: "Москва", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""), bg: .favouriteBG)
+		}
         
     }
 }

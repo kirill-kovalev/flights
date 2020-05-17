@@ -57,10 +57,10 @@ struct TripRowView: View {
 			}
 		}){
 				favouriteCardView(isSet: self.$isFavourite)
-				InfoCardView(cities: self.tripInfo.cityList,days:self.tripInfo.days,price:self.tripInfo.price)
+				InfoCardView(cities: self.tripInfo.cityList,days:self.tripInfo.days,price:self.tripInfo.price,bg: self.isFavourite ? .favouriteBG: .cardBG)
             
 				ForEach( self.tripInfo.fligts , id:\.self ){flight in
-					FlightCardView(flight:flight).frame(width: UIApplication.screenWidth)
+                    FlightCardView(flight:flight, bg: self.isFavourite ? .favouriteBG: .cardBG).frame(width: UIApplication.screenWidth)
 				}
             
 			}.frame(width: UIApplication.screenWidth,height: calculateHeight(offset: self.offset))
