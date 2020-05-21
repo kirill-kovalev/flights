@@ -8,10 +8,30 @@
 
 import Foundation
 class favouriteListModel :TripListModel{
+	override init() {
+		super.init()
+		load()
+	}
 	func load() {
+		print("loading favourites")
+		
+		//self.triplist = (UserDefaults.standard.object(forKey: "Favourites") as! [TripModel]?) ?? []
+		do{
+			self.triplist = try JSONDecoder().decode([TripModel].self, from: UserDefaults.standard.data(forKey: "Favourites") ?? Data())
+		}catch{
+			print(error)
+		}
+	}
+	func save() {
+		print("saving favourites")
+		do{
+			UserDefaults.standard.set(try JSONEncoder().encode(self.triplist), forKey: "Favourites")
+		}catch{
+			print(error)
+		}
 		
 	}
-	func save(){
-		
+	deinit {
+		save()
 	}
 }
