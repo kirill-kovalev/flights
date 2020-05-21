@@ -95,12 +95,12 @@ struct PagedView<Content>: View where Content: View {
                 })
             
             )
-//            .onPreferenceChange(ScrollOffsetPreferenceKey.self){ value in
-//				DispatchQueue.main.async {
-//					self.contentOffset = value[0]
-//				}
-//                
-//            }
+            .onPreferenceChange(ScrollOffsetPreferenceKey.self){ value in
+				DispatchQueue.main.async {
+					self.contentOffset = value[0]
+				}
+                
+            }
         }.padding(0).frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     

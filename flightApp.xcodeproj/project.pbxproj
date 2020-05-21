@@ -10,6 +10,8 @@
 		5D37A608246ACCFC00FF16E1 /* favouriteListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37A607246ACCFC00FF16E1 /* favouriteListModel.swift */; };
 		5D37A60A246AEA0900FF16E1 /* TripListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37A609246AEA0900FF16E1 /* TripListModel.swift */; };
 		5D37A60C246AEA9900FF16E1 /* APIListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37A60B246AEA9900FF16E1 /* APIListModel.swift */; };
+		5D4337B62476D69C00545691 /* AirportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4337B52476D69C00545691 /* AirportModel.swift */; };
+		5D4337BC2476D7D400545691 /* airports.json in Resources */ = {isa = PBXBuildFile; fileRef = 5D4337BB2476D7D400545691 /* airports.json */; };
 		5D4B9AC524657F4D00798332 /* screenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4B9AC424657F4D00798332 /* screenSize.swift */; };
 		5DAFCC3B245AF78100B02E0A /* RKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFCC34245AF78100B02E0A /* RKViewController.swift */; };
 		5DAFCC3C245AF78100B02E0A /* RKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFCC35245AF78100B02E0A /* RKManager.swift */; };
@@ -56,6 +58,8 @@
 		5D37A607246ACCFC00FF16E1 /* favouriteListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favouriteListModel.swift; sourceTree = "<group>"; };
 		5D37A609246AEA0900FF16E1 /* TripListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripListModel.swift; sourceTree = "<group>"; };
 		5D37A60B246AEA9900FF16E1 /* APIListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIListModel.swift; sourceTree = "<group>"; };
+		5D4337B52476D69C00545691 /* AirportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportModel.swift; sourceTree = "<group>"; };
+		5D4337BB2476D7D400545691 /* airports.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = airports.json; sourceTree = "<group>"; };
 		5D4B9AC424657F4D00798332 /* screenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = screenSize.swift; sourceTree = "<group>"; };
 		5DAFCC34245AF78100B02E0A /* RKViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKViewController.swift; sourceTree = "<group>"; };
 		5DAFCC35245AF78100B02E0A /* RKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKManager.swift; sourceTree = "<group>"; };
@@ -110,6 +114,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D4337B72476D79100545691 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				5D4337B82476D79B00545691 /* JSON */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		5D4337B82476D79B00545691 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				5D4337BB2476D7D400545691 /* airports.json */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
 		5DAFCC33245AF78100B02E0A /* RKCalendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +165,7 @@
 		5DC18F37244269ED00450A77 /* flightApp */ = {
 			isa = PBXGroup;
 			children = (
+				5D4337B72476D79100545691 /* resources */,
 				5DAFCC33245AF78100B02E0A /* RKCalendar */,
 				5DC18F6C24426BF100450A77 /* extensions */,
 				5DC18F5E24426AE400450A77 /* Models */,
@@ -203,6 +224,7 @@
 				5D37A609246AEA0900FF16E1 /* TripListModel.swift */,
 				5D37A60B246AEA9900FF16E1 /* APIListModel.swift */,
 				5D37A607246ACCFC00FF16E1 /* favouriteListModel.swift */,
+				5D4337B52476D69C00545691 /* AirportModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -299,6 +321,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DC18F48244269EE00450A77 /* LaunchScreen.storyboard in Resources */,
+				5D4337BC2476D7D400545691 /* airports.json in Resources */,
 				5DC18F45244269EE00450A77 /* Preview Assets.xcassets in Resources */,
 				5DC18F42244269EE00450A77 /* Assets.xcassets in Resources */,
 			);
@@ -345,6 +368,7 @@
 				5DAFCC3E245AF78100B02E0A /* RKMonth.swift in Sources */,
 				5DC52118244C8510004F7609 /* TrackableScrollView.swift in Sources */,
 				5DAFCC3D245AF78100B02E0A /* RKWeekdayHeader.swift in Sources */,
+				5D4337B62476D69C00545691 /* AirportModel.swift in Sources */,
 				5DAFCC3F245AF78100B02E0A /* RKCell.swift in Sources */,
 				5D37A608246ACCFC00FF16E1 /* favouriteListModel.swift in Sources */,
 			);

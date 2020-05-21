@@ -58,6 +58,7 @@ struct TopBarView: View {
 	
 	@State var presentLocationPicker:Bool = false
 	
+		@State var kbSize:CGFloat = 0
 	
 	var w:CGFloat{ return UIApplication.screenWidth}
     var body: some View {
@@ -148,6 +149,24 @@ struct TopBarView: View {
 		.cornerRadius(20)
 		.padding(17)
 		.shadow(color: Color(UIColor(red: 0, green: 0, blue: 0, alpha: 0.15)), radius: 13, x: 0, y: 4)
+				
+				.padding(.top,-self.kbSize).onAppear(perform: {
+					NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main){ noti in
+						let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect;
+						let height = value.height
+						withAnimation{
+							self.kbSize = height
+							print(height)
+						}
+						
+					}
+					NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main){ _ in
+						withAnimation{
+							self.kbSize = 0
+							print("hidden")
+						}
+					}
+				})
 		
     }
 }

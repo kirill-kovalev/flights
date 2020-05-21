@@ -42,7 +42,7 @@ struct SearchPageView: View {
 					}
                 }).frame(height: self.hasContent ? 390 : UIApplication.screenHeight)
 				
-                if(self.hasContent){
+                if(!self.vm.apiList.triplist.isEmpty){
                     ForEach(self.vm.apiList.triplist, id: \.self){ tripM in
                         TripRowView(vm: self.vm,tripInfo: tripM)
                     }

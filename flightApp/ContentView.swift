@@ -13,8 +13,9 @@ class AppVM: ObservableObject {
     @Published var apiList = APIListModel()
     @Published var isFavContent:Bool = false
     @State var hasAPIContent = false
+	
     init() {
-        self.apiList.loadCompletion = { err in
+        self.apiList.loadCompletion = { _ in
             
             self.hasAPIContent = !self.apiList.triplist.isEmpty
         }
@@ -27,7 +28,7 @@ struct ContentView: View {
 
     @State var index:Int = 0
 
-    @ObservedObject var appVm = AppVM()
+	@ObservedObject var appVm:AppVM;
 	
     var body: some View {
         
@@ -50,6 +51,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-		ContentView()
+		ContentView(appVm: AppVM())
     }
 }
