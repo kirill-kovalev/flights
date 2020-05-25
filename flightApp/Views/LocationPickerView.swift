@@ -12,7 +12,6 @@ import CoreLocation
 class LPVM: NSObject, ObservableObject, CLLocationManagerDelegate{
 	let locationManager = CLLocationManager()
 	override init(){
-		self.text = ""
 		super.init()
 		locationManager.delegate = self
 		locationManager.requestWhenInUseAuthorization()
@@ -30,7 +29,9 @@ class LPVM: NSObject, ObservableObject, CLLocationManagerDelegate{
 			print(path)
 			do{
 				var d = try  Data(contentsOf: URL(fileURLWithPath: path))
-				self.airportList = try JSONDecoder().decode([Airport].self, from: d)
+				let fileAirportList = try JSONDecoder().decode([Airport].self, from: d)
+                //self.airportList = Array(fileAirportList[0..<20])
+                self.airportList = fileAirportList
 			}catch{
 				print(error)
 			}
@@ -52,39 +53,49 @@ class LPVM: NSObject, ObservableObject, CLLocationManagerDelegate{
 
 	
 	func location() {
-		print(self.airportList[0])
+        
 		var tmp = self.airportList
+       
 		let defaultCoordinates = Coord(lon: 0, lat: 0)
 		
 		DispatchQueue.global(qos: .background).async {
 			print("starting")
-			tmp.sort(by: {self.countDis(coordinates: $0.coordinates ?? defaultCoordinates) > self.countDis(coordinates: $1.coordinates ?? defaultCoordinates)})
+			tmp.sort(by: {self.countDis(coordinates: $0.coordinates ?? defaultCoordinates) < self.countDis(coordinates: $1.coordinates ?? defaultCoordinates)})
 			DispatchQueue.main.async {
 				print("sorted")
-				self.airportList = tmp
+                 self.airportList = []
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: 50)){
+                    self.airportList = tmp
+                }
+                
 			}
 		}
 		
 		
 	}
 	
-	func searchText(_ edited:Bool){
+    func searchText(_ str:String){
 	
-		if edited{
+
 			var a = self.airportList;
+            
 			DispatchQueue.global(qos: .background).async {
 				a.sort(by: {
-					let text = self.text.lowercased()
+					let text = str.lowercased()
 					
-					return self.levDis(text, $0.name.lowercased()) < self.levDis(text, $1.name.lowercased())
+					return self.levDis(text, $0.name.lowercased()) > self.levDis(text, $1.name.lowercased())
 					
 				})
-//				DispatchQueue.main.async {
-//					//self.airportList = a
-//				}
+				DispatchQueue.main.async {
+                    self.airportList = []
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: 10)){
+                        self.airportList = a
+                    }
+					
+				}
 			}
 			
-		}
+		
 		
 		
 	}
@@ -112,12 +123,8 @@ class LPVM: NSObject, ObservableObject, CLLocationManagerDelegate{
 	
 	@Published  var airportList:[Airport] = []
 	@Published var didFail = false
-	@State var text:String {
-		didSet{
-			print(text)
-		}
-	}
-	@State var curCoord = CLLocation()
+	
+	@Published var curCoord = CLLocation()
 }
 
 struct LocationPickerView: View {
@@ -126,7 +133,7 @@ struct LocationPickerView: View {
     
     
     @State var active = true
-	
+	@State var text:String = ""
 	
 
     
@@ -134,7 +141,11 @@ struct LocationPickerView: View {
     var body: some View {
         VStack{
             HStack{
-				TextField("Название аэропорта", text: self.vm.$text,onEditingChanged: self.vm.searchText).font(.title)
+                TextField("Название аэропорта", text: self.$text,onEditingChanged:{ edited in
+                    //if edited {
+                        self.vm.searchText(self.text)
+                    //}
+                }).font(.title)
 				Button(action: self.vm.location){
                     Image(systemName: "location.fill").padding(5).background(Color.white)
                 }
@@ -142,22 +153,22 @@ struct LocationPickerView: View {
             Divider()
             List(self.vm.airportList,id: \.self){ airport in
                 Button(action: {
-					self.vm.text = airport.name
+					//self.vm.text = airport.name
 				}){
 					HStack(alignment: .center){
 						Text(airport.name)
 						Spacer()
-						Text("\(self.vm.countDis(coordinates: airport.coordinates!)) КМ").font(.caption).fontWeight(.heavy).foregroundColor(.kirillGray)
+                        Text("\(self.vm.countDis(coordinates: airport.coordinates!)) КМ").font(.caption).fontWeight(.heavy).foregroundColor(.kirillGray)
 					}
 				}
                 
                 
             }
-            Button(action: {}){
-                Spacer()
-                Text("OK").foregroundColor(.baseWhite).font(.title)
-                Spacer()
-            }.padding().background(Color.blue).cornerRadius(10).padding()
+//            Button(action: {}){
+//                Spacer()
+//                Text("OK").foregroundColor(.baseWhite).font(.title)
+//                Spacer()
+//            }.padding().background(Color.blue).cornerRadius(10).padding()
         }.foregroundColor(.baseBlack)
 		
 			.alert(isPresented: .constant(self.vm.didFail)) {
