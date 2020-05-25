@@ -16271,11 +16271,7 @@
       "lat": 61.934723
     }
   },
-  {
-    "name": "Heliport",
-    "code": "PQT",
-    "coordinates": null
-  },
+
   {
     "name": "Парана",
     "code": "PRA",
@@ -22332,11 +22328,7 @@
       "lat": 56.27
     }
   },
-  {
-    "name": "Hassleholm",
-    "code": "XWP",
-    "coordinates": null
-  },
+
   {
     "name": "Вена (жд вокзал)",
     "code": "XWW",
@@ -22345,11 +22337,7 @@
       "lat": 48.2081743
     }
   },
-  {
-    "name": "Hedemora",
-    "code": "XXU",
-    "coordinates": null
-  },
+
   {
     "name": "Бурлэнге (жд вокзал)",
     "code": "XYB",
@@ -22382,11 +22370,7 @@
       "lat": 45.764043
     }
   },
-  {
-    "name": "Avesta Krylbo",
-    "code": "XYP",
-    "coordinates": null
-  },
+
   {
     "name": "Энгельхольм (жд вокзал)",
     "code": "XYQ",
@@ -22395,11 +22379,7 @@
       "lat": 56.2432
     }
   },
-  {
-    "name": "Sala",
-    "code": "XYX",
-    "coordinates": null
-  },
+
   {
     "name": "Авиньон (жд вокзал)",
     "code": "XZN",
@@ -23552,11 +23532,7 @@
       "lat": 47.629166
     }
   },
-  {
-    "name": "Балтимор (жд вокзал)",
-    "code": "ZBP",
-    "coordinates": null
-  },
+
   {
     "name": "Чехбехар",
     "code": "ZBR",
@@ -23893,11 +23869,7 @@
       "lat": 37.755833
     }
   },
-  {
-    "name": "Humen Port",
-    "code": "ZTI",
-    "coordinates": null
-  },
+
   {
     "name": "Шаматтава",
     "code": "ZTM",
@@ -23930,11 +23902,7 @@
       "lat": 42.3584308
     }
   },
-  {
-    "name": "Гаррисберг (жд вокзал)",
-    "code": "ZUG",
-    "coordinates": null
-  },
+
   {
     "name": "Чжухай",
     "code": "ZUH",
@@ -24127,11 +24095,7 @@
       "lat": 47.31
     }
   },
-  {
-    "name": "Aix-en-Provence TGV Railway Station",
-    "code": "QXB",
-    "coordinates": null
-  },
+
   {
     "name": "Аль-Айн (автовокзал)",
     "code": "ZVH",
@@ -24220,11 +24184,7 @@
       "lat": 49.21516
     }
   },
-  {
-    "name": "Hopa Bus Station",
-    "code": "XHQ",
-    "coordinates": null
-  },
+
   {
     "name": "Эселуйе",
     "code": "PGU",
@@ -24233,16 +24193,8 @@
       "lat": 27.383959
     }
   },
-  {
-    "name": "International Rail Station",
-    "code": "QDH",
-    "coordinates": null
-  },
-  {
-    "name": "Атлантик-Сити (жд вокзал)",
-    "code": "ZRA",
-    "coordinates": null
-  },
+
+
   {
     "name": "Байшань",
     "code": "NBS",
@@ -24283,11 +24235,7 @@
       "lat": 40.078537
     }
   },
-  {
-    "name": "Bath Spa Railway Station",
-    "code": "QQX",
-    "coordinates": null
-  },
+
   {
     "name": "Бауру",
     "code": "JTC",
@@ -24488,11 +24436,7 @@
       "lat": 34.19619
     }
   },
-  {
-    "name": "Burgos Bus Station",
-    "code": "XJU",
-    "coordinates": null
-  },
+
   {
     "name": "Бурчун",
     "code": "KJI",
@@ -24589,11 +24533,7 @@
       "lat": 21.45
     }
   },
-  {
-    "name": "Даммам (автовокзал)",
-    "code": "DMS",
-    "coordinates": null
-  },
+
   {
     "name": "Даочень",
     "code": "DCY",
@@ -24634,11 +24574,7 @@
       "lat": 5.156111
     }
   },
-  {
-    "name": "Marne/Chessy Rail Station",
-    "code": "XED",
-    "coordinates": null
-  },
+
   {
     "name": "Донкастер (автовокзал)",
     "code": "ZFG",
@@ -24799,11 +24735,7 @@
       "lat": 23.021548
     }
   },
-  {
-    "name": "Франкфурт-на-Майне (жд вокзал)",
-    "code": "ZRB",
-    "coordinates": null
-  },
+
   {
     "name": "Фувамула",
     "code": "FVM",
@@ -25124,16 +25056,8 @@
       "lat": 50.2648919
     }
   },
-  {
-    "name": "Киев (автовокзал)",
-    "code": "QOF",
-    "coordinates": null
-  },
-  {
-    "name": "Киев (автовокзал)",
-    "code": "QOH",
-    "coordinates": null
-  },
+
+
   {
     "name": "Кингстон (жд вокзал)",
     "code": "XEG",
@@ -25238,11 +25162,7 @@
       "lat": 37.568935
     }
   },
-  {
-    "name": "Leicester Railway Station",
-    "code": "QEW",
-    "coordinates": null
-  },
+
   {
     "name": "Лейпциг (жд вокзал)",
     "code": "XIT",
@@ -25251,11 +25171,7 @@
       "lat": 51.43
     }
   },
-  {
-    "name": "Leksand Railway Station",
-    "code": "XXO",
-    "coordinates": null
-  },
+
   {
     "name": "Ленск",
     "code": "ULK",
@@ -25296,11 +25212,7 @@
       "lat": 41.728836
     }
   },
-  {
-    "name": "Льейда (жд вокзал)",
-    "code": "QLQ",
-    "coordinates": null
-  },
+
   {
     "name": "Лондон (жд вокзал)",
     "code": "XQE",
@@ -25373,16 +25285,8 @@
       "lat": 42.987
     }
   },
-  {
-    "name": "Lorca Bus Station",
-    "code": "XJR",
-    "coordinates": null
-  },
-  {
-    "name": "Lund C Railway Station",
-    "code": "XGC",
-    "coordinates": null
-  },
+
+
   {
     "name": "Маамигили",
     "code": "VAM",
@@ -25647,11 +25551,7 @@
       "lat": 40.7143528
     }
   },
-  {
-    "name": "Newport Railway Station",
-    "code": "XNE",
-    "coordinates": null
-  },
+
   {
     "name": "Ноглики",
     "code": "NGK",
@@ -25740,11 +25640,7 @@
       "lat": 59.273755
     }
   },
-  {
-    "name": "Orzola Ferry Port",
-    "code": "OZL",
-    "coordinates": null
-  },
+
   {
     "name": "Осло (жд вокзал)",
     "code": "ZZN",
@@ -25801,11 +25697,7 @@
       "lat": 5.427866
     }
   },
-  {
-    "name": "Padova Central Railway Station",
-    "code": "QPA",
-    "coordinates": null
-  },
+
   {
     "name": "Пай",
     "code": "PYY",
@@ -25966,11 +25858,7 @@
       "lat": 37.85961
     }
   },
-  {
-    "name": "Railway Service",
-    "code": "XRE",
-    "coordinates": null
-  },
+
   {
     "name": "Реджо-ди-Калабрия (жд вокзал)",
     "code": "RCC",
@@ -26035,11 +25923,7 @@
       "lat": 49.2348506
     }
   },
-  {
-    "name": "Salerno Railway Station",
-    "code": "ISR",
-    "coordinates": null
-  },
+
   {
     "name": "Зальцбург (жд вокзал)",
     "code": "ZSB",
@@ -26112,11 +25996,7 @@
       "lat": 46.5
     }
   },
-  {
-    "name": "Guiomar Railway Station",
-    "code": "XOU",
-    "coordinates": null
-  },
+
   {
     "name": "Севилья (жд вокзал)",
     "code": "XQA",
@@ -26133,11 +26013,7 @@
       "lat": 49.190735
     }
   },
-  {
-    "name": "Shekou Ferry Port",
-    "code": "ZYK",
-    "coordinates": null
-  },
+
   {
     "name": "Шэньчжэнь (автовокзал)",
     "code": "HNZ",
@@ -26186,11 +26062,7 @@
       "lat": 26.338877
     }
   },
-  {
-    "name": "Soria Bus Station",
-    "code": "XJO",
-    "coordinates": null
-  },
+
   {
     "name": "Советский",
     "code": "OVS",
@@ -26207,11 +26079,7 @@
       "lat": 38.6270025
     }
   },
-  {
-    "name": "Stamford Railway Station",
-    "code": "ZTF",
-    "coordinates": null
-  },
+
   {
     "name": "Ставангер (жд вокзал)",
     "code": "ZWC",
@@ -26252,11 +26120,7 @@
       "lat": 62.3908358
     }
   },
-  {
-    "name": "Swindon Railway Station",
-    "code": "XWS",
-    "coordinates": null
-  },
+
   {
     "name": "Щецин (автовокзал)",
     "code": "ZFX",
@@ -26297,11 +26161,7 @@
       "lat": 2.176315
     }
   },
-  {
-    "name": "Tarragona/Camp Rail Station",
-    "code": "QGN",
-    "coordinates": null
-  },
+
   {
     "name": "Тенчун",
     "code": "TCZ",
@@ -26326,11 +26186,7 @@
       "lat": 35.6894875
     }
   },
-  {
-    "name": "Toledo Railway Station",
-    "code": "XTJ",
-    "coordinates": null
-  },
+
   {
     "name": "Торонто (жд вокзал)",
     "code": "XLQ",
@@ -26395,11 +26251,7 @@
       "lat": 70.583336
     }
   },
-  {
-    "name": "Турфан",
-    "code": "TLQ",
-    "coordinates": null
-  },
+
   {
     "name": "Туруханск",
     "code": "THX",
@@ -26408,11 +26260,7 @@
       "lat": 65.79722
     }
   },
-  {
-    "name": "Uppsala C Railway Station",
-    "code": "QYX",
-    "coordinates": null
-  },
+
   {
     "name": "Уйо",
     "code": "QUO",
@@ -26597,16 +26445,8 @@
       "lat": 30.267143
     }
   },
-  {
-    "name": "Сарагоса (жд вокзал)",
-    "code": "XZZ",
-    "coordinates": null
-  },
-  {
-    "name": "Чжанцзякоу",
-    "code": "ZQZ",
-    "coordinates": null
-  },
+
+
   {
     "name": "Чжанъе",
     "code": "YZY",
