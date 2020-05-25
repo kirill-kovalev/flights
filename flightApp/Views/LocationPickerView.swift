@@ -58,8 +58,12 @@ class LPVM: NSObject, ObservableObject, CLLocationManagerDelegate{
 		
 		DispatchQueue.global(qos: .background).async {
 			print("starting")
-			tmp.sort(by: {self.countDis(coordinates: $0.coordinates ?? defaultCoordinates) > self.countDis(coordinates: $1.coordinates ?? defaultCoordinates)})
+			tmp.sort(by: {self.countDis(coordinates: $0.coordinates ?? defaultCoordinates) < self.countDis(coordinates: $1.coordinates ?? defaultCoordinates)})
 			DispatchQueue.main.async {
+				self.airportList = []
+			}
+			
+			DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: 10)){
 				print("sorted")
 				self.airportList = tmp
 			}

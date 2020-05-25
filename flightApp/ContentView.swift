@@ -11,6 +11,7 @@ import SwiftUI
 class AppVM: ObservableObject {
     @Published var favouriteList = favouriteListModel();
     @Published var apiList = APIListModel()
+	@Published var searchBar = TopBarVM()
     @Published var isFavContent:Bool = false
     @State var hasAPIContent = false
 	

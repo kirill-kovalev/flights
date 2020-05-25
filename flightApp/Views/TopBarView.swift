@@ -33,7 +33,15 @@ class TopBarVM:ObservableObject {
 		return self.dateFormatter.string(from: date)
 	}
 	
-
+	func check() ->Bool {
+		if Date1 < Date2{
+			self.readyToGo = true
+		}
+		return false
+	}
+	
+	@Published var readyToGo = false
+	@Published var budget:String = ""
 	
 	
 	
@@ -44,21 +52,24 @@ class TopBarVM:ObservableObject {
 
 
 struct TopBarView: View {
+	@ObservedObject var vm:TopBarVM
 	var searchAction : ()->Void 
 	var favouriteAction : ()->Void
 	
 	@State var presentDatePicker1:Bool = false
 	@State var presentDatePicker2:Bool = false
 	
-	var vm = TopBarVM()
-	@State var budget:String = ""
+	
+	
+	
+	
 	
 	
 
 	
 	@State var presentLocationPicker:Bool = false
 	
-		@State var kbSize:CGFloat = 0
+	@State var kbSize:CGFloat = 0
 	
 	var w:CGFloat{ return UIApplication.screenWidth}
     var body: some View {
@@ -103,7 +114,7 @@ struct TopBarView: View {
 				}
 				
 				HStack(spacing:0){
-					TextField("000 ₽", text: self.$budget)
+					TextField("000 ₽", text: self.$vm.budget)
 					.padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 0))
 					.font(.title).keyboardType(.numberPad)
 					
@@ -173,6 +184,6 @@ struct TopBarView: View {
 
 struct TopBarView_Previews: PreviewProvider {
     static var previews: some View {
-		TopBarView(searchAction: {}, favouriteAction: {})
+		TopBarView(vm: TopBarVM(), searchAction: {}, favouriteAction: {})
     }
 }

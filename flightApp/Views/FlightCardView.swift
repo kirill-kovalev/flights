@@ -68,6 +68,10 @@ struct FlightCardView :View {
 	var takeOffTime: DateComponents { return Calendar.current.dateComponents(in: TimeZone.current, from:self.flight.takeoffTime ?? Date() )  }
 	var landingTime: DateComponents { return Calendar.current.dateComponents(in: TimeZone.current, from:self.flight.landingTime ?? Date() )  }
 	
+	var curCount:Int;
+	var totalCount:Int;
+	
+	
 	var takeOffDate:String {
 		let df = DateFormatter()
 		df.dateFormat = "d MMM YYYY, E"
@@ -141,7 +145,7 @@ struct FlightCardView :View {
 					.cornerRadius(10)
 					
 					Spacer().frame(idealHeight: 31, maxHeight:31)
-					Text("5/6").font(.system(size: 12)).foregroundColor(.baseWhite)
+					Text("\(self.curCount)/\(self.totalCount)").font(.system(size: 12)).foregroundColor(.baseWhite)
 
 				}.padding(EdgeInsets(top: 25, leading: 21, bottom: 18, trailing: 21))
 				.frame(idealHeight: 0)
@@ -174,8 +178,8 @@ struct FlightCardView_Previews: PreviewProvider {
     static var previews: some View {
         
         VStack{
-            FlightCardView(flight: FlightModel(cityStart: "Санкт-Петербург", cityEnd: "Москва", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""), bg: .cardBG)
-            FlightCardView(flight: FlightModel(cityStart: "Санкт-Петербург", cityEnd: "Москва", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""), bg: .favouriteBG)
+            FlightCardView(flight: FlightModel(cityStart: "Санкт-Петербург", cityEnd: "Москва", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""), bg: .cardBG,curCount: 0,totalCount: 1)
+            FlightCardView(flight: FlightModel(cityStart: "Санкт-Петербург", cityEnd: "Москва", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""), bg: .favouriteBG,curCount: 0,totalCount: 1)
 		}
         
     }

@@ -7,10 +7,12 @@
 //
 
 import Foundation
+import SwiftUI
 
 class APIListModel: TripListModel{
+
 	
-    func load(completion: ((Error?)->Void)? = nil){
+	func load(_ budget:Int,_ dateStart:Date,_ dateEnd:Date,completion: ((Error?)->Void)? = nil){
         self.loadCompletion = completion
 		print("starting load")
 		
@@ -37,14 +39,30 @@ class APIListModel: TripListModel{
 								decodedJSON[j].fligts[i].localID = UUID()
 							}
 						}
-//                        self.triplist = decodedJSON
+
                         print("decoded -> triplist")
 						self.triplist.append(contentsOf:decodedJSON)
+						DispatchQueue.main.async{
+							if completion != nil {
+								completion!(nil)
+							}
+						}
                         
 					}catch{
+						DispatchQueue.main.async{
+							if completion != nil {
+								completion!(error)
+							}
+						}
 						print(error)
 					}
 					
+				}else{
+					DispatchQueue.main.async{
+						if completion != nil {
+							completion!(error)
+						}
+					}
 				}
 				
 				

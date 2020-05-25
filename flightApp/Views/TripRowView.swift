@@ -22,9 +22,9 @@ struct TripRowView: View {
         self.vm = vm
         self.tripInfo = tripInfo
 
-        if self.vm.favouriteList.contains(self.tripInfo) {
-            self._isFavourite = State<Bool>(initialValue: true)
-        }
+//        if self.vm.favouriteList.contains(self.tripInfo) {
+//            self.isFavourite = State<Bool>(initialValue: true)
+//        }
         
     }
 	
@@ -47,8 +47,10 @@ struct TripRowView: View {
                         }else{
                             print("___________________________________________________\nfavourites (\(self.vm.favouriteList.triplist.count)):\n")
                             print(self.vm.favouriteList.triplist)
-                            
-                            let _ = self.vm.favouriteList.remove(self.tripInfo.localID)
+                            self.vm.favouriteList.remove(self.tripInfo.localID)
+							
+							
+							
                         }
 					}
 					
@@ -59,12 +61,18 @@ struct TripRowView: View {
 				favouriteCardView(isSet: self.$isFavourite)
 				InfoCardView(cities: self.tripInfo.cityList,days:self.tripInfo.days,price:self.tripInfo.price,bg: self.isFavourite ? .favouriteBG: .cardBG)
             
-				ForEach( self.tripInfo.fligts , id:\.self ){flight in
-                    FlightCardView(flight:flight, bg: self.isFavourite ? .favouriteBG: .cardBG).frame(width: UIApplication.screenWidth)
+				ForEach( (0...self.tripInfo.fligts.count-1) , id:\.self ){id in
+					FlightCardView(flight:self.tripInfo.fligts[id], bg: self.isFavourite ? .favouriteBG: .cardBG, curCount: id+1,totalCount: self.tripInfo.fligts.count)
+					.frame(width: UIApplication.screenWidth)
 				}
+				
             
 			}.frame(width: UIApplication.screenWidth,height: calculateHeight(offset: self.offset))
-		}
+		}.onAppear(perform: {
+			
+				self.isFavourite = self.vm.favouriteList.contains(self.tripInfo)
+
+		})
 
 
 

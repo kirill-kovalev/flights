@@ -14,6 +14,7 @@ struct SearchPageView: View {
 	@State var offset:CGFloat = 10;
 	@State var index:Int = 0
 	@State var hasContent:Bool = false;
+	@State var loadErr:Bool = false;
 	
 	
     @ObservedObject var vm:AppVM;
@@ -23,35 +24,46 @@ struct SearchPageView: View {
 
     var body: some View {
 		ZStack(alignment: .topTrailing){
-	
-			TrackableScrollView(.vertical, showIndicators: false, contentOffset: $offset){
-				Spacer()
-				TopBarView(searchAction: {
+			
+				TrackableScrollView(.vertical, showIndicators: false, contentOffset: $offset){
+					Spacer()
+					TopBarView(vm:self.vm.searchBar,
+					searchAction: {
+						
+						print("______________________\n\(self.vm.searchBar.budget)")
+						
+						self.vm.apiList.load(Int(self.vm.searchBar.budget) ?? 0 ,self.vm.searchBar.Date1,self.vm.searchBar.Date2) { err in
+							if err != nil {
+								self.loadErr = true
+							}
+							withAnimation{
+								self.hasContent = !self.vm.apiList.triplist.isEmpty
+							}
+							
+						}
+						
+						
+					}, favouriteAction: {
+						withAnimation(){
+							self.vm.isFavContent = true
+						}
+					}).frame(height: self.hasContent ? 390 : UIApplication.screenHeight)
 					
-                    self.vm.apiList.load { _ in
-                        withAnimation{
-                            self.hasContent = !self.vm.apiList.triplist.isEmpty
-                        }
-                        
-                    }
-					
-
-				}, favouriteAction: {
-					withAnimation(){
-                        self.vm.isFavContent = true
+					if(!self.vm.apiList.triplist.isEmpty ){
+						if(!self.vm.isFavContent){
+							ForEach(self.vm.apiList.triplist, id: \.self){ tripM in
+									TripRowView(vm: self.vm,tripInfo: tripM)
+							}
+						}
 					}
-                }).frame(height: self.hasContent ? 390 : UIApplication.screenHeight)
-				
-                if(!self.vm.apiList.triplist.isEmpty){
-                    ForEach(self.vm.apiList.triplist, id: \.self){ tripM in
-                        TripRowView(vm: self.vm,tripInfo: tripM)
-                    }
-                }
-                
-
+					
+					
+					
+					
 				
 				
 			}
+			
 			
 //			if(self.offset > 350){
 //				withAnimation{
@@ -76,6 +88,11 @@ struct SearchPageView: View {
 			
 			
 		}.frame(width: UIApplication.screenWidth)
+		
+		.alert(isPresented: self.$loadErr){
+			Alert(title: Text("Ошибка подключения"), message: Text("Не удалось получить данные с сервера"), dismissButton: nil)
+		}
+		
     }
 }
 

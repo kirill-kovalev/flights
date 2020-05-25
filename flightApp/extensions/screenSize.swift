@@ -10,8 +10,8 @@ import Foundation
 import SwiftUI
 
 extension UIApplication {
-	static public var  screenWidth:CGFloat { return (UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.safeAreaLayoutGuide.layoutFrame.width)}
-	static public var screenHeight:CGFloat { return (UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.safeAreaLayoutGuide.layoutFrame.height)}
+	static public var  screenWidth:CGFloat { return (UIScreen.screens.first?.bounds.width)!}
+	static public var screenHeight:CGFloat { return (UIScreen.screens.first?.bounds.height)!}
 
 }
 

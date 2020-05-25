@@ -42,7 +42,7 @@ class TripListModel{
 		
 	}
 	
-	public func remove(_ id:UUID?) -> Bool{
+	public func remove(_ id:UUID?){
 		var i = 0;
 		while(i < self.triplist.count){
 			if self.triplist[i].localID == id {
@@ -50,7 +50,6 @@ class TripListModel{
 			}
 			i+=1;
 		}
-		return false
 	}
 	
 }
