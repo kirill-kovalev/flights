@@ -8,11 +8,11 @@
 
 import Foundation
 
-class TripListModel{
+class TripListModel: NSObject{
     var triplist:[TripModel] = [] {
         didSet{
            
-            (self.loadCompletion ?? handler)(nil)
+            //(self.loadCompletion ?? handler)(nil)
         }
     }
     private func handler(er:Error?) -> Void {

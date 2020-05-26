@@ -65,8 +65,6 @@ struct FlightCardView :View {
 	
 	var flight: FlightModel
     var bg:Gradient;
-	var takeOffTime: DateComponents { return Calendar.current.dateComponents(in: TimeZone.current, from:self.flight.takeoffTime ?? Date() )  }
-	var landingTime: DateComponents { return Calendar.current.dateComponents(in: TimeZone.current, from:self.flight.landingTime ?? Date() )  }
 	
 	var curCount:Int;
 	var totalCount:Int;
@@ -75,12 +73,12 @@ struct FlightCardView :View {
 	var takeOffDate:String {
 		let df = DateFormatter()
 		df.dateFormat = "d MMM YYYY, E"
-		return df.string(from: self.flight.takeoffTime ?? Date())
+		return df.string(from: self.flight.departureDate ?? Date())
 	}
 	var landingDate:String {
 		let df = DateFormatter()
 		df.dateFormat = "d MMM YYYY, E"
-		return df.string(from: self.flight.takeoffTime ?? Date())
+		return df.string(from: self.flight.departureDate ?? Date())
 	}
 	
     var body: some View {
@@ -89,54 +87,54 @@ struct FlightCardView :View {
                 LinearGradient(gradient: self.bg ,startPoint: .top, endPoint: .bottom).cornerRadius(20)
 				
 				VStack{
-					HStack{
-						Text("\(self.flight.cityStart) \n\(self.flight.cityEnd)")
-							.font(.largeTitle).fontWeight(.heavy).foregroundColor(.baseBlack).frame(minHeight: 82)
+					VStack{
+						HStack{
+							Text("\(self.flight.originCity)")
+								.font(.largeTitle).fontWeight(.heavy).foregroundColor(.baseBlack).lineLimit(2).frame(minHeight: 82)
+							Spacer()
+						}
+						HStack{
+						Text("\(self.flight.destCity)")
+						.font(.largeTitle).fontWeight(.heavy).foregroundColor(.baseBlack).frame(minHeight: 82)
 						Spacer()
-					}//.padding(.bottom,-30)
-					
-					Spacer()//.frame( maxHeight: 37)
+						}
+						
+					}
 					
 					VStack{
-						HStack(alignment: .firstTextBaseline){
-							Text("Время вылета").font(.headline).fontWeight(.regular).foregroundColor(.baseBlack)
-							Spacer()
-							self.dots()
-							Spacer()
-							Text("\(self.takeOffTime.hour!):\(self.takeOffTime.minute!)").font(.title).fontWeight(.heavy).foregroundColor(.baseWhite)
+						self.hrSpacer()
+						HStack{
+							Text("\(self.flight.price) ₽").font(.system(size: 44)).fontWeight(.heavy).foregroundColor(.baseWhite)
 						}
-						HStack(alignment: .firstTextBaseline){
-							Text("Дата").font(.subheadline).foregroundColor(.baseBlack)
-							Spacer()
-							self.dots()
-							Spacer()
-							Text("\(self.takeOffDate)").font(.subheadline).foregroundColor(.cityGray)
-						}.padding(.top, 5)
-					
-					
-						HStack(alignment: .firstTextBaseline){
-							Text("Время прилета").font(.headline).fontWeight(.regular).foregroundColor(.baseBlack)
-							Spacer()
-							self.dots()
-							Spacer()
-							Text("\(self.landingTime.hour!):\(self.landingTime.minute!)").font(.title).fontWeight(.heavy).foregroundColor(.baseWhite)
-						}
-						HStack(alignment: .firstTextBaseline){
-							Text("Дата").font(.subheadline).foregroundColor(.baseBlack)
-							Spacer()
-							self.dots()
-							Spacer()
-							Text("\(self.landingDate)").font(.subheadline).foregroundColor(.cityGray)
-						}.padding(.top,5)
+						self.hrSpacer()
 					}
-					self.hrSpacer
+					
+					VStack{
+						HStack{
+							Text("Дата вылета").font(.headline).foregroundColor(.white).shadow(radius: 10)
+							Spacer()
+							self.dots()
+							Spacer()
+							Text("\(self.takeOffDate)").font(.body).foregroundColor(.cityGray)
+						}
+						HStack{
+							Text("Виза").font(.headline).foregroundColor(.white).shadow(radius: 10)
+							Spacer()
+							self.dots()
+							Spacer()
+							Text("\(self.flight.visaType ?? "Не нужна") ").font(.body).foregroundColor(.cityGray)
+						}
+					}
+					self.hrSpacer()
+					
+					
 					
 					CurveBox(flight: self.flight).opacity((proxy.size.height > 650) ? 1 :0)
 					 .frame( maxHeight:(proxy.size.height > 650) ? .infinity :0)
 						
 					   
 					if(proxy.size.height > 650) {
-						self.hrSpacer
+						self.hrSpacer()
 					}
 
 					Button(action: {}){
@@ -163,7 +161,7 @@ struct FlightCardView :View {
         }.frame(width: 21, height: 3)
     }
     
-    var hrSpacer: some View{
+    func hrSpacer() -> some View{
         VStack{
             Spacer().frame(minHeight: 26,idealHeight: 26)
             HStack{ Spacer();Rectangle().foregroundColor(.accentFirstLevel).frame(width: 208, height: 1, alignment: .center);Spacer()}
@@ -178,8 +176,8 @@ struct FlightCardView_Previews: PreviewProvider {
     static var previews: some View {
         
         VStack{
-            FlightCardView(flight: FlightModel(cityStart: "Санкт-Петербург", cityEnd: "Москва", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""), bg: .cardBG,curCount: 0,totalCount: 1)
-            FlightCardView(flight: FlightModel(cityStart: "Санкт-Петербург", cityEnd: "Москва", takeoffTime: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", ticketLink: ""), bg: .favouriteBG,curCount: 0,totalCount: 1)
+            FlightCardView(flight: FlightModel(originCity: "Санкт-Петербург", destCity: "Москва", departureDate: Date(),  startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", visaType: ""), bg: .cardBG,curCount: 0,totalCount: 1)
+//            FlightCardView(flight: FlightModel(originCity: "Санкт-Петербург", destCity: "Москва", departureDate: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", visaType: ""), bg: .favouriteBG,curCount: 0,totalCount: 1)
 		}
         
     }

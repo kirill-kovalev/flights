@@ -19,7 +19,7 @@ struct SearchPageView: View {
 	
     @ObservedObject var vm:AppVM;
 	
-	
+	@State var nothingloaded = false
 
 
     var body: some View {
@@ -32,12 +32,27 @@ struct SearchPageView: View {
 						
 						print("______________________\n\(self.vm.searchBar.budget)")
 						
-						self.vm.apiList.load(Int(self.vm.searchBar.budget) ?? 0 ,self.vm.searchBar.Date1,self.vm.searchBar.Date2) { err in
+						withAnimation{
+							self.vm.searchBar.searchActive = false
+						}
+						
+						
+						self.vm.apiList.load((Int(self.vm.searchBar.budget) ?? 0)*1000 ,self.vm.searchBar.Date1,self.vm.searchBar.Date2,self.vm.searchBar.lpvm.selected) { err in
+							
 							if err != nil {
 								self.loadErr = true
+								self.vm.searchBar.searchActive = true
 							}
+							
+							
 							withAnimation{
 								self.hasContent = !self.vm.apiList.triplist.isEmpty
+								self.vm.searchBar.searchActive = true
+								if (self.hasContent){
+									self.nothingloaded = false
+								} else{
+									self.nothingloaded = true
+								}
 							}
 							
 						}
@@ -47,14 +62,22 @@ struct SearchPageView: View {
 						withAnimation(){
 							self.vm.isFavContent = true
 						}
-					}).frame(height: self.hasContent ? 390 : UIApplication.screenHeight)
+					}).frame(height: (self.hasContent || self.nothingloaded) ? 390 : UIApplication.screenHeight)
 					
-					if(!self.vm.apiList.triplist.isEmpty ){
-						if(!self.vm.isFavContent){
+					if(!self.vm.apiList.triplist.isEmpty && !self.vm.isFavContent){
+						
 							ForEach(self.vm.apiList.triplist, id: \.self){ tripM in
 									TripRowView(vm: self.vm,tripInfo: tripM)
 							}
+						
+					}
+					if(self.nothingloaded){
+						VStack{
+							Spacer()
+							Text("Маршруты не найдены.\nпоменяйтя парметры запроса.").multilineTextAlignment(.center).font(.title)
+							Spacer()
 						}
+						
 					}
 					
 					
@@ -65,33 +88,32 @@ struct SearchPageView: View {
 			}
 			
 			
-//			if(self.offset > 350){
-//				withAnimation{
-//				HStack(spacing:10){
-//					Button(action: {}){
-//						Image(systemName: "magnifyingglass.circle").resizable().frame(width: 50, height: 50).foregroundColor(.kirillGray).padding(5).background(Color.baseWhite).cornerRadius(100).shadow(radius: 10)
-//					}
-//
-//					Button(action: {
-//
-//						withAnimation(){
-//							self.isFavContent = true
-//						}
-//
-//					}){
-//						Image(systemName: "star.circle").resizable().frame(width: 50, height: 50).foregroundColor(.kirillGray).padding(5).background(LinearGradient(gradient: .favouriteBG, startPoint: .top, endPoint: .bottom)).cornerRadius(100).shadow(radius: 10)
-//					}
-//
-//				}.padding(15).animation(.linear)
-//				}
-//			}
+			if(self.offset > 350){
+				withAnimation{
+				HStack(spacing:10){
+
+					Button(action: {
+
+						withAnimation(){
+							self.vm.isFavContent = true
+						}
+
+					}){
+						Image(systemName: "star.circle").resizable().frame(width: 50, height: 50).foregroundColor(.kirillGray).padding(5).background(LinearGradient(gradient: .favouriteBG, startPoint: .top, endPoint: .bottom)).cornerRadius(100).shadow(radius: 10)
+					}
+
+				}.padding(15).animation(.linear)
+				}
+			}
 			
 			
 		}.frame(width: UIApplication.screenWidth)
 		
 		.alert(isPresented: self.$loadErr){
-			Alert(title: Text("Ошибка подключения"), message: Text("Не удалось получить данные с сервера"), dismissButton: nil)
+			Alert(title:self.vm.apiList.error == APIListLoadError.networkError ? Text("Ошибка подключения") : Text("Ошибка загрузки"),
+				  message:self.vm.apiList.error == APIListLoadError.networkError ?  Text("Не удалось получить данные с сервера.") : Text("Некорректный ответ сервера. Повторите попытку позже."), dismissButton: nil)
 		}
+
 		
     }
 }

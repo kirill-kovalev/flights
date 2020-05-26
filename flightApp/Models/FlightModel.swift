@@ -10,16 +10,16 @@ import Foundation
 
 struct FlightModel: Encodable,Decodable,Hashable {
 	var localID:UUID? = UUID()
-    var cityStart:String = ""
-    var cityEnd:String = ""
-    var takeoffTime:Date?
-    var landingTime:Date?
+    var originCity:String = ""
+    var destCity:String = ""
+    var departureDate:Date?
     var startAirport:String = "XXX"
     var endAirport:String = "XXX"
     
     var companyLogoLink:String = ""
     var companyName:String = ""
     
-    var ticketLink:String = ""
+    var visaType:String? = ""
+	var price:Int = 100000
     
 }

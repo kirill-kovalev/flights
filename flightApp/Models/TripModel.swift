@@ -12,7 +12,7 @@ struct TripModel: Encodable,Decodable,Hashable {
 	var localID:UUID? = UUID()
     var days:Int = 0;
     var cityList:[String] = []
-	var fligts:[FlightModel] = []
-	var price:Int = 0
+	var flights:[FlightModel] = []
+	var totalPrice:Int = 0
     
 }

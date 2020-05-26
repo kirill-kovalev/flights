@@ -10,7 +10,10 @@ import SwiftUI
 import CoreLocation
 
 class LPVM: NSObject, ObservableObject, CLLocationManagerDelegate{
+	var selected :String = "LED"
 	let locationManager = CLLocationManager()
+	
+	
 	override init(){
 		super.init()
 		locationManager.delegate = self
@@ -28,7 +31,7 @@ class LPVM: NSObject, ObservableObject, CLLocationManagerDelegate{
 		if let path = Bundle.main.path(forResource: "airports", ofType: "json") {
 			print(path)
 			do{
-				var d = try  Data(contentsOf: URL(fileURLWithPath: path))
+				let d = try  Data(contentsOf: URL(fileURLWithPath: path))
 				let fileAirportList = try JSONDecoder().decode([Airport].self, from: d)
                 //self.airportList = Array(fileAirportList[0..<20])
                 self.airportList = fileAirportList
@@ -87,7 +90,7 @@ class LPVM: NSObject, ObservableObject, CLLocationManagerDelegate{
 				a.sort(by: {
 					let text = str.lowercased()
 					
-					return self.levDis(text, $0.name.lowercased()) > self.levDis(text, $1.name.lowercased())
+					return self.levDis(text, $0.name.lowercased()) < self.levDis(text, $1.name.lowercased())
 					
 				})
 				DispatchQueue.main.async {
@@ -134,7 +137,7 @@ class LPVM: NSObject, ObservableObject, CLLocationManagerDelegate{
 struct LocationPickerView: View {
     
     @ObservedObject var vm:LPVM;
-    
+    @Binding var showingModal:Bool
     
     @State var active = true
 	@State var text:String = ""
@@ -146,18 +149,20 @@ struct LocationPickerView: View {
         VStack{
             HStack{
                 TextField("Название аэропорта", text: self.$text,onEditingChanged:{ edited in
-                    //if edited {
+                    if edited {
                         self.vm.searchText(self.text)
-                    //}
+                    }
                 }).font(.title)
 				Button(action: self.vm.location){
-                    Image(systemName: "location.fill").padding(5).background(Color.white)
+                    Image(systemName: "location.fill").padding(5)
                 }
             }.padding()
             Divider()
             List(self.vm.airportList,id: \.self){ airport in
                 Button(action: {
-					//self.vm.text = airport.name
+					self.vm.selected = airport.code
+					self.showingModal = false
+					
 				}){
 					HStack(alignment: .center){
 						Text(airport.name)
@@ -178,12 +183,11 @@ struct LocationPickerView: View {
 			.alert(isPresented: .constant(self.vm.didFail)) {
 			Alert(title: Text("Не получилось получить геопозицию.\n Проверьте доступ к геолокации в настройках.") )
 		}
-			//.alert(item: self.vm.$didFail, content: )
 	}
 }
 
 struct LocationPickerView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationPickerView( vm:LPVM())
+		LocationPickerView( vm:LPVM(),showingModal: .constant(true))
     }
 }

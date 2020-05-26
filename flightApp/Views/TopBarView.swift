@@ -15,7 +15,7 @@ class TopBarVM:ObservableObject {
 	var Date2:Date {return rkManager2.selectedDate ?? Date()}
 	
 	var rkManager1:RKManager = RKManager(calendar: Calendar.current, minimumDate: Date(), maximumDate:  Date().addingTimeInterval(60*60*24*30*3), mode: 0)
-	var rkManager2:RKManager { return RKManager(calendar: Calendar.current, minimumDate: Date1 , maximumDate: Date().addingTimeInterval(60*60*24*30*3), mode: 0)}
+	var rkManager2:RKManager = RKManager(calendar: Calendar.current, minimumDate: Date() , maximumDate: Date().addingTimeInterval(60*60*24*30*3), mode: 0)
 	
 	
 	init() {
@@ -41,11 +41,12 @@ class TopBarVM:ObservableObject {
 	}
 	
 	@Published var readyToGo = false
-	@Published var budget:String = ""
+	@Published var budget:String = "20"
 	
 	
+	@Published var lpvm = LPVM();
 	
-	
+	@Published var searchActive = true
 	
 }
 
@@ -74,7 +75,7 @@ struct TopBarView: View {
 	var w:CGFloat{ return UIApplication.screenWidth}
     var body: some View {
 		
-			
+		VStack{
 			VStack(spacing:0){
 				HStack(spacing:0){
 					Text("Дата вылета").font(.headline).padding(.bottom,10)
@@ -90,8 +91,6 @@ struct TopBarView: View {
 					RKViewController(isPresented: self.$presentDatePicker1, rkManager: self.vm.rkManager1)
 				}
 				
-				
-				
 				HStack(spacing:0){
 					Text("Дата прилета").font(.headline).padding(.bottom,10)
 					Spacer()
@@ -106,46 +105,40 @@ struct TopBarView: View {
 						RKViewController(isPresented: self.$presentDatePicker2, rkManager: self.vm.rkManager2)
 				}
 				
-				
-				
 				HStack(spacing:0){
 					Text("Бюджет").font(.headline).padding(.bottom,10)
 					Spacer()
 				}
 				
 				HStack(spacing:0){
-					TextField("000 ₽", text: self.$vm.budget)
+					TextField("20", text: self.$vm.budget).multilineTextAlignment(.trailing)
 					.padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 0))
-					.font(.title).keyboardType(.numberPad)
-					
+						.font(.title).keyboardType(.numberPad)
+					Text("  000 ₽       ").font(.title)
 					Button(action: {self.presentLocationPicker.toggle()}){
-						Image(systemName: "location.fill")
+						Image(systemName: "mappin.circle")
 							.resizable()
 							.scaledToFit()
 							.foregroundColor(.kirillGray)
-							.padding(10)
+							.padding(5)
 							.frame(width: 50, height: 50)
-						}.background(Color.gray.opacity(0.3)).cornerRadius(10)
+						}//.background(Color.gray.opacity(0.3)).cornerRadius(10)
 					
 				}.background(Color.baseWhite.opacity(0.8))
 				.padding(.bottom,15).padding(.trailing,-10)
 				.sheet(isPresented: self.$presentLocationPicker){
-                    LocationPickerView(vm:LPVM())
+					LocationPickerView(vm:self.vm.lpvm,showingModal: self.$presentLocationPicker)
 				}
 				
-				
-				
-				
-				
-
 				HStack{
 					Button(action:searchAction){
 						Spacer()
 						Text("Поехали!").font(.title).fontWeight(.bold).foregroundColor(.baseWhite).padding(15)
 						Spacer()
-					}.background(Color.blue)
+					}.background(self.vm.searchActive ? Color.blue : Color.gray  )
 					.padding(EdgeInsets(top: 0, leading: -20, bottom: -20, trailing: 0))
-						//.disabled(!self.vm.readyToGo)
+					.disabled(!self.vm.searchActive)
+					
 					Button(action: favouriteAction){
 						Image(systemName: "star.circle").resizable().scaledToFit().foregroundColor(.kirillGray)
 							.padding(10)
@@ -153,31 +146,35 @@ struct TopBarView: View {
 					}.background(LinearGradient(gradient: .favouriteBG ,startPoint: .top, endPoint: .bottom))
 					.padding(EdgeInsets(top: 0, leading: 0, bottom: -20, trailing: -20))
 				}
+				
 			}.padding(20)
 			.foregroundColor(.baseBlack)
 			.background(Color.baseWhite)
+			.cornerRadius(20)
+			.padding(17)
+			.shadow(color: Color(UIColor(red: 0, green: 0, blue: 0, alpha: 0.15)), radius: 13, x: 0, y: 4)
+			.padding(.top,-self.kbSize)
+			.onAppear(perform: {
+				NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main){ noti in
+					let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect;
+					let height = value.height
+					withAnimation{
+						self.kbSize = height
+						print(height)
+					}
+					
+				}
+				NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main){ _ in
+					withAnimation{
+						self.kbSize = 0
+						print("hidden")
+					}
+				}
+			})
 			
-		.cornerRadius(20)
-		.padding(17)
-		.shadow(color: Color(UIColor(red: 0, green: 0, blue: 0, alpha: 0.15)), radius: 13, x: 0, y: 4)
-				
-				.padding(.top,-self.kbSize).onAppear(perform: {
-					NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main){ noti in
-						let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect;
-						let height = value.height
-						withAnimation{
-							self.kbSize = height
-							print(height)
-						}
-						
-					}
-					NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main){ _ in
-						withAnimation{
-							self.kbSize = 0
-							print("hidden")
-						}
-					}
-				})
+			
+		}
+		
 		
     }
 }
