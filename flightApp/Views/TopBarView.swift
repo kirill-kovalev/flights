@@ -116,7 +116,7 @@ struct TopBarView: View {
 						.font(.title).keyboardType(.numberPad)
 					Text("  000 ₽       ").font(.title)
 					Button(action: {self.presentLocationPicker.toggle()}){
-						Image(systemName: "mappin.circle")
+						Image(systemName: "mappin.and.ellipse")
 							.resizable()
 							.scaledToFit()
 							.foregroundColor(.kirillGray)

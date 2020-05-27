@@ -126,6 +126,7 @@ struct FlightCardView :View {
 						}
 					}
 					self.hrSpacer()
+				
 					
 					
 					

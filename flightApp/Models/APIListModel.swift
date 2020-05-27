@@ -7,7 +7,8 @@
 //
 
 import Foundation
-import SwiftUI
+
+
 
 enum APIListLoadError{
 	case none;
@@ -15,10 +16,16 @@ enum APIListLoadError{
 	case decodeError;
 	
 }
+
 class APIListModel: TripListModel{
 	var error:APIListLoadError = .none
 	
+	
+	
 	func load(_ budget:Int,_ dateStart:Date,_ dateEnd:Date,_ airport:String,completion: ((Error?)->Void)? = nil){
+		
+		
+		
         self.loadCompletion = completion
 		print("starting load")
 		print(airport)

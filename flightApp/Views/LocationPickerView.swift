@@ -56,7 +56,7 @@ class LPVM: NSObject, ObservableObject, CLLocationManagerDelegate{
 
 	
 	func location() {
-        
+        locationManager.requestLocation()
 		var tmp = self.airportList
        
 		let defaultCoordinates = Coord(lon: 0, lat: 0)

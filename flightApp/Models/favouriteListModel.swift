@@ -7,6 +7,9 @@
 //
 
 import Foundation
+import CloudKit
+
+
 class favouriteListModel :TripListModel{
 	override init() {
 		super.init()
