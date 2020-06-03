@@ -9,13 +9,14 @@
 import SwiftUI
 
 struct InfoCardView: View {
-    var cities:[String] = [] ;
+    var cities:[CityList] = [] ;
 	var days:Int
 	var price:Int
     var bg:Gradient;
 	
 	
     var colCount:Int {return (cities.count - 1 )/7 };
+    @Binding var index:Int;
     
     var body: some View {
         
@@ -32,7 +33,7 @@ struct InfoCardView: View {
                         VStack(alignment: .leading){
                             ForEach(  ((i*7) ... ( self.cities.count - 1 ))  ,id: \.self){ city in
                                 VStack{ if(city < ((i+1)*7)){
-									Text("\(self.cities[city])").font(.system(size: 18)).fontWeight(.semibold).foregroundColor(.kirillGray).padding(EdgeInsets(top: 2, leading: 0, bottom: 2, trailing: 0))
+                                    Text("\(self.cities[city].cityName)").font(.system(size: 18)).fontWeight(.semibold).foregroundColor(.kirillGray).padding(EdgeInsets(top: 2, leading: 0, bottom: 2, trailing: 0))
                                 }}
                             }
                         }
@@ -45,7 +46,12 @@ struct InfoCardView: View {
                 Spacer()
                 HStack{
                     Spacer()
-                    Button(action:{}){
+                    Button(action:{
+                        withAnimation{
+                            self.index += self.cities.count + 1
+                        }
+                        
+                    }){
                         Image(systemName: "chevron.right.circle").resizable().frame(width: 50, height: 50)
                     }
                 }
@@ -58,8 +64,10 @@ struct InfoCardView: View {
     }
 }
 struct InfoCardView_Previews: PreviewProvider {
-    
+    static let cities = ["Москва","Грозный","Махачкала","Магас","Нальчик","Элиста","Геленджик","Санкт-Петербург","2","2"].map { name in
+        CityList(partOfTheWorld: "EU", avgTemperature: 0, cityName: name)
+    }
     static var previews: some View {
-        InfoCardView(cities: ["Москва","Грозный","Махачкала","Магас","Нальчик","Элиста","Геленджик","Санкт-Петербург","2","2"],days: 1,price: 1, bg: .cardBG )
+        InfoCardView(cities: cities ,days: 1,price: 1, bg: .cardBG, index:   .constant(0) )
     }
 }

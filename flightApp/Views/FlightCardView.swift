@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import SafariServices
+
 class CurveBoxVM : ObservableObject{
 	@Published var image:UIImage = UIImage(imageLiteralResourceName: "companyBG")
 	
@@ -49,13 +51,16 @@ struct CurveBox : View {
 				Text(flight.startAirport).font(.system(size: 22)).fontWeight(.bold).foregroundColor(.baseBlack).padding(.bottom, 10)
 				Spacer()
 				VStack{
-					Image(uiImage: self.vm.image).cornerRadius(16).frame(width: 32, height: 32, alignment: .center)
+                    Image(uiImage: self.vm.image).resizable().scaledToFit().frame(minWidth: 32, maxHeight: 32, alignment: .center).cornerRadius(16)
 					Text(flight.companyName).font(.system(size: 17)).foregroundColor(.cityGray)
 				}
 				Spacer()
 				Text(flight.endAirport).font(.system(size: 22)).fontWeight(.bold).foregroundColor(.baseBlack).padding(.bottom, 10)
 			}
-		}
+        }
+//        .onAppear {
+//            self.vm.loadImage(url:self.flight.companyLogoLink )
+//        }
 	}
 	
 	
@@ -69,6 +74,7 @@ struct FlightCardView :View {
 	var curCount:Int;
 	var totalCount:Int;
 	
+    @State var showSafari = false
 	
 	var takeOffDate:String {
 		let df = DateFormatter()
@@ -104,28 +110,29 @@ struct FlightCardView :View {
 					VStack{
 						self.hrSpacer()
 						HStack{
-							Text("\(self.flight.price) ₽").font(.system(size: 44)).fontWeight(.heavy).foregroundColor(.baseWhite)
+							Text("\(Int(self.flight.price)) ₽").font(.system(size: 44)).fontWeight(.heavy).foregroundColor(.baseWhite)
 						}
 						self.hrSpacer()
 					}
 					
-					VStack{
-						HStack{
-							Text("Дата вылета").font(.headline).foregroundColor(.white).shadow(radius: 10)
-							Spacer()
-							self.dots()
-							Spacer()
-							Text("\(self.takeOffDate)").font(.body).foregroundColor(.cityGray)
-						}
-						HStack{
-							Text("Виза").font(.headline).foregroundColor(.white).shadow(radius: 10)
-							Spacer()
-							self.dots()
-							Spacer()
-							Text("\(self.flight.visaType ?? "Не нужна") ").font(.body).foregroundColor(.cityGray)
-						}
-					}
-					self.hrSpacer()
+                    if(proxy.size.height > 700) {
+                        VStack{
+                            HStack{
+                                Text("Дата вылета").font(.headline).foregroundColor(.white).shadow(radius: 10)
+                                Spacer()
+                                self.dots()
+                                Spacer()
+                                Text("\(self.takeOffDate)").font(.body).foregroundColor(.cityGray)
+                            }
+                            HStack{
+                                Text("Виза").font(.headline).foregroundColor(.white).shadow(radius: 10)
+                                Spacer()
+                                self.dots()
+                                Spacer()
+                                Text("\(self.flight.visaType?.rawValue ?? "Не нужна") ").font(.body).foregroundColor(.cityGray)
+                            }
+                        }
+                        self.hrSpacer()
 				
 					
 					
@@ -134,14 +141,20 @@ struct FlightCardView :View {
 					 .frame( maxHeight:(proxy.size.height > 650) ? .infinity :0)
 						
 					   
-					if(proxy.size.height > 650) {
+					
 						self.hrSpacer()
 					}
 
-					Button(action: {}){
+					Button(action: {
+                        self.showSafari.toggle()
+                        
+                    }){
 						Text("Купить билет").font(.title).fontWeight(.bold).foregroundColor(.baseWhite).padding(23)
 					}.background(Rectangle().foregroundColor(.accentSecondLevel), alignment: .center)
 					.cornerRadius(10)
+                        .sheet(isPresented: self.$showSafari){
+                            SafariView(url: URL(string: self.flight.ticketLink ?? "") ?? (URL(string: "http://aviasales.ru")!))
+                    }
 					
 					Spacer().frame(idealHeight: 31, maxHeight:31)
 					Text("\(self.curCount)/\(self.totalCount)").font(.system(size: 12)).foregroundColor(.baseWhite)
@@ -177,7 +190,7 @@ struct FlightCardView_Previews: PreviewProvider {
     static var previews: some View {
         
         VStack{
-            FlightCardView(flight: FlightModel(originCity: "Санкт-Петербург", destCity: "Москва", departureDate: Date(),  startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", visaType: ""), bg: .cardBG,curCount: 0,totalCount: 1)
+            FlightCardView(flight: FlightModel(startAirport: "LED", endAirport: "DMD", price: 1000, landingTime: 0, companyLogoLink: "", originCity: "Санкт-Петербур", destCity: "Москва", companyName: "S7", departureDate: Date(), visaType: .none, localID: nil, ticketLink: nil), bg: .cardBG,curCount: 0,totalCount: 1)
 //            FlightCardView(flight: FlightModel(originCity: "Санкт-Петербург", destCity: "Москва", departureDate: Date(), landingTime: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", visaType: ""), bg: .favouriteBG,curCount: 0,totalCount: 1)
 		}
         

@@ -34,7 +34,7 @@ struct TripRowView: View {
 
 	var body: some View {
 		ZStack{
-			PagedView(.horizontal, maxIndex: tripInfo.flights.count , index: self.$index, contentOffset: self.$offset,action:{ ended in
+			PagedView(.horizontal, maxIndex: tripInfo.flights.count+1 , index: self.$index, contentOffset: self.$offset,action:{ ended in
 			if ended {
 				self.gestureActive = true
 			} else {
@@ -59,13 +59,13 @@ struct TripRowView: View {
 			}
 		}){
 				favouriteCardView(isSet: self.$isFavourite)
-				InfoCardView(cities: self.tripInfo.cityList,days:self.tripInfo.days,price:self.tripInfo.totalPrice,bg: self.isFavourite ? .favouriteBG: .cardBG)
+            InfoCardView(cities: self.tripInfo.cityList,days:self.tripInfo.days,price:Int(self.tripInfo.totalPrice),bg: self.isFavourite ? .favouriteBG: .cardBG, index: self.$index)
             
-				ForEach( (0...self.tripInfo.flights.count-1) , id:\.self ){id in
+				ForEach( (0..<self.tripInfo.flights.count) , id:\.self ){id in
 					FlightCardView(flight:self.tripInfo.flights[id], bg: self.isFavourite ? .favouriteBG: .cardBG, curCount: id+1,totalCount: self.tripInfo.flights.count)
 					.frame(width: UIApplication.screenWidth)
 				}
-				
+            EndInfoCardView(cities: self.tripInfo.cityList, days: self.tripInfo.days, price: Int(self.tripInfo.totalPrice), bg: self.isFavourite ? .favouriteBG: .cardBG, link: self.tripInfo.ticketLink).frame(width: UIApplication.screenWidth)
             
 			}.frame(width: UIApplication.screenWidth,height: calculateHeight(offset: self.offset))
 		}.onAppear(perform: {
@@ -97,15 +97,17 @@ struct TripRowView: View {
 }
 
 
-struct TripRowView_Previews: PreviewProvider {
 
+struct TripRowView_Previews: PreviewProvider {
+    static var tripmodel = TripModel(totalPrice:0, days: 5, ticketLink:"", cityList: InfoCardView_Previews.cities, flights: [
+        FlightModel(startAirport: "LED", endAirport: "DMD", price: 1000, landingTime: 0, companyLogoLink: "", originCity: "Санкт-Петербур", destCity: "Москва", companyName: "S7", departureDate: Date(), visaType: .none, localID: nil, ticketLink: ""),
+        FlightModel(startAirport: "LED", endAirport: "DMD", price: 1000, landingTime: 0, companyLogoLink: "", originCity: "Санкт-Петербур", destCity: "Москва", companyName: "S7", departureDate: Date(), visaType: .none, localID: nil, ticketLink: ""),
+        FlightModel(startAirport: "LED", endAirport: "DMD", price: 1000, landingTime: 0, companyLogoLink: "", originCity: "Санкт-Петербур", destCity: "Москва", companyName: "S7", departureDate: Date(), visaType: .none, localID: nil, ticketLink: "")
+    ],visa:false)
+    
+   
+    
     static var previews: some View {
-        TripRowView( vm: AppVM(), tripInfo: TripModel(days: 5, cityList: ["Москва","Грозный","Махачкала","Магас","Нальчик"], flights: [
-            FlightModel(originCity: "Санкт-Петербург", destCity: "Москва", departureDate: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", visaType: ""),
-            FlightModel(originCity: "Москва", destCity: "Грозный", departureDate: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", visaType: ""),
-            FlightModel(originCity: "Грозный", destCity: "Махачкала", departureDate: Date(),  startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", visaType: ""),
-            FlightModel(originCity: "Махачкала", destCity: "Магас", departureDate: Date(), startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", visaType: ""),
-            FlightModel(originCity: "Магас", destCity: "Нальчик", departureDate: Date(),  startAirport: "LED", endAirport: "DMD", companyLogoLink: "", companyName: "S7 airlines", visaType: ""),
-        ]))
+        TripRowView( vm: AppVM(), tripInfo: tripmodel)
     }
 }

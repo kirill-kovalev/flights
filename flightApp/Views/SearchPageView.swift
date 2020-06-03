@@ -75,6 +75,12 @@ struct SearchPageView: View {
 						VStack{
 							Spacer()
 							Text("Маршруты не найдены.\nпоменяйтя парметры запроса.").multilineTextAlignment(.center).font(.title)
+                            .onAppear {
+                                Timer(timeInterval: 10000, repeats: false) { (timer) in
+                                    self.nothingloaded = false
+                                    print("timer")
+                                }.fire()
+                            }
 							Spacer()
 						}
 						

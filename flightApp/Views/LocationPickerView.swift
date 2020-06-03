@@ -87,12 +87,20 @@ class LPVM: NSObject, ObservableObject, CLLocationManagerDelegate{
 			var a = self.airportList;
             
 			DispatchQueue.global(qos: .background).async {
+                //print(a)
 				a.sort(by: {
 					let text = str.lowercased()
 					
-					return self.levDis(text, $0.name.lowercased()) < self.levDis(text, $1.name.lowercased())
+                    let listElementA = $0.name.lowercased()
+                    let listElementB = $1.name.lowercased()
+                    
+                    let substrA = String(listElementA.prefix(text.count))
+                    let substrB = String(listElementB.prefix(text.count))
+                    
+					return self.levDis(text, substrA) < self.levDis(text, substrB)
 					
 				})
+                //print(a)
 				DispatchQueue.main.async {
                     self.airportList = []
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: 10)){
@@ -149,10 +157,12 @@ struct LocationPickerView: View {
         VStack{
             HStack{
                 TextField("Название аэропорта", text: self.$text,onEditingChanged:{ edited in
-                    if edited {
-                        self.vm.searchText(self.text)
-                    }
-                }).font(.title)
+                    print(edited)
+                        //if edited {
+                            self.vm.searchText(self.text)
+                        //}
+                    })
+                    .font(.title)
 				Button(action: self.vm.location){
                     Image(systemName: "location.fill").padding(5)
                 }

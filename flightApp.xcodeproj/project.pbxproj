@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D181BCC248655C200DFD7DD /* JSONTripModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D181BCB248655C200DFD7DD /* JSONTripModel.swift */; };
 		5D37A608246ACCFC00FF16E1 /* favouriteListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37A607246ACCFC00FF16E1 /* favouriteListModel.swift */; };
 		5D37A60A246AEA0900FF16E1 /* TripListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37A609246AEA0900FF16E1 /* TripListModel.swift */; };
 		5D37A60C246AEA9900FF16E1 /* APIListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37A60B246AEA9900FF16E1 /* APIListModel.swift */; };
@@ -20,7 +21,6 @@
 		5DAFCC3F245AF78100B02E0A /* RKCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFCC38245AF78100B02E0A /* RKCell.swift */; };
 		5DAFCC40245AF78100B02E0A /* RKColorSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFCC39245AF78100B02E0A /* RKColorSettings.swift */; };
 		5DAFCC41245AF78100B02E0A /* RKDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFCC3A245AF78100B02E0A /* RKDate.swift */; };
-		5DB4BD85247C111400128080 /* PrefView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB4BD84247C111400128080 /* PrefView.swift */; };
 		5DC18F39244269ED00450A77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC18F38244269ED00450A77 /* AppDelegate.swift */; };
 		5DC18F3B244269ED00450A77 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC18F3A244269ED00450A77 /* SceneDelegate.swift */; };
 		5DC18F3E244269ED00450A77 /* flightApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5DC18F3C244269ED00450A77 /* flightApp.xcdatamodeld */; };
@@ -43,6 +43,8 @@
 		5DE43A5D24462EBD0068EDC9 /* favouriteCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE43A5C24462EBD0068EDC9 /* favouriteCardView.swift */; };
 		5DE43A5F24462FCC0068EDC9 /* gradientDecloration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE43A5E24462FCC0068EDC9 /* gradientDecloration.swift */; };
 		5DF5C5F52470487900154FF4 /* LocationPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5C5F42470487900154FF4 /* LocationPickerView.swift */; };
+		5DFB392C248799C700DB9C46 /* EndInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB392B248799C700DB9C46 /* EndInfoCardView.swift */; };
+		5DFB392E2487A4C600DB9C46 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB392D2487A4C600DB9C46 /* SafariView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5D181BCB248655C200DFD7DD /* JSONTripModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTripModel.swift; sourceTree = "<group>"; };
 		5D37A607246ACCFC00FF16E1 /* favouriteListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favouriteListModel.swift; sourceTree = "<group>"; };
 		5D37A609246AEA0900FF16E1 /* TripListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripListModel.swift; sourceTree = "<group>"; };
 		5D37A60B246AEA9900FF16E1 /* APIListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIListModel.swift; sourceTree = "<group>"; };
@@ -69,7 +72,6 @@
 		5DAFCC38245AF78100B02E0A /* RKCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKCell.swift; sourceTree = "<group>"; };
 		5DAFCC39245AF78100B02E0A /* RKColorSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKColorSettings.swift; sourceTree = "<group>"; };
 		5DAFCC3A245AF78100B02E0A /* RKDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKDate.swift; sourceTree = "<group>"; };
-		5DB4BD84247C111400128080 /* PrefView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefView.swift; sourceTree = "<group>"; };
 		5DC18F35244269ED00450A77 /* flightApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = flightApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DC18F38244269ED00450A77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5DC18F3A244269ED00450A77 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +98,8 @@
 		5DE43A5C24462EBD0068EDC9 /* favouriteCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favouriteCardView.swift; sourceTree = "<group>"; };
 		5DE43A5E24462FCC0068EDC9 /* gradientDecloration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gradientDecloration.swift; sourceTree = "<group>"; };
 		5DF5C5F42470487900154FF4 /* LocationPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerView.swift; sourceTree = "<group>"; };
+		5DFB392B248799C700DB9C46 /* EndInfoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndInfoCardView.swift; sourceTree = "<group>"; };
+		5DFB392D2487A4C600DB9C46 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +211,7 @@
 				5DC18F6A24426B9300450A77 /* TripRowView.swift */,
 				5DC18F6424426B5600450A77 /* FlightCardView.swift */,
 				5DC18F6624426B6A00450A77 /* InfoCardView.swift */,
+				5DFB392B248799C700DB9C46 /* EndInfoCardView.swift */,
 				5DC18F6824426B7D00450A77 /* PagedView.swift */,
 				5DE43A5C24462EBD0068EDC9 /* favouriteCardView.swift */,
 				5DC52117244C8510004F7609 /* TrackableScrollView.swift */,
@@ -214,7 +219,7 @@
 				5DD0B8FA245747DB001A0C49 /* SearchPageView.swift */,
 				5DD0B8FC245747F2001A0C49 /* FavPageView.swift */,
 				5DF5C5F42470487900154FF4 /* LocationPickerView.swift */,
-				5DB4BD84247C111400128080 /* PrefView.swift */,
+				5DFB392D2487A4C600DB9C46 /* SafariView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -222,6 +227,7 @@
 		5DC18F5E24426AE400450A77 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5D181BCB248655C200DFD7DD /* JSONTripModel.swift */,
 				5DC18F6024426B1800450A77 /* FlightModel.swift */,
 				5DC18F6224426B2200450A77 /* TripModel.swift */,
 				5D37A609246AEA0900FF16E1 /* TripListModel.swift */,
@@ -345,14 +351,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D37A60C246AEA9900FF16E1 /* APIListModel.swift in Sources */,
+				5DFB392E2487A4C600DB9C46 /* SafariView.swift in Sources */,
 				5D37A60A246AEA0900FF16E1 /* TripListModel.swift in Sources */,
-				5DB4BD85247C111400128080 /* PrefView.swift in Sources */,
 				5DE43A5D24462EBD0068EDC9 /* favouriteCardView.swift in Sources */,
 				5DF5C5F52470487900154FF4 /* LocationPickerView.swift in Sources */,
 				5DC18F6924426B7D00450A77 /* PagedView.swift in Sources */,
 				5DC18F6124426B1800450A77 /* FlightModel.swift in Sources */,
 				5DC18F39244269ED00450A77 /* AppDelegate.swift in Sources */,
 				5DC18F6324426B2200450A77 /* TripModel.swift in Sources */,
+				5DFB392C248799C700DB9C46 /* EndInfoCardView.swift in Sources */,
 				5DC18F6B24426B9300450A77 /* TripRowView.swift in Sources */,
 				5DC18F3E244269ED00450A77 /* flightApp.xcdatamodeld in Sources */,
 				5DD0B8FD245747F2001A0C49 /* FavPageView.swift in Sources */,
@@ -369,6 +376,7 @@
 				5DAFCC41245AF78100B02E0A /* RKDate.swift in Sources */,
 				5DC18F3B244269ED00450A77 /* SceneDelegate.swift in Sources */,
 				5DAFCC40245AF78100B02E0A /* RKColorSettings.swift in Sources */,
+				5D181BCC248655C200DFD7DD /* JSONTripModel.swift in Sources */,
 				5DAFCC3E245AF78100B02E0A /* RKMonth.swift in Sources */,
 				5DC52118244C8510004F7609 /* TrackableScrollView.swift in Sources */,
 				5DAFCC3D245AF78100B02E0A /* RKWeekdayHeader.swift in Sources */,
