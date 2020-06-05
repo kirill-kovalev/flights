@@ -9,12 +9,12 @@
 import Foundation
 
 class TripListModel: NSObject{
-    var triplist:[TripModel] = [] {
-        didSet{
-           
-            //(self.loadCompletion ?? handler)(nil)
-        }
-    }
+    var triplist:[TripModel] = [] //{
+//        didSet{
+//           
+//            //(self.loadCompletion ?? handler)(nil)
+//        }
+    //}
     private func handler(er:Error?) -> Void {
         print("set triplist for \(self)")
         print("______________________________")

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5D181BCC248655C200DFD7DD /* JSONTripModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D181BCB248655C200DFD7DD /* JSONTripModel.swift */; };
 		5D37A608246ACCFC00FF16E1 /* favouriteListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37A607246ACCFC00FF16E1 /* favouriteListModel.swift */; };
 		5D37A60A246AEA0900FF16E1 /* TripListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37A609246AEA0900FF16E1 /* TripListModel.swift */; };
 		5D37A60C246AEA9900FF16E1 /* APIListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37A60B246AEA9900FF16E1 /* APIListModel.swift */; };
@@ -58,7 +57,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5D181BCB248655C200DFD7DD /* JSONTripModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTripModel.swift; sourceTree = "<group>"; };
 		5D37A607246ACCFC00FF16E1 /* favouriteListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favouriteListModel.swift; sourceTree = "<group>"; };
 		5D37A609246AEA0900FF16E1 /* TripListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripListModel.swift; sourceTree = "<group>"; };
 		5D37A60B246AEA9900FF16E1 /* APIListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIListModel.swift; sourceTree = "<group>"; };
@@ -227,7 +225,6 @@
 		5DC18F5E24426AE400450A77 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5D181BCB248655C200DFD7DD /* JSONTripModel.swift */,
 				5DC18F6024426B1800450A77 /* FlightModel.swift */,
 				5DC18F6224426B2200450A77 /* TripModel.swift */,
 				5D37A609246AEA0900FF16E1 /* TripListModel.swift */,
@@ -376,7 +373,6 @@
 				5DAFCC41245AF78100B02E0A /* RKDate.swift in Sources */,
 				5DC18F3B244269ED00450A77 /* SceneDelegate.swift in Sources */,
 				5DAFCC40245AF78100B02E0A /* RKColorSettings.swift in Sources */,
-				5D181BCC248655C200DFD7DD /* JSONTripModel.swift in Sources */,
 				5DAFCC3E245AF78100B02E0A /* RKMonth.swift in Sources */,
 				5DC52118244C8510004F7609 /* TrackableScrollView.swift in Sources */,
 				5DAFCC3D245AF78100B02E0A /* RKWeekdayHeader.swift in Sources */,

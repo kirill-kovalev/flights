@@ -63,6 +63,7 @@ struct RKMonth: View {
     
     func dateTapped(date: Date) {
         if self.isEnabled(date: date) {
+            
             switch self.rkManager.mode {
             case 0:
                 if self.rkManager.selectedDate != nil &&
@@ -71,6 +72,7 @@ struct RKMonth: View {
                 } else {
                     self.rkManager.selectedDate = date
                 }
+                self.rkManager.onSelected(date)
                 self.isPresented = false
             case 1:
                 self.rkManager.startDate = date
@@ -242,7 +244,7 @@ struct RKMonth: View {
 #if DEBUG
 struct RKMonth_Previews : PreviewProvider {
     static var previews: some View {
-        RKMonth(isPresented: .constant(false),rkManager: RKManager(calendar: Calendar.current, minimumDate: Date(), maximumDate: Date().addingTimeInterval(60*60*24*365), mode: 0), monthOffset: 0)
+        RKMonth(isPresented: .constant(false),rkManager: RKManager(calendar: Calendar.current, minimumDate: Date(), maximumDate: Date().addingTimeInterval(60*60*24*365)), monthOffset: 0)
     }
 }
 #endif

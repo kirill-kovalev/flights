@@ -20,7 +20,47 @@ struct SearchPageView: View {
     @ObservedObject var vm:AppVM;
 	
 	@State var nothingloaded = false
-
+    
+    private var budget:Int { (Int(self.vm.searchBar.budget) ?? 0)*1000 }
+    
+    func load(){
+        self.vm.apiList.load(self.budget ,self.vm.searchBar.Date1,self.vm.searchBar.Date2,self.vm.searchBar.lpvm.selected) { err in
+            
+            if err != nil {
+                self.loadErr = true
+                self.vm.searchBar.searchActive = true
+            }
+            
+            
+            withAnimation{
+                self.hasContent = !self.vm.apiList.triplist.isEmpty
+                self.vm.searchBar.searchActive = true
+                if (self.hasContent){
+                    self.nothingloaded = false
+                } else{
+                    self.nothingloaded = true
+                }
+            }
+            
+        }
+    }
+    
+    func check() -> Bool{
+        if self.vm.searchBar.Date1.addingTimeInterval(60*60*24*3) >=  self.vm.searchBar.Date2 {
+            
+            return false;
+        }
+        if self.budget < 1000 {
+            return false
+        }
+        let airportCodeList = self.vm.searchBar.lpvm.airportList.map { airport in
+            return airport.code
+        }
+        if airportCodeList.contains(self.vm.searchBar.lpvm.selected)  {
+            return false
+        }
+        return true
+    }
 
     var body: some View {
 		ZStack(alignment: .topTrailing){
@@ -36,26 +76,10 @@ struct SearchPageView: View {
 							self.vm.searchBar.searchActive = false
 						}
 						
+                        if ( self.check()){
+                            self.load()
+                        }
 						
-						self.vm.apiList.load((Int(self.vm.searchBar.budget) ?? 0)*1000 ,self.vm.searchBar.Date1,self.vm.searchBar.Date2,self.vm.searchBar.lpvm.selected) { err in
-							
-							if err != nil {
-								self.loadErr = true
-								self.vm.searchBar.searchActive = true
-							}
-							
-							
-							withAnimation{
-								self.hasContent = !self.vm.apiList.triplist.isEmpty
-								self.vm.searchBar.searchActive = true
-								if (self.hasContent){
-									self.nothingloaded = false
-								} else{
-									self.nothingloaded = true
-								}
-							}
-							
-						}
 						
 						
 					}, favouriteAction: {

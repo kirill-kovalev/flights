@@ -22,13 +22,16 @@ class RKManager : ObservableObject {
     @Published var mode: Int = 0
     
     var colors = RKColorSettings()
+    
+    var onSelected : (Date)->Void 
   
-    init(calendar: Calendar, minimumDate: Date, maximumDate: Date, selectedDates: [Date] = [Date](), mode: Int) {
+    init(calendar: Calendar, minimumDate: Date, maximumDate: Date, selectedDates: [Date] = [Date](), onSelected : ((Date)->Void)? = nil) {
         self.calendar = calendar
         self.minimumDate = minimumDate
         self.maximumDate = maximumDate
         self.selectedDates = selectedDates
-        self.mode = mode
+        self.mode = 0
+        self.onSelected = onSelected ?? { _ in }
     }
     
     func selectedDatesContains(date: Date) -> Bool {

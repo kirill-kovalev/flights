@@ -6,20 +6,23 @@
 //  Copyright © 2020 Kovalev K.A. All rights reserved.
 //
 
-//import Foundation
-//
-//struct FlightModel: Encodable,Decodable,Hashable {
-//	var localID:UUID? = UUID()
-//    var originCity:String = ""
-//    var destCity:String = ""
-//    var departureDate:Date?
-//    var startAirport:String = "XXX"
-//    var endAirport:String = "XXX"
-//    
-//    var companyLogoLink:String = ""
-//    var companyName:String = ""
-//    
-//    var visaType:String? = ""
-//	var price:Int = 100000
-//    
-//}
+import Foundation
+
+// MARK: - FlightModel
+struct FlightModel: Codable,Hashable {
+    let startAirport, endAirport: String
+    let price:Float
+    let landingTime: Int
+    let companyLogoLink: String
+    let originCity, destCity:String
+    let companyName: String
+    let departureDate:Date?
+    let visaType: VisaType?
+    var localID:UUID?
+    let ticketLink:String?
+}
+
+enum VisaType: String, Codable,Hashable {
+    case schengen = "Schengen"
+    case uk = "UK"
+}

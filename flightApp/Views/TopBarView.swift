@@ -14,12 +14,20 @@ class TopBarVM:ObservableObject {
 	var Date1:Date {return rkManager1.selectedDate ?? Date()}
 	var Date2:Date {return rkManager2.selectedDate ?? Date()}
 	
-	var rkManager1:RKManager = RKManager(calendar: Calendar.current, minimumDate: Date(), maximumDate:  Date().addingTimeInterval(60*60*24*30*3), mode: 0)
-	var rkManager2:RKManager = RKManager(calendar: Calendar.current, minimumDate: Date() , maximumDate: Date().addingTimeInterval(60*60*24*30*3), mode: 0)
+    var rkManager1:RKManager = RKManager(calendar: Calendar.current, minimumDate: Date(), maximumDate:  Date().addingTimeInterval(60*60*24*30*3))
+    var rkManager2:RKManager = RKManager(calendar: Calendar.current, minimumDate: Date() , maximumDate: Date().addingTimeInterval(60*60*24*30*3))
 	
 	
 	init() {
 		self.dateFormatter.dateStyle = .long
+        self.rkManager1.onSelected = { date in
+            self.rkManager2.minimumDate = date
+            self.rkManager2.maximumDate = date.addingTimeInterval(60*60*24*30*3)
+        }
+        
+        self.rkManager2.onSelected = { date in
+            self.rkManager1.maximumDate = date
+        }
 	}
 	
 	private let dateFormatter = DateFormatter();
