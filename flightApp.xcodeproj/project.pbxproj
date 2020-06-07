@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D3779C2248CF3780087C20F /* plane.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D3779C1248CF3780087C20F /* plane.png */; };
+		5D3779C5248CF3D00087C20F /* LoadAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3779C4248CF3D00087C20F /* LoadAnimation.swift */; };
+		5D3779C7248CFCC10087C20F /* UIImageColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3779C6248CFCC10087C20F /* UIImageColor.swift */; };
 		5D37A608246ACCFC00FF16E1 /* favouriteListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37A607246ACCFC00FF16E1 /* favouriteListModel.swift */; };
 		5D37A60A246AEA0900FF16E1 /* TripListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37A609246AEA0900FF16E1 /* TripListModel.swift */; };
 		5D37A60C246AEA9900FF16E1 /* APIListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37A60B246AEA9900FF16E1 /* APIListModel.swift */; };
@@ -57,6 +60,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5D3779C1248CF3780087C20F /* plane.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plane.png; sourceTree = "<group>"; };
+		5D3779C4248CF3D00087C20F /* LoadAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAnimation.swift; sourceTree = "<group>"; };
+		5D3779C6248CFCC10087C20F /* UIImageColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageColor.swift; sourceTree = "<group>"; };
 		5D37A607246ACCFC00FF16E1 /* favouriteListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favouriteListModel.swift; sourceTree = "<group>"; };
 		5D37A609246AEA0900FF16E1 /* TripListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripListModel.swift; sourceTree = "<group>"; };
 		5D37A60B246AEA9900FF16E1 /* APIListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIListModel.swift; sourceTree = "<group>"; };
@@ -118,9 +124,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D3779C3248CF37D0087C20F /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				5D3779C1248CF3780087C20F /* plane.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 		5D4337B72476D79100545691 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				5D3779C3248CF37D0087C20F /* Images */,
 				5D4337B82476D79B00545691 /* JSON */,
 			);
 			path = resources;
@@ -218,6 +233,7 @@
 				5DD0B8FC245747F2001A0C49 /* FavPageView.swift */,
 				5DF5C5F42470487900154FF4 /* LocationPickerView.swift */,
 				5DFB392D2487A4C600DB9C46 /* SafariView.swift */,
+				5D3779C4248CF3D00087C20F /* LoadAnimation.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -241,6 +257,7 @@
 				5DC18F6D24426C0E00450A77 /* colorDeclaration.swift */,
 				5DE43A5E24462FCC0068EDC9 /* gradientDecloration.swift */,
 				5D4B9AC424657F4D00798332 /* screenSize.swift */,
+				5D3779C6248CFCC10087C20F /* UIImageColor.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -330,6 +347,7 @@
 				5D4337BC2476D7D400545691 /* airports.json in Resources */,
 				5DC18F45244269EE00450A77 /* Preview Assets.xcassets in Resources */,
 				5DC18F42244269EE00450A77 /* Assets.xcassets in Resources */,
+				5D3779C2248CF3780087C20F /* plane.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,9 +366,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D37A60C246AEA9900FF16E1 /* APIListModel.swift in Sources */,
+				5D3779C5248CF3D00087C20F /* LoadAnimation.swift in Sources */,
 				5DFB392E2487A4C600DB9C46 /* SafariView.swift in Sources */,
 				5D37A60A246AEA0900FF16E1 /* TripListModel.swift in Sources */,
 				5DE43A5D24462EBD0068EDC9 /* favouriteCardView.swift in Sources */,
+				5D3779C7248CFCC10087C20F /* UIImageColor.swift in Sources */,
 				5DF5C5F52470487900154FF4 /* LocationPickerView.swift in Sources */,
 				5DC18F6924426B7D00450A77 /* PagedView.swift in Sources */,
 				5DC18F6124426B1800450A77 /* FlightModel.swift in Sources */,

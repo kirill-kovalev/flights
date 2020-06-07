@@ -15,6 +15,7 @@ struct SearchPageView: View {
 	@State var index:Int = 0
 	@State var hasContent:Bool = false;
 	@State var loadErr:Bool = false;
+    @State var isLoading = false
 	
 	
     @ObservedObject var vm:AppVM;
@@ -24,7 +25,9 @@ struct SearchPageView: View {
     private var budget:Int { (Int(self.vm.searchBar.budget) ?? 0)*1000 }
     
     func load(){
+        self.isLoading = true
         self.vm.apiList.load(self.budget ,self.vm.searchBar.Date1,self.vm.searchBar.Date2,self.vm.searchBar.lpvm.selected) { err in
+            self.isLoading = false
             
             if err != nil {
                 self.loadErr = true
@@ -46,38 +49,43 @@ struct SearchPageView: View {
     }
     
     func check() -> Bool{
-        if self.vm.searchBar.Date1.addingTimeInterval(60*60*24*3) >=  self.vm.searchBar.Date2 {
+        if self.vm.searchBar.Date1.addingTimeInterval(60*60*24*3) <=  self.vm.searchBar.Date2 {
             
             return false;
         }
-        if self.budget < 1000 {
+        if (self.budget*1000) < 1000 {
             return false
         }
-        let airportCodeList = self.vm.searchBar.lpvm.airportList.map { airport in
-            return airport.code
-        }
-        if airportCodeList.contains(self.vm.searchBar.lpvm.selected)  {
-            return false
-        }
+//        let airportCodeList = self.vm.searchBar.lpvm.airportList.map { airport in
+//            return airport.code
+//        }
+//        if airportCodeList.contains(self.vm.searchBar.lpvm.selected)  {
+//            return false
+//        }
         return true
     }
 
     var body: some View {
 		ZStack(alignment: .topTrailing){
+            
 			
 				TrackableScrollView(.vertical, showIndicators: false, contentOffset: $offset){
 					Spacer()
 					TopBarView(vm:self.vm.searchBar,
 					searchAction: {
 						
-						print("______________________\n\(self.vm.searchBar.budget)")
+						//print("______________________\n\(self.vm.searchBar.budget)")
 						
-						withAnimation{
-							self.vm.searchBar.searchActive = false
-						}
+						
 						
                         if ( self.check()){
+                            print("search ok")
+                            withAnimation{
+                                self.vm.searchBar.searchActive = false
+                            }
                             self.load()
+                        } else{
+                            print("search bad")
                         }
 						
 						
@@ -135,15 +143,26 @@ struct SearchPageView: View {
 				}.padding(15).animation(.linear)
 				}
 			}
-			
+            if self.isLoading{
+                VStack{
+                    Spacer()
+                    HStack{
+                        Spacer()
+                        LoadAnimation()
+                        Spacer()
+                    }
+                    Spacer()
+                }
+            }
+            
 			
 		}.frame(width: UIApplication.screenWidth)
-		
 		.alert(isPresented: self.$loadErr){
 			Alert(title:self.vm.apiList.error == APIListLoadError.networkError ? Text("Ошибка подключения") : Text("Ошибка загрузки"),
 				  message:self.vm.apiList.error == APIListLoadError.networkError ?  Text("Не удалось получить данные с сервера.") : Text("Некорректный ответ сервера. Повторите попытку позже."), dismissButton: nil)
 		}
 
+        
 		
     }
 }
