@@ -49,10 +49,10 @@ struct SearchPageView: View {
     }
     
     func check() -> Bool{
-        if self.vm.searchBar.Date1.addingTimeInterval(60*60*24*3) <=  self.vm.searchBar.Date2 {
-            
-            return false;
-        }
+//        if self.vm.searchBar.Date1.addingTimeInterval(60*60*24*3) >=  self.vm.searchBar.Date2 {
+//
+//            return false;
+//        }
         if (self.budget*1000) < 1000 {
             return false
         }

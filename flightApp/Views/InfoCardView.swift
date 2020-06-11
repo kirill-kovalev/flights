@@ -16,6 +16,38 @@ struct InfoCardView: View {
 	
 	
     var colCount:Int {return (cities.count - 1 )/7 };
+    var cityText:String{
+        let words = ["город","города","городов"]
+        var n = cities.count % 100;
+        
+        if (n >= 5 && n <= 20) {
+          return words[2];
+        }
+        n = n % 10;
+        if (n == 1) {
+          return  words[0];
+        }
+        if (n >= 2 && n <= 4) {
+          return  words[1];
+        }
+        return  words[2];
+    }
+    var dayText:String{
+        let words = ["день","дня","дней"]
+        var n = days;
+        
+        if (n >= 5 && n <= 20) {
+          return words[2];
+        }
+        n = n % 10;
+        if (n == 1) {
+          return  words[0];
+        }
+        if (n >= 2 && n <= 4) {
+          return  words[1];
+        }
+        return  words[2];
+    }
     @Binding var index:Int;
     
     var body: some View {
@@ -24,7 +56,7 @@ struct InfoCardView: View {
             LinearGradient(gradient: bg,startPoint: .top, endPoint: .bottom).cornerRadius(20)
                 
             VStack(alignment: .leading){
-				Text("\(cities.count) городов\nза \(days) дней").font(.largeTitle).fontWeight(.heavy).foregroundColor(.baseBlack).frame(minHeight: 82)
+				Text("\(cities.count) \(cityText)\nза \(days) \(dayText)").font(.largeTitle).fontWeight(.heavy).foregroundColor(.baseBlack).frame(minHeight: 82)
 				Text("\(price) ₽").font(.system(size: 46)).fontWeight(.heavy).foregroundColor(.baseWhite).padding(.top,15.0)
 				Rectangle().frame(height: 1).foregroundColor(.accentFirstLevel).padding(.top,-16).padding(.bottom,-16)
 

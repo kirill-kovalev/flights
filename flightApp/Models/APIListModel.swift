@@ -43,18 +43,20 @@ class APIListModel: TripListModel{
 		
 		
 //		for i in (3...3) {
-//			guard let url = URL(string: "http://194.67.113.229:8080/api/randomroute??origin=\(origin)&roundtrip=true&max_price=\(max_price)&departure_date=\(df.string(from: dateStart))&arrival_date=\(df.string(from: dateEnd))&key=IFEuNj9SY2gmZ9x4") else {
-//				print("Error in generating url")
-//				return;
-//			}
-			let url = URL(string: "https://extendsclass.com/api/json-storage/bin/cebdece")!;
+			guard let url = URL(string: "https://airroute.ru/api/route?origin=\(origin)&roundtrip=true&max_price=\(max_price)&departure_date=\(df.string(from: dateStart))&arrival_date=\(df.string(from: dateEnd))&number_of_cities=4&key=IFEuNj9SY2gmZ9x4") else {
+				print("Error in generating url")
+				return;
+			}
+			//let url = URL(string: "https://extendsclass.com/api/json-storage/bin/cebdece")!;
 			print(url)
 			
 			//let us = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
 			
 			
-			
-            URLSession(configuration: .default, delegate: self.searchDelegate, delegateQueue: nil)
+            let sessionConfig = URLSessionConfiguration.default
+            sessionConfig.timeoutIntervalForRequest = 80.0
+            sessionConfig.timeoutIntervalForResource = 80.0
+            URLSession(configuration: sessionConfig)
 			.dataTask(with: url, completionHandler: {
 				data , response, error in
 				if error == nil, (response as! HTTPURLResponse).statusCode == 200,data != nil {
@@ -85,7 +87,7 @@ class APIListModel: TripListModel{
 						}
                         
 					}catch{
-                        print(data)
+                        //print(data)
 						self.error = .decodeError
 						DispatchQueue.main.async{
 							if completion != nil {

@@ -16,6 +16,39 @@ struct EndInfoCardView: View {
     var link:String;
     @State var showSafari = false
     
+    var cityText:String{
+        let words = ["город","города","городов"]
+        var n = cities.count % 100;
+        
+        if (n >= 5 && n <= 20) {
+          return words[2];
+        }
+        n = n % 10;
+        if (n == 1) {
+          return  words[0];
+        }
+        if (n >= 2 && n <= 4) {
+          return  words[1];
+        }
+        return  words[2];
+    }
+    var dayText:String{
+        let words = ["день","дня","дней"]
+        var n = days;
+        
+        if (n >= 5 && n <= 20) {
+          return words[2];
+        }
+        n = n % 10;
+        if (n == 1) {
+          return  words[0];
+        }
+        if (n >= 2 && n <= 4) {
+          return  words[1];
+        }
+        return  words[2];
+    }
+    
     var body: some View {
         
             ZStack(alignment: .topLeading){
@@ -24,7 +57,7 @@ struct EndInfoCardView: View {
                 VStack{
  
                     VStack{
-                        Text("\(cities.count) городов\nза \(days) дней").font(.largeTitle).fontWeight(.heavy).foregroundColor(.baseBlack).frame(minHeight: 82)
+                        Text("\(cities.count) \(cityText)\nза \(days) \(dayText)").font(.largeTitle).fontWeight(.heavy).foregroundColor(.baseBlack).frame(minHeight: 82)
                         Text("\(price) ₽").font(.system(size: 46)).fontWeight(.heavy).foregroundColor(.baseWhite).padding(.top,15.0)
                     }
                     
@@ -49,14 +82,14 @@ struct EndInfoCardView: View {
                     Rectangle().frame(height: 1).foregroundColor(.accentFirstLevel).padding(.top,-16).padding(.bottom,-16)
                     Spacer()
                     Button(action: {
-                       
+                        self.showSafari.toggle()
                     }){
                         Text("Купить билеты на все рейсы").font(.title).fontWeight(.bold).foregroundColor(.baseWhite).multilineTextAlignment(.center).padding(23)
                     }.background(Rectangle().foregroundColor(.accentSecondLevel), alignment: .center)
                     .cornerRadius(15)
                     Spacer()
                     .sheet(isPresented: self.$showSafari){
-                        SafariView(url: URL(string: self.link) ?? (URL(string: "aviasales.ru")!))
+                        SafariView(url:URL(string: "https://"+self.link) ?? URL(string: self.link) ?? (URL(string: "http://aviasales.ru")!))
                     }
                     
 
