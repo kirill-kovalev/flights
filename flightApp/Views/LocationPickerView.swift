@@ -34,7 +34,7 @@ class LPVM: NSObject, ObservableObject, CLLocationManagerDelegate{
 				let d = try  Data(contentsOf: URL(fileURLWithPath: path))
 				let fileAirportList = try JSONDecoder().decode([Airport].self, from: d)
                 //self.airportList = Array(fileAirportList[0..<20])
-                self.airportList = fileAirportList.sorted(by: {$1;return $0.code == self.selected})
+                self.airportList = fileAirportList.sorted(by: {let _ = $1;return $0.code == self.selected})
 			}catch{
 				print(error)
 			}

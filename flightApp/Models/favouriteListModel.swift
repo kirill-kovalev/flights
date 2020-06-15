@@ -25,12 +25,22 @@ class favouriteListModel :TripListModel{
 			print(error)
 		}
 	}
+	override func add(_ item: TripModel) {
+		super.add(item)
+		save()
+	}
+	override func remove(_ id: UUID?) {
+		super.remove(id)
+		save()
+	}
 	func save() {
 		print("saving favourites")
 		do{
 			UserDefaults.standard.set(try JSONEncoder().encode(self.triplist), forKey: "Favourites")
 		}catch{
+			print("____________________________________\nFavourite List Save Error:")
 			print(error)
+			print("____________________________________")
 		}
 		
 	}

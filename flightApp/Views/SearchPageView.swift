@@ -94,7 +94,7 @@ struct SearchPageView: View {
 						withAnimation(){
 							self.vm.isFavContent = true
 						}
-					}).frame(height: (self.hasContent || self.nothingloaded) ? 390 : UIApplication.screenHeight)
+					}).frame(height: (self.hasContent || self.nothingloaded) ? 390 : UIApplication.screenHeight).disabled(self.isLoading)
 					
 					if(!self.vm.apiList.triplist.isEmpty && !self.vm.isFavContent){
 						

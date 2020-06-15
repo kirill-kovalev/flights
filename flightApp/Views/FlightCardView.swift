@@ -41,7 +41,8 @@ struct CurveBox : View {
 		self.vm.loadImage(url:flight.companyLogoLink )
 	}
 	var flight:FlightModel
-	
+	@State var showMap = false
+	@State var mapItemId = 0
 	
 	var body: some View {
 		VStack{
@@ -49,18 +50,41 @@ struct CurveBox : View {
 			HStack(alignment: .bottom){
 				
 				Text(flight.startAirport).font(.system(size: 22)).fontWeight(.bold).foregroundColor(.baseBlack).padding(.bottom, 10)
+					.onTapGesture {
+						self.mapItemId = 0
+						self.showMap.toggle()
+					}
 				Spacer()
 				VStack{
-                    Image(uiImage: self.vm.image).resizable().scaledToFit().frame(minWidth: 32, maxHeight: 32, alignment: .center).cornerRadius(16)
+					Image(uiImage: self.vm.image).resizable().scaledToFit().frame(minWidth: 32, minHeight: 32, idealHeight: 32 , maxHeight: 32, alignment: .center).cornerRadius(16)
 					Text(flight.companyName).font(.system(size: 17)).foregroundColor(.cityGray)
+				}
+				.onTapGesture {
+					self.mapItemId = -1
+					self.showMap.toggle()
 				}
 				Spacer()
 				Text(flight.endAirport).font(.system(size: 22)).fontWeight(.bold).foregroundColor(.baseBlack).padding(.bottom, 10)
+					.onTapGesture {
+						self.mapItemId = 1
+						self.showMap.toggle()
+					}
+					
+					.sheet(isPresented: self.$showMap) {
+						ZStack(alignment: .top){
+							MapView(cities: [self.flight.startAirport,self.flight.endAirport], show: self.$mapItemId).edgesIgnoringSafeArea([.bottom])
+							HStack{
+								Spacer()
+								RoundedRectangle(cornerRadius: 5).foregroundColor(.baseBlack).frame(width: 100, height: 4).padding(5)
+								Spacer()
+							}
+						}
+					}
 			}
+			
         }
-//        .onAppear {
-//            self.vm.loadImage(url:self.flight.companyLogoLink )
-//        }
+		
+
 	}
 	
 	
@@ -96,13 +120,19 @@ struct FlightCardView :View {
 					VStack{
 						HStack{
 							Text("\(self.flight.originCity)")
-								.font(.largeTitle).fontWeight(.heavy).foregroundColor(.baseBlack).lineLimit(2).frame(minHeight: 82)
+								.font(proxy.size.height > 700 ? .largeTitle : .title)
+								.fontWeight(.heavy)
+								.foregroundColor(.baseBlack)
+								.frame(minHeight: 82)
 							Spacer()
 						}
 						HStack{
-						Text("\(self.flight.destCity)")
-						.font(.largeTitle).fontWeight(.heavy).foregroundColor(.baseBlack).frame(minHeight: 82)
-						Spacer()
+							Text("\(self.flight.destCity)")
+								.font(proxy.size.height > 700 ? .largeTitle : .title)
+								.fontWeight(.heavy)
+								.foregroundColor(.baseBlack)
+								.frame(minHeight: 82)
+							Spacer()
 						}
 						
 					}
@@ -110,38 +140,36 @@ struct FlightCardView :View {
 					VStack{
 						self.hrSpacer()
 						HStack{
-							Text("\(Int(self.flight.price)) ₽").font(.system(size: 44)).fontWeight(.heavy).foregroundColor(.baseWhite)
+							Text("\(Int(self.flight.price)) ₽").font(.system(size: proxy.size.height > 700 ? 44 : 30)).fontWeight(.heavy).foregroundColor(.baseWhite)
 						}
 						self.hrSpacer()
 					}
-					
+					 
+					VStack{
+						HStack{
+							Text("Дата вылета").font(.headline).foregroundColor(.white).shadow(radius: 10)
+							Spacer()
+							self.dots()
+							Spacer()
+							Text("\(self.takeOffDate)").font(.body).foregroundColor(.cityGray)
+						}
+						HStack{
+							Text("Виза").font(.headline).foregroundColor(.white).shadow(radius: 10)
+							Spacer()
+							self.dots()
+							Spacer()
+							Text("\(self.flight.visaType?.rawValue ?? "Не нужна") ").font(.body).foregroundColor(.cityGray)
+						}
+					}
                     if(proxy.size.height > 700) {
-                        VStack{
-                            HStack{
-                                Text("Дата вылета").font(.headline).foregroundColor(.white).shadow(radius: 10)
-                                Spacer()
-                                self.dots()
-                                Spacer()
-                                Text("\(self.takeOffDate)").font(.body).foregroundColor(.cityGray)
-                            }
-                            HStack{
-                                Text("Виза").font(.headline).foregroundColor(.white).shadow(radius: 10)
-                                Spacer()
-                                self.dots()
-                                Spacer()
-                                Text("\(self.flight.visaType?.rawValue ?? "Не нужна") ").font(.body).foregroundColor(.cityGray)
-                            }
-                        }
+                        
                         self.hrSpacer()
 				
 					
 					
 					
-					CurveBox(flight: self.flight).opacity((proxy.size.height > 650) ? 1 :0)
-					 .frame( maxHeight:(proxy.size.height > 650) ? .infinity :0)
-						
-					   
-					
+						CurveBox(flight: self.flight).opacity((proxy.size.height > 650) ? 1 :0)
+						 .frame( maxHeight:(proxy.size.height > 650) ? .infinity :0)
 						self.hrSpacer()
 					}
 

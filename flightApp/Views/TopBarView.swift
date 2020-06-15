@@ -20,13 +20,24 @@ class TopBarVM:ObservableObject {
 	
 	init() {
 		self.dateFormatter.dateStyle = .long
+		self.dateFormatter.locale = Locale(identifier: "ru_RU")
+		
+		self.rkManager1.selectedDate = Date()
+		self.rkManager2.selectedDate = Date().addingTimeInterval(60*60*24*7)
+		
         self.rkManager1.onSelected = { date in
             self.rkManager2.minimumDate = date
             self.rkManager2.maximumDate = date.addingTimeInterval(60*60*24*30*3)
+			if self.rkManager2.selectedDate < date {
+				self.rkManager2.selectedDate = date.addingTimeInterval(60*60*24*4)
+			}
         }
         
         self.rkManager2.onSelected = { date in
             self.rkManager1.maximumDate = date
+			if self.rkManager1.selectedDate > self.rkManager1.maximumDate{
+				self.rkManager1.selectedDate = self.rkManager1.maximumDate
+			}
         }
 	}
 	
@@ -37,8 +48,7 @@ class TopBarVM:ObservableObject {
 		return self.dateFormatter.string(from: Date1)
 	}
 	var displayDate2:String {
-		let date = rkManager2.selectedDate ?? Date().addingTimeInterval(7*60*60*24)
-		return self.dateFormatter.string(from: date)
+		return self.dateFormatter.string(from: Date2)
 	}
 	
 	func check() ->Bool {

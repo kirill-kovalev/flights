@@ -86,7 +86,7 @@ struct RKDate {
     
     func dateFormatter() -> DateFormatter {
         let formatter = DateFormatter()
-        formatter.locale = .current
+        formatter.locale = Locale(identifier: "ru_RU")
         formatter.dateFormat = "d"
         return formatter
     }

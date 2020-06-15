@@ -15,10 +15,14 @@ struct RKWeekdayHeader : View {
     var body: some View {
         HStack(alignment: .center) {
             ForEach(self.getWeekdayHeaders(calendar: self.rkManager.calendar), id: \.self) { weekday in
-				Text(weekday).padding([.top],10)
+				Text(weekday)
+					.frame(minWidth:0, maxWidth: .infinity)
+					.padding([.top],10)
                     .font(.system(size: 20))
-                    .frame(minWidth: 0, maxWidth: .infinity)
                     .foregroundColor(self.rkManager.colors.weekdayHeaderColor)
+					.onAppear {
+						print(weekday)
+					}
 					
             }
         }.background(rkManager.colors.weekdayHeaderBackColor)
@@ -27,15 +31,18 @@ struct RKWeekdayHeader : View {
     func getWeekdayHeaders(calendar: Calendar) -> [String] {
         
         let formatter = DateFormatter()
+		formatter.locale = Locale(identifier: "ru_RU")
+		
         
         var weekdaySymbols = formatter.shortStandaloneWeekdaySymbols
         let weekdaySymbolsCount = weekdaySymbols?.count ?? 0
-        
+
         for _ in 0 ..< (1 - calendar.firstWeekday + weekdaySymbolsCount){
             let lastObject = weekdaySymbols?.last
             weekdaySymbols?.removeLast()
             weekdaySymbols?.insert(lastObject!, at: 0)
         }
+		print(weekdaySymbols)
         
         return weekdaySymbols ?? []
     }

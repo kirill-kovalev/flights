@@ -18,12 +18,14 @@ struct FavPageView: View {
 		
 		ZStack(alignment: .topLeading){
             if !self.vm.favouriteList.triplist.isEmpty {
+				
                 TrackableScrollView(.vertical, showIndicators: false, contentOffset: .constant(0)){
+					Rectangle().foregroundColor(.clear).frame(height: 20)
                     ForEach(self.vm.favouriteList.triplist, id: \.self){ tripM in
                         TripRowView(vm: self.vm, tripInfo: tripM)
                     }
 
-                }.padding(.top,20)
+                }.padding(.top,20).edgesIgnoringSafeArea(.top)
             }else{
                 HStack{
                     Spacer()
@@ -51,7 +53,7 @@ struct FavPageView: View {
 				
 			}.padding(15)
 			
-        }.frame(width: UIApplication.screenWidth)
+		}.frame(width: UIApplication.screenWidth)
     }
 }
 
