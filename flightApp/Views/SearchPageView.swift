@@ -30,8 +30,10 @@ struct SearchPageView: View {
             self.isLoading = false
             
             if err != nil {
-                self.loadErr = true
-                self.vm.searchBar.searchActive = true
+				withAnimation{
+					self.loadErr = true
+					self.vm.searchBar.searchActive = true
+				}
             }
             
             
@@ -82,6 +84,7 @@ struct SearchPageView: View {
                             print("search ok")
                             withAnimation{
                                 self.vm.searchBar.searchActive = false
+								
                             }
                             self.load()
                         } else{
